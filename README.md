@@ -1,5 +1,7 @@
-# Dive Log dapp
+# Dive Log
 
-This is a decentralized dive log application that lets you verify logs without an scuba diving aggency (SSI, Padi, etc.) by reliying on Etherium smart contracts. 
+<p align="center">
+  <img height="256" src="docs/ia-images/1245137059_A_scuba_diver_writing_in_a_diary_underwater_in_a_coral_reef_in_a_3d_style.png" />
+</p>
 
 > **WORK IN PROGRESS**
