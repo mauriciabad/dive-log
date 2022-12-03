@@ -1,11 +1,19 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.eslint.json", "./tsconfig.json"]
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn"
-  }
+  },
+
+  // This is a workarround to remove a ts error, try to find a way to also lint this files
+  "ignorePatterns": [
+    "/*.mjs",
+    "/*.cjs",
+    "/*.js",
+    "/*.ts"
+  ]
 }
