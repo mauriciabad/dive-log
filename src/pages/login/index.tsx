@@ -1,7 +1,8 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import { getSession, signIn } from "next-auth/react";
+import type { CustomNextPage } from "../_app";
 
-const Login: NextPage = () => {
+const Login: CustomNextPage = () => {
 
   return <>
     <h1>Login</h1>
@@ -15,6 +16,8 @@ const Login: NextPage = () => {
 
   </>
 }
+
+Login.title = 'Login'
 
 export default Login;
 

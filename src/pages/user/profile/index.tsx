@@ -1,9 +1,10 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { trpc } from "../../../utils/trpc";
+import type { CustomNextPage } from "../../_app";
 
-const User: NextPage = () => {
+const Profile: CustomNextPage = () => {
   const { data: session } = useSession();
   const { data: dives } = trpc.dive.getUserDives.useQuery()
 
@@ -29,7 +30,9 @@ const User: NextPage = () => {
   </>
 }
 
-export default User;
+Profile.title = 'Profile'
+
+export default Profile;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)

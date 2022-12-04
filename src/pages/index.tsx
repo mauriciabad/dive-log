@@ -1,19 +1,13 @@
-import Head from "next/head";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-import type { NextPageWithLayout } from "./_app";
+import type { CustomNextPage } from "./_app";
 
-const Home: NextPageWithLayout = () => {
+const Landing: CustomNextPage = () => {
   const { data: session } = useSession();
 
   return (
     <>
-      <Head>
-        <title>Dive log</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className="flex min-h-screen flex-col gap-8 items-center justify-center text-white bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <main className="flex min-h-screen flex-col gap-8 items-center justify-center text-white bg-gradient-to-b from-sky-600 to-indigo-800">
 
         <h1 className="text-3xl">Dive Log</h1>
         <p>Manage your dives!</p>
@@ -36,6 +30,8 @@ const Home: NextPageWithLayout = () => {
   );
 };
 
-export default Home;
+Landing.title = 'Easy to use Dive Log'
 
-Home.customLayout = (page) => page
+export default Landing;
+
+Landing.customLayout = (page) => page

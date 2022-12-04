@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
 import Link from "next/link";
+import type { CustomNextPage } from "./_app";
 
-const NotFoundPage: NextPage = () => {
+const NotFoundPage: CustomNextPage = () => {
 
   return <>
     <h1>404 Not found</h1>

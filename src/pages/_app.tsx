@@ -8,27 +8,33 @@ import "../styles/globals.css";
 import type { NextPage } from "next";
 import Layout from "../components/layout";
 import type { ReactElement, ReactNode } from "react";
+import Head from "next/head";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  customLayout: (page: ReactElement) => ReactNode
+export type CustomNextPage<P = {}, IP = P> = NextPage<P, IP> & {
+  customLayout?: (page: ReactElement) => ReactNode
+  title?: string
 }
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout | NextPage
+  Component: CustomNextPage | NextPage
 }
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
-  const wrapInLayout = 'customLayout' in Component ? Component.customLayout : (page: ReactElement) => <Layout>{page}</Layout>
+  const wrapInLayout = 'customLayout' in Component && Component.customLayout ? Component.customLayout : (page: ReactElement) => <Layout>{page}</Layout>
+  const title = 'title' in Component && Component.title ? `${Component.title} | Dive Log` : 'Dive Log'
 
   return (
     <SessionProvider session={session}>
-      {wrapInLayout(
-        <Component {...pageProps} />
-      )}
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content="" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      {wrapInLayout(<Component {...pageProps} />)}
     </SessionProvider>
   );
 };

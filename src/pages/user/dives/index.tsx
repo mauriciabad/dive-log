@@ -1,9 +1,9 @@
 import type { GetServerSideProps } from "next";
-import { type NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { trpc } from "../../../utils/trpc";
+import type { CustomNextPage } from "../../_app";
 
-const Dives: NextPage = () => {
+const Dives: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery();
 
   return (
@@ -15,6 +15,8 @@ const Dives: NextPage = () => {
     </>
   );
 };
+
+Dives.title = 'Dives'
 
 export default Dives;
 
