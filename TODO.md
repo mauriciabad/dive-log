@@ -31,6 +31,7 @@ Kind of like a backlog.
 ## Low priority
 
 - [ ] Add friends
+- [ ] Add i18n in spanish
 - [ ] Friends feed, see when they do a dive
 - [ ] Integracio amb google lens per identificar animals
 - [ ] Add animations with AutoAnimate and Framer Motion
