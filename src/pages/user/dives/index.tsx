@@ -19,9 +19,8 @@ const Dives: CustomNextPage = () => {
       {!dives
         ? <p className="text-2xl">Loading dives...</p>
         : dives.map((dive) =>
-          <div key={dive.id}>
-            <pre className="text-xs bg-white/20 w-full max-w-6xl p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
-          </div>)}
+          <pre key={dive.id} className="text-xs bg-white/20 w-full max-w-md p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
+        )}
     </>
   );
 };
