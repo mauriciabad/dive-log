@@ -75,3 +75,7 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+generator zod {
+  provider = "prisma-zod-generator"
+}
