@@ -7,4 +7,11 @@ export const authRouter = router({
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
+  getDives: publicProcedure.query(({ ctx }) => {    
+    return ctx.prisma.dive.findMany({
+      where:{
+        userId: ctx.session?.user?.id
+      }
+    });
+  }),
 });
