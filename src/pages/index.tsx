@@ -1,9 +1,9 @@
-import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
+import type { NextPageWithLayout } from "./_app";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   const { data: session } = useSession();
 
   return (
@@ -38,3 +38,4 @@ const Home: NextPage = () => {
 
 export default Home;
 
+Home.customLayout = (page) => page
