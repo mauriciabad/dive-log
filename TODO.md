@@ -4,17 +4,17 @@ Kind of like a backlog.
 
 ## Critical priority
 
-- [ ] Basic router with 2 routes
-- [ ] View: Dive list
-- [ ] View: Dive details
+- [x] Basic router with 2 routes
+- [x] View: Dive list
+- [x] View: Dive details
 - [ ] Install Radix UI
-- [ ] View: Create dive
-- [ ] Login with Google, email, Facebook and as many as possible
+- [x] View: Create dive
+- [x] Login with Google, email, Facebook and as many as possible
 - [ ] Support generating QR to send dive to SSI app
 - [ ] Work offline
   - [ ] Create dive offline
   - [ ] Upload dive when conection is restored with a service worker automatically
-- [ ] Setup hosting
+- [x] Setup hosting
 - [ ] Setup CI/CD
 
 ## High priority

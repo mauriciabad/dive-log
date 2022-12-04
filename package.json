@@ -20,6 +20,7 @@
     "@trpc/server": "^10.0.0",
     "next": "13.0.6",
     "next-auth": "^4.15.1",
+    "next-pwa": "^5.6.0",
     "prisma-zod-generator": "^0.8.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -28,6 +29,7 @@
     "zod": "^3.19.1"
   },
   "devDependencies": {
+    "@types/next-pwa": "^5.6.0",
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
