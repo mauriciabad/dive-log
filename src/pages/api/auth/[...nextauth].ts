@@ -1,6 +1,7 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
@@ -14,7 +15,7 @@ export const authOptions: NextAuthOptions = {
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
-      }
+      }https://divelog.vercel.app/privacy-policy
       return session;
     },
   },
@@ -28,6 +29,10 @@ export const authOptions: NextAuthOptions = {
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET
     }),
+    FacebookProvider({
+      clientId: env.FACEBOOK_CLIENT_ID,
+      clientSecret: env.FACEBOOK_CLIENT_SECRET
+  }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
       clientSecret: env.DISCORD_CLIENT_SECRET,
@@ -36,4 +41,3 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
-export default NextAuth(authOptions);
