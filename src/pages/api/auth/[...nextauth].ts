@@ -1,4 +1,4 @@
-import { type NextAuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
@@ -41,3 +41,4 @@ export const authOptions: NextAuthOptions = {
   ],
 };
 
+export default NextAuth(authOptions);
