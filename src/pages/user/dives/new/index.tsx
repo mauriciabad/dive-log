@@ -1,9 +1,9 @@
 import { trpc } from "../../../../utils/trpc";
 import type { CustomNextPage } from "../../../_app";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DiveCreateInputObjectSchema } from '../../../../../prisma/generated/schemas/objects/DiveCreateInput.schema';
-import { z } from "zod";
+import type { z } from "zod";
 import { useRouter } from "next/router";
 
 type Inputs = z.output<typeof DiveCreateInputObjectSchema>
