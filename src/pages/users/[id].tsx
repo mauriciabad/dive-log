@@ -8,7 +8,7 @@ export default function User () {
   return <>
   <p>Welcome {session?.user?.name}!</p>
   <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+        className="rounded-full bg-black/10 px-10 py-3 font-semibold no-underline transition hover:bg-black/20"
         onClick={session ? () => signOut() : () => signIn()}
       >
         {session ? "Sign out" : "Sign in"}
