@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db/client";
+import brandImage from '../../../assets/brand-image.png'
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
@@ -15,6 +16,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+  },
+  theme: {
+    logo: brandImage.src,
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),

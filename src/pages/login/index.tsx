@@ -5,7 +5,7 @@ import type { CustomNextPage } from "../_app";
 const Login: CustomNextPage = () => {
 
   return <>
-    <h1>Login</h1>
+    <h1 className="text-3xl font-bold">Login</h1>
     <p>To acces the application you need to be registered</p>
     <button
       className="rounded-full bg-black/10 px-10 py-3 font-semibold no-underline transition hover:bg-black/20"

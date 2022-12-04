@@ -8,7 +8,7 @@ const Dives: CustomNextPage = () => {
 
   return (
     <>
-      <h3 className="text-2xl font-bold">Dives list</h3>
+      <h1 className="text-3xl font-bold">Dives list</h1>
       {!dives ? <p className="text-2xl">Loading dives...</p> : dives.map((dive) => <div key={dive.id}>
         <p className="text-2xl">{JSON.stringify(dive, null, 2)}</p>
       </div>)}

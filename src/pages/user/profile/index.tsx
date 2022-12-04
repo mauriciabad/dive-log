@@ -9,7 +9,7 @@ const Profile: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery()
 
   return <>
-    <p>Welcome {session?.user?.name}!</p>
+    <h1 className="text-3xl font-bold">Welcome {session?.user?.name}!</h1>
     <button
       className="inline-block rounded-full bg-black/10 px-10 py-3 font-semibold no-underline transition hover:bg-black/20"
       onClick={() => signOut({ callbackUrl: '/' })}
