@@ -2,9 +2,9 @@ import type { GetServerSideProps, NextPage } from "next";
 import { getSession, signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 
-export const User:NextPage = () => {
+const User: NextPage = () => {
   const { data: session } = useSession();
-    const { data: dives } = trpc.auth.getDives.useQuery()
+  const { data: dives } = trpc.dive.getUserDives.useQuery()
 
   return <>
   <p>Welcome {session?.user?.name}!</p>
@@ -22,7 +22,7 @@ export const User:NextPage = () => {
   </>
 }
 
-export default User
+export default User;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)

@@ -1,7 +1,13 @@
-import { router, publicProcedure } from "../trpc";
+
+import { router, protectedProcedure } from "../trpc";
 
 export const diveRouter = router({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.dive.findMany();
+  getUserDives: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.dive.findMany({
+      where: {
+        userId: ctx.session.user.id
+      }
+    });
   }),
 });
+

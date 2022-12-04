@@ -1,8 +1,10 @@
+import type { GetServerSideProps} from "next";
 import { type NextPage } from "next";
+import { getSession } from "next-auth/react";
 import { trpc } from "../../utils/trpc";
 
-const Home: NextPage = () => {
-  const {data: dives} = trpc.dive.getAll.useQuery();
+const Dives: NextPage = () => {
+  const {data: dives} = trpc.dive.getUserDives.useQuery();
 
   return (
     <>
@@ -14,5 +16,22 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Dives;
 
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { }
+  }
+}
