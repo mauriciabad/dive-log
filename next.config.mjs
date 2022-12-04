@@ -20,5 +20,7 @@ const config = {
   },
 };
 
+// TODO: Remove this @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default withPWA(config);
