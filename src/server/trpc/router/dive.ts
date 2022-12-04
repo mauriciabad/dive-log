@@ -13,6 +13,8 @@ export const diveRouter = router({
     .input(DiveCreateOneSchema)
     .mutation(({ ctx, input }) => {
       return ctx.prisma.dive.create({
+        // TODO: Remove this @ts-ignore
+        // @ts-ignore
         data: {
           userId: ctx.session.user.id,
           ...input.data

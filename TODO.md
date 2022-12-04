@@ -16,6 +16,7 @@ Kind of like a backlog.
   - [ ] Upload dive when conection is restored with a service worker automatically
 - [x] Setup hosting
 - [ ] Setup CI/CD
+- [ ] Remove all `@ts-ignore`s
 
 ## High priority
 
