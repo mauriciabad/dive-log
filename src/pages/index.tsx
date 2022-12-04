@@ -13,26 +13,24 @@ const Home: NextPage = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-row gap-8 items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        {session ?
-          <>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="/dives"
-            >
-              Dives page
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="/profile"
-            >
-              Profile page
-            </Link></>
-          :
-          <button
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-            onClick={() => signIn()}
-          >Sign in</button>}
+      <main className="flex min-h-screen flex-col gap-8 items-center justify-center text-white bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+
+        <h1 className="text-3xl">Dive Log</h1>
+        <p>Manage your dives!</p>
+
+        {session ? <Link
+          className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+          href="/user"
+        >
+          Go to my dive log
+        </Link> : <button
+          className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+          onClick={() => signIn(undefined, { callbackUrl: '/user' })}
+        >
+          Log In & Go to my dive log
+        </button>}
+
+
       </main>
     </>
   );

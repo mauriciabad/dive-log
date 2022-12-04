@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { getSession, signIn, signOut, useSession } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { trpc } from "../../utils/trpc";
+import { trpc } from "../../../utils/trpc";
 
 const User: NextPage = () => {
   const { data: session } = useSession();
@@ -10,16 +10,14 @@ const User: NextPage = () => {
   return <>
     <p>Welcome {session?.user?.name}!</p>
     <button
-      className="rounded-full bg-black/10 px-10 py-3 font-semibold no-underline transition hover:bg-black/20"
-      onClick={session ? () => signOut() : () => signIn()}
-    >
-      {session ? "Sign out" : "Sign in"}
-    </button>
+      className="inline-block rounded-full bg-black/10 px-10 py-3 font-semibold no-underline transition hover:bg-black/20"
+      onClick={() => signOut({ callbackUrl: '/' })}
+    >Sign out</button>
 
     <h3 className="text-2xl font-bold">Dives list</h3>
     <Link
       className="inline-block rounded-full bg-black/10 px-10 py-3 font-semibold no-underline transition hover:bg-black/20"
-      href="/dives"
+      href="/user/dives"
     >
       Dives page
     </Link>
@@ -39,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!session) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/login',
         permanent: false,
       },
     }
