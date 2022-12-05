@@ -17,7 +17,7 @@ const Dives: CustomNextPage = () => {
         <>
           <div
             className="grid grid-flow-row gap-4"
-            style={{ 'grid-template-columns': 'repeat(auto-fit, minmax(20rem, 1fr))' }}
+            style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(20rem, 1fr))' }}
           >
             {
               dives.length
