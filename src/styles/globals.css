@@ -8,6 +8,6 @@
   }
 
   body {
-    @apply h-full
+    @apply h-full min-h-screen
   }
 }

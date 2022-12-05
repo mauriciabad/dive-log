@@ -3,23 +3,25 @@ import { getSession } from "next-auth/react";
 import Link from "next/link";
 import { trpc } from "../../../utils/trpc";
 import type { CustomNextPage } from "../../_app";
+import FabButton from '../../../components/FabButton'
 
 const Dives: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery();
 
   return (
     <>
-      <Link
-        className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/10 p-4 text-black hover:bg-black/20"
-        href="/user/dives/new"
-      >
-        + New dive
-      </Link>
-      {!dives
-        ? <p className="text-2xl">Loading dives...</p>
-        : dives.map((dive) =>
-          <pre key={dive.id} className="text-xs bg-black/20 w-full max-w-md p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
-        )}
+      <div className="sm:px-0 px-4 space-y-4">
+        {!dives
+          ? <p className="text-2xl">Loading dives...</p>
+          : dives.map((dive) =>
+            <pre key={dive.id} className="text-xs bg-white shadow w-full max-w-md p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
+          )}
+      </div>
+
+      <div className="h-16 pt-6 box-content" />
+      <div className="fixed bottom-0 left-0 right-0 p-6 max-w-5xl mx-auto text-right">
+        <FabButton href="/user/dives/new" className="sm:h-24 sm:w-24" />
+      </div>
     </>
   );
 };

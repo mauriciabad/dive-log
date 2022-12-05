@@ -26,7 +26,7 @@ export default function Layout({ children, title }: Props) {
 
   return (
     <>
-      <header className="min-h-full">
+      <header>
         <Disclosure as="nav" className="bg-white text-black">
           {({ open }) => (
             <>
@@ -136,7 +136,7 @@ export default function Layout({ children, title }: Props) {
           </div>
         }
       </header>
-      <main>
+      <main className="min-h-full">
         <div className="mx-auto max-w-5xl py-6 sm:px-6 lg:px-8">
           {children}
         </div>
