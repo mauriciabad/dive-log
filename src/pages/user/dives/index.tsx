@@ -1,6 +1,5 @@
 import type { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
-import Link from "next/link";
 import { trpc } from "../../../utils/trpc";
 import type { CustomNextPage } from "../../_app";
 import FabButton from '../../../components/FabButton'
@@ -10,7 +9,7 @@ const Dives: CustomNextPage = () => {
 
   return (
     <>
-      <div className="sm:px-0 px-4 space-y-4">
+      <div className="space-y-4">
         {!dives
           ? <p className="text-2xl">Loading dives...</p>
           : dives.map((dive) =>

@@ -30,7 +30,7 @@ export default function Layout({ children, title }: Props) {
         <Disclosure as="nav" className="bg-white text-black">
           {({ open }) => (
             <>
-              <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+              <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
                 <div className="flex h-16 items-center">
                   <div className="flex items-center">
 
@@ -88,7 +88,7 @@ export default function Layout({ children, title }: Props) {
               <Disclosure.Panel className="sm:hidden">
                 <div className="border-t-2 border-gray-100 mx-4" />
 
-                <div className="space-y-2 px-4 pt-2 pb-3 sm:px-3">
+                <div className="space-y-2 px-4 pt-2 pb-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
@@ -132,12 +132,12 @@ export default function Layout({ children, title }: Props) {
 
         {title &&
           <div className="bg-white hidden sm:block">
-            <h1 className="text-3xl mx-auto max-w-5xl pt-4 pb-4 px-6 font-bold tracking-wide text-gray-900">{title}</h1>
+            <h1 className="text-3xl mx-auto max-w-5xl pt-4 pb-4 px-4 sm:px-6 md:px-8 font-bold tracking-wide text-gray-900">{title}</h1>
           </div>
         }
       </header>
       <main className="min-h-full">
-        <div className="mx-auto max-w-5xl py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl py-4 px-4 sm:px-6 md:px-8">
           {children}
         </div>
       </main>
