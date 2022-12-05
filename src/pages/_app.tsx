@@ -6,7 +6,7 @@ import { trpc } from "../utils/trpc";
 
 import "../styles/globals.css";
 import type { NextPage } from "next";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import type { ReactElement, ReactNode } from "react";
 import Head from "next/head";
 
@@ -24,9 +24,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
-  const originalTitle = 'title' in Component && Component.title;
-  const wrapInLayout = 'customLayout' in Component && Component.customLayout ? Component.customLayout : (page: ReactElement) => <Layout title={originalTitle}>{page}</Layout>
-  const title = originalTitle ? `${Component.title} | Dive Log` : 'Dive Log'
+  const originalTitle = 'title' in Component && Component.title || undefined;
+  const wrapInLayout = 'customLayout' in Component && Component.customLayout
+    ? Component.customLayout
+    : (page: ReactElement) => <Layout title={originalTitle}>{page}</Layout>
+  const title = originalTitle ? `${originalTitle} | Dive Log` : 'Dive Log'
 
   return (
     <SessionProvider session={session}>
