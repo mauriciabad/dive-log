@@ -10,7 +10,6 @@ Kind of like a backlog.
 - [ ] Install Radix UI
 - [x] View: Create dive
 - [x] Login with Google, email, Facebook and as many as possible
-- [ ] Support generating QR to send dive to SSI app
 - [ ] Work offline
   - [ ] Create dive offline
   - [ ] Upload dive when conection is restored with a service worker automatically
@@ -24,14 +23,17 @@ Kind of like a backlog.
 - [ ] Wikipedia integration for animal list
 - [ ] Upload to play store
 - [ ] Validate dives
+- [ ] Export dives as json
 
 ## Medium priority
 
 - [ ] Dark theme
+- [ ] Support generating QR to send dive to SSI app
 
 ## Low priority
 
 - [ ] Add friends
+- [ ] Send notifications when dives are validated or validations requested (push and maybe email)
 - [ ] Add i18n in spanish
 - [ ] Friends feed, see when they do a dive
 - [ ] Integracio amb google lens per identificar animals
