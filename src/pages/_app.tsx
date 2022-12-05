@@ -3,6 +3,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { trpc } from "../utils/trpc";
+import "../utils/timeAgoInitialization";
 
 import "../styles/globals.css";
 import type { NextPage } from "next";

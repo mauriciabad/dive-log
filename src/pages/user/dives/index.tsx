@@ -3,18 +3,21 @@ import { getSession } from "next-auth/react";
 import { trpc } from "../../../utils/trpc";
 import type { CustomNextPage } from "../../_app";
 import FabButton from '../../../components/FabButton'
+import DiveCard from '../../../components/DiveCard'
 
 const Dives: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery();
 
   return (
     <>
-      <div className="space-y-4">
-        {!dives
-          ? <p className="text-2xl">Loading dives...</p>
-          : dives.map((dive) =>
-            <pre key={dive.id} className="text-xs bg-white shadow w-full max-w-md p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
-          )}
+      <div
+        className="grid grid-flow-row gap-4"
+        style={{ 'grid-template-columns': 'repeat(auto-fit, minmax(20rem, 1fr))' }}
+      >
+        {dives?.map((dive) =>
+          <DiveCard dive={dive} key={dive.id} />)
+          ??
+          <p className="text-2xl">Loading dives...</p>}
       </div>
 
       <div className="h-16 pt-6 box-content" />
