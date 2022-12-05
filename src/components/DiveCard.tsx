@@ -1,11 +1,9 @@
 import type { Dive } from "@prisma/client"
 import classNames from "classnames"
-import Link from "next/link"
-import React, { Component } from "react"
+import React from "react"
 import type { FC } from "react"
 import { TbMapPin, TbTemperature, TbArrowBarToDown, TbCalendarTime } from 'react-icons/tb'
 import ReactTimeAgo from 'react-time-ago'
-import type { ComponentType } from "react";
 import type { IconType } from "react-icons"
 
 interface Props {

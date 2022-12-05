@@ -67,7 +67,7 @@ export default function Layout({ children, title }: Props) {
                       <div className="relative ml-3">
                         <Link href="/user/profile" className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 ">
                           <span className="sr-only">Open user menu</span>
-                          <Image className="h-8 w-8 rounded-full" src={userImage} alt="" />
+                          <Image className="h-8 w-8 rounded-full" src={userImage} alt="" height={32} width={32} />
                         </Link>
                       </div>
                     </div>
@@ -118,7 +118,7 @@ export default function Layout({ children, title }: Props) {
                     className="flex items-center rounded-full"
                   >
                     <div className="flex-shrink-0">
-                      <Image className="h-10 w-10 rounded-full" src={userImage} alt="" />
+                      <Image className="h-10 w-10 rounded-full" src={userImage} alt="" height={32} width={32} />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-gray-900">{session?.user?.name}</div>

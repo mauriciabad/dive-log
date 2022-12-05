@@ -1,5 +1,3 @@
-import type { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 import { trpc } from "../../../utils/trpc";
 import type { CustomNextPage } from "../../_app";
 import FabButton from '../../../components/FabButton'

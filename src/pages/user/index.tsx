@@ -1,11 +1,8 @@
-import type { GetServerSideProps } from "next";
 import Link from "next/link";
-import { getSession } from "next-auth/react";
 import type { CustomNextPage } from "../_app";
 import loginRequired from "../../utils/loginRequired";
 
 const Home: CustomNextPage = () => {
-
   return (
     <>
       <Link
