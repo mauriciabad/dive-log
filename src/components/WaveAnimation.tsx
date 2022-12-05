@@ -1,7 +1,7 @@
 import classNames from "classnames"
 import Link from "next/link"
 import React, { useEffect, useRef } from "react"
-import { FC } from "react"
+import type { FC } from "react"
 import { TbPlus } from 'react-icons/tb'
 
 interface Props {
