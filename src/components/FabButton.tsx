@@ -10,22 +10,27 @@ interface Props {
   onClick?: () => void
 }
 
+
 const FabButton: FC<Props> = ({ className, href, onClick }) => {
+  const classWrapper = classNames(className, "group inline-flex items-center justify-center p-0 w-16 h-16 bg-blue-600 rounded-full hover:bg-blue-700 active:shadow-lg mouse shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2")
+  const classIcon = classNames('w-8 h-8 inline-block text-white transition-transform ease-out group-hover:rotate-90 group-focus-visible:rotate-90 duration-200')
+
   return (<>
     {href ?
       <Link
-        className={classNames(className, "inline-flex items-center justify-center p-0 w-16 h-16 bg-blue-600 rounded-full hover:bg-blue-700 active:shadow-lg mouse shadow-xl transition ease-in duration-200 focus:outline-none")}
+        className={classWrapper}
         href={href}
         onClick={onClick}>
-        <TbPlus className="w-8 h-8 inline-block text-white" />
+        <TbPlus className={classIcon} />
       </Link>
       :
       <button
-        className={classNames(className, "inline-flex items-center justify-center p-0 w-16 h-16 bg-blue-600 rounded-full hover:bg-blue-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none")}
+        className={classWrapper}
       >
-        <TbPlus className="w-6 h-6 inline-block text-white" />
+        <TbPlus className={classIcon} />
       </button>
     }</>)
 }
 
 export default FabButton
+
