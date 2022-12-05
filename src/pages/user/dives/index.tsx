@@ -9,9 +9,8 @@ const Dives: CustomNextPage = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold">Dives list</h1>
       <Link
-        className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+        className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/10 p-4 text-black hover:bg-black/20"
         href="/user/dives/new"
       >
         + New dive
@@ -19,13 +18,13 @@ const Dives: CustomNextPage = () => {
       {!dives
         ? <p className="text-2xl">Loading dives...</p>
         : dives.map((dive) =>
-          <pre key={dive.id} className="text-xs bg-white/20 w-full max-w-md p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
+          <pre key={dive.id} className="text-xs bg-black/20 w-full max-w-md p-8 overflow-auto rounded-xl">{JSON.stringify(dive, null, 2)}</pre>
         )}
     </>
   );
 };
 
-Dives.title = 'Dives'
+Dives.title = 'My dives'
 
 export default Dives;
 

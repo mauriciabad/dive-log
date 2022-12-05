@@ -8,13 +8,13 @@ const Home: CustomNextPage = () => {
   return (
     <>
       <Link
-        className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+        className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/10 p-4 text-black hover:bg-black/20"
         href="/user/dives"
       >
         Dives page
       </Link>
       <Link
-        className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+        className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/10 p-4 text-black hover:bg-black/20"
         href="/user/profile"
       >
         Profile page

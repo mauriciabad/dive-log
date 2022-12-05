@@ -22,14 +22,12 @@ const CreateDive: CustomNextPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-      <h1 className="text-3xl font-bold">New dive</h1>
-
       <label >
         Date
         <input type="datetime-local" defaultValue={(new Date()).toISOString().substring(0, 16)} {...register("date", {
           required: true,
           valueAsDate: true,
-        })} className="bg-white/20 mx-2 px-2 py-1 rounded-md" />
+        })} className="bg-black/20 mx-2 px-2 py-1 rounded-md" />
         {errors.date && <span>This field is required</span>}
       </label>
       <label>
@@ -38,7 +36,7 @@ const CreateDive: CustomNextPage = () => {
           required: true,
           valueAsNumber: true,
           min: 0,
-        })} className="bg-white/20 mx-2 px-2 py-1 rounded-md" />
+        })} className="bg-black/20 mx-2 px-2 py-1 rounded-md" />
         {errors.maxDepth && <span>This field is required</span>}
       </label>
 
@@ -48,7 +46,7 @@ const CreateDive: CustomNextPage = () => {
           required: true,
           valueAsNumber: true,
           min: 0,
-        })} className="bg-white/20 mx-2 px-2 py-1 rounded-md" />
+        })} className="bg-black/20 mx-2 px-2 py-1 rounded-md" />
         {errors.waterTemp && <span>This field is required</span>}
       </label>
       <label>
@@ -56,11 +54,11 @@ const CreateDive: CustomNextPage = () => {
         <input type="text" maxLength={100} {...register("locationName", {
           maxLength: 100,
           required: true,
-        })} className="bg-white/20 mx-2 px-2 py-1 rounded-md" />
+        })} className="bg-black/20 mx-2 px-2 py-1 rounded-md" />
         {errors.locationName && <span>This field is required</span>}
       </label>
 
-      <input type="submit" disabled={createDiveMutation.isLoading} className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+      <input type="submit" disabled={createDiveMutation.isLoading} className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/10 p-4 text-black hover:bg-black/20"
       />
       {createDiveMutation.error && <p>Something went wrong! {createDiveMutation.error.message}</p>}
     </form>

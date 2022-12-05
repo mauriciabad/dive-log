@@ -24,8 +24,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppPropsWithLayout) => {
-  const wrapInLayout = 'customLayout' in Component && Component.customLayout ? Component.customLayout : (page: ReactElement) => <Layout>{page}</Layout>
-  const title = 'title' in Component && Component.title ? `${Component.title} | Dive Log` : 'Dive Log'
+  const originalTitle = 'title' in Component && Component.title;
+  const wrapInLayout = 'customLayout' in Component && Component.customLayout ? Component.customLayout : (page: ReactElement) => <Layout title={originalTitle}>{page}</Layout>
+  const title = originalTitle ? `${Component.title} | Dive Log` : 'Dive Log'
 
   return (
     <SessionProvider session={session}>

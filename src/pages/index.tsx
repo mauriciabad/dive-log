@@ -8,8 +8,6 @@ const Landing: CustomNextPage = () => {
   return (
     <>
       <main className="flex min-h-screen flex-col gap-8 items-center justify-center text-white bg-gradient-to-b from-sky-600 to-indigo-800">
-
-        <h1 className="text-3xl font-bold">Dive Log</h1>
         <p>Manage your dives!</p>
 
         {session ? <Link
