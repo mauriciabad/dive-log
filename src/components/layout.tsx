@@ -15,8 +15,9 @@ const navigation = [
 ]
 
 export default function Layout({ children, title }: Props) {
-
   const { data: session } = useSession();
+
+  const userImage = session?.user?.image ?? `https://avatars.dicebear.com/api/avataaars/${user.id}.svg`
 
   return (
     <><div className="min-h-full">
@@ -35,7 +36,7 @@ export default function Layout({ children, title }: Props) {
                   </Link>
                   {title &&
                     <h1 className="sm:hidden ml-4 text-lg tracking-tight">{title}</h1>
-                    }
+                  }
                   <div className="hidden sm:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
@@ -61,7 +62,7 @@ export default function Layout({ children, title }: Props) {
                     <div className="relative ml-3">
                       <Link href="/user/profile" className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-900">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src={session?.user?.image ?? ''} alt="" />
+                        <img className="h-8 w-8 rounded-full" src={userImage} alt="" />
                       </Link>
                     </div>
                   </div>
@@ -99,19 +100,19 @@ export default function Layout({ children, title }: Props) {
               </div>
               <div className="border-t border-gray-700 pt-4 px-5 pb-3">
                 <Disclosure.Button
-                    as="a"
-                    href="/user/profile"
-                    className="flex items-center"
-                  >
+                  as="a"
+                  href="/user/profile"
+                  className="flex items-center"
+                >
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={session?.user?.image ?? ''} alt="" />
+                    <img className="h-10 w-10 rounded-full" src={userImage} alt="" />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium leading-none text-white">{session?.user?.name}</div>
                     <div className="text-sm font-medium leading-none text-white/70">{session?.user?.email}</div>
                   </div>
-                  </Disclosure.Button>
-                </div>
+                </Disclosure.Button>
+              </div>
             </Disclosure.Panel>
           </>
         )}
@@ -123,7 +124,7 @@ export default function Layout({ children, title }: Props) {
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">{title}</h1>
           </div>
         </header>
-        }
+      }
       <main>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {children}
