@@ -14,7 +14,7 @@ const FabButton: FC<Props> = ({ className, href, onClick }) => {
   return (<>
     {href ?
       <Link
-        className={classNames(className, "inline-flex items-center justify-center p-0 w-16 h-16 bg-blue-600 rounded-full hover:bg-blue-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none")}
+        className={classNames(className, "inline-flex items-center justify-center p-0 w-16 h-16 bg-blue-600 rounded-full hover:bg-blue-700 active:shadow-lg mouse shadow-xl transition ease-in duration-200 focus:outline-none")}
         href={href}
         onClick={onClick}>
         <TbPlus className="w-8 h-8 inline-block text-white" />
