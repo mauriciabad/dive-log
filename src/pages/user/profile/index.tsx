@@ -1,6 +1,7 @@
 import type { GetServerSideProps } from "next";
 import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import loginRequired from "../../../utils/loginRequired";
 import { trpc } from "../../../utils/trpc";
 import type { CustomNextPage } from "../../_app";
 
@@ -33,19 +34,4 @@ Profile.title = 'Profile'
 
 export default Profile;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {}
-  }
-}
+export const getServerSideProps = loginRequired

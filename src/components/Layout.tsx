@@ -3,6 +3,7 @@ import { Disclosure } from '@headlessui/react'
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import Logo from "./Logo";
 import { useRouter } from "next/router";
 import classNames from "classnames";
@@ -66,7 +67,7 @@ export default function Layout({ children, title }: Props) {
                       <div className="relative ml-3">
                         <Link href="/user/profile" className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 ">
                           <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={userImage} alt="" />
+                          <Image className="h-8 w-8 rounded-full" src={userImage} alt="" />
                         </Link>
                       </div>
                     </div>
@@ -117,7 +118,7 @@ export default function Layout({ children, title }: Props) {
                     className="flex items-center rounded-full"
                   >
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={userImage} alt="" />
+                      <Image className="h-10 w-10 rounded-full" src={userImage} alt="" />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-gray-900">{session?.user?.name}</div>

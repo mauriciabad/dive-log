@@ -7,6 +7,7 @@ import DiveCard from '../../../components/DiveCard'
 import WaveAnimation from '../../../components/WaveAnimation'
 import Link from "next/link";
 import { TbPlus } from 'react-icons/tb'
+import loginRequired from "../../../utils/loginRequired";
 const Dives: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery();
 
@@ -52,19 +53,4 @@ Dives.title = 'My dives'
 export default Dives;
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {}
-  }
-}
+export const getServerSideProps = loginRequired

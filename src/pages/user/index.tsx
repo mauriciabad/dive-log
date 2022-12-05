@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import Link from "next/link";
 import { getSession } from "next-auth/react";
 import type { CustomNextPage } from "../_app";
+import loginRequired from "../../utils/loginRequired";
 
 const Home: CustomNextPage = () => {
 
@@ -27,19 +28,4 @@ Home.title = 'Home'
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {}
-  }
-}
+export const getServerSideProps = loginRequired

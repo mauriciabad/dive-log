@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DiveCreateInputObjectSchema } from '../../../../../prisma/generated/schemas/objects/DiveCreateInput.schema';
 import type { z } from "zod";
 import { useRouter } from "next/router";
+import loginRequired from "../../../../utils/loginRequired";
 
 type Inputs = z.output<typeof DiveCreateInputObjectSchema>
 
@@ -69,4 +70,4 @@ CreateDive.title = 'New dive'
 
 export default CreateDive;
 
-// export const getServerSideProps = loginRequired
+export const getServerSideProps = loginRequired
