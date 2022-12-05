@@ -31,7 +31,7 @@ export default function Layout({ children, title }: Props) {
           {({ open }) => (
             <>
               <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center border-b-2 border-gray-100">
+                <div className="flex h-16 items-center">
                   <div className="flex items-center">
 
                     <Link className="flex-shrink-0 " href="/user">
@@ -86,6 +86,8 @@ export default function Layout({ children, title }: Props) {
               </div>
 
               <Disclosure.Panel className="sm:hidden">
+                <div className="border-t-2 border-gray-100 mx-4" />
+
                 <div className="space-y-2 px-4 pt-2 pb-3 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
@@ -108,7 +110,7 @@ export default function Layout({ children, title }: Props) {
 
                 <div className="border-t-2 border-gray-100 mx-4" />
 
-                <div className="shadow-lg pt-4 px-4 pb-3">
+                <div className="shadow-xl pt-4 px-4 pb-3">
                   <Disclosure.Button
                     as="a"
                     href="/user/profile"
@@ -129,13 +131,13 @@ export default function Layout({ children, title }: Props) {
         </Disclosure>
 
         {title &&
-          <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8 hidden sm:block">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{title}</h1>
+          <div className="bg-white hidden sm:block">
+            <h1 className="text-3xl mx-auto max-w-5xl pt-4 pb-4 px-6 font-bold tracking-wide text-gray-900">{title}</h1>
           </div>
         }
       </header>
       <main>
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl py-6 sm:px-6 lg:px-8">
           {children}
         </div>
       </main>
