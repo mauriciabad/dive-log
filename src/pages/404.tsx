@@ -1,17 +1,24 @@
-import Link from "next/link";
+import { TbChevronLeft } from "react-icons/tb";
+import IconButton from "../components/IconButton";
 import type { CustomNextPage } from "./_app";
+import bgRipples from '../assets/backgrounds/ripples.png'
 
 const NotFoundPage: CustomNextPage = () => {
 
   return <>
-    <h1 className="text-3xl font-bold">404 Not found</h1>
-    <p>This page doesn&apos;t exist</p>
-    <p>Check that the URL is correct</p>
-    <Link
-      className="inline-block rounded-full bg-black/20 px-10 py-3 font-semibold no-underline transition hover:bg-black/30"
-      href="/"
-    >Go to home page</Link>
+    <main className="h-screen flex flex-col items-center justify-center p-2" style={{ backgroundImage: `url(${bgRipples.src})` }}>
+      <div className="bg-white rounded-xl p-8 xs:p-12 text-center shadow-lg max-w-md w-full">
+        <h1 className="text-3xl font-bold mb-4">404 Not found</h1>
 
+        <p className="text-base">This page doesn&apos;t exist</p>
+        <p className="text-base">Check that the URL is correct</p>
+        <IconButton
+          className="mt-8"
+          href="/" text="Go to home page"
+          Icon={TbChevronLeft} />
+
+      </div>
+    </main>
   </>
 }
 

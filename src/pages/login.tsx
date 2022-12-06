@@ -9,9 +9,9 @@ const Login: CustomNextPage = () => {
 
   return <>
     <main className="h-screen flex flex-col items-center justify-center p-2" style={{ backgroundImage: `url(${bgRipples.src})` }}>
-      <div className="bg-white rounded-xl p-8 xs:p-12 text-center shadow-lg max-w-md">
+      <div className="bg-white rounded-xl p-8 xs:p-12 text-center shadow-lg max-w-md w-full">
         <h1 className="text-3xl font-bold mb-4">Login</h1>
-        <p>To acces the application you need to be registered</p>
+        <p className="text-base">To acces the application you need to be registered</p>
 
         <IconButton
           className="mt-8"
