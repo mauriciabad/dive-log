@@ -1,6 +1,6 @@
 import { trpc } from "../../../../utils/trpc";
 import type { CustomNextPage } from "../../../_app";
-import { type SubmitHandler, useForm, type RegisterOptions } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
@@ -38,7 +38,9 @@ const CreateDive: CustomNextPage = () => {
   const CustomInput: FC<{
     displayLabel: string,
     internalLabel: keyof Inputs,
-    registerOptions: RegisterOptions<Inputs>,
+    // TODO: type
+    // registerOptions: RegisterOptions<Inputs>,
+    registerOptions: RegisterOptions<Record<string, unknown>>,
     inputProps: InputHTMLAttributes<HTMLInputElement>,
     Icon?: IconType
   }> =
