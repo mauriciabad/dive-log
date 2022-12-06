@@ -14,9 +14,11 @@ import {
 import IconButton from "../../../../components/IconButton";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
-import type { Prisma } from "@prisma/client";
+// import type { Prisma } from "@prisma/client";
 
-type Inputs = Prisma.DiveCreateInput
+// type Inputs = Prisma.DiveCreateInput
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Inputs = Record<string, any>
 
 const CreateDive: CustomNextPage = () => {
   const router = useRouter();
@@ -38,10 +40,7 @@ const CreateDive: CustomNextPage = () => {
   const CustomInput: FC<{
     displayLabel: string,
     internalLabel: keyof Inputs,
-    // TODO: type
-    // registerOptions: RegisterOptions<Inputs>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    registerOptions: any,
+    registerOptions: RegisterOptions<Inputs>,
     inputProps: InputHTMLAttributes<HTMLInputElement>,
     Icon?: IconType
   }> =
