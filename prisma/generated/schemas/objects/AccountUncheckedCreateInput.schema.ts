@@ -4,6 +4,8 @@ import type { Prisma } from "@prisma/client";
 
 const Schema: z.ZodType<Prisma.AccountUncheckedCreateInput> = z
   .object({
+    createdAt: z.date().optional(),
+    updatedAt: z.date().optional(),
     id: z.string().optional(),
     userId: z.string(),
     type: z.string(),

@@ -1,6 +1,8 @@
 import { z } from "zod";
 
 export const AccountScalarFieldEnumSchema = z.enum([
+  "createdAt",
+  "updatedAt",
   "id",
   "userId",
   "type",

@@ -1,14 +1,34 @@
 import { z } from "zod";
+import { DateTimeFieldUpdateOperationsInputObjectSchema } from "./DateTimeFieldUpdateOperationsInput.schema";
 import { StringFieldUpdateOperationsInputObjectSchema } from "./StringFieldUpdateOperationsInput.schema";
 import { NullableStringFieldUpdateOperationsInputObjectSchema } from "./NullableStringFieldUpdateOperationsInput.schema";
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from "./NullableDateTimeFieldUpdateOperationsInput.schema";
 import { AccountUpdateManyWithoutUserNestedInputObjectSchema } from "./AccountUpdateManyWithoutUserNestedInput.schema";
+import { UserPreferencesUpdateOneRequiredWithoutUserNestedInputObjectSchema } from "./UserPreferencesUpdateOneRequiredWithoutUserNestedInput.schema";
 import { DiveUpdateManyWithoutUserNestedInputObjectSchema } from "./DiveUpdateManyWithoutUserNestedInput.schema";
+import { DiveBuddyUpdateManyWithoutDiveBuddyUserNestedInputObjectSchema } from "./DiveBuddyUpdateManyWithoutDiveBuddyUserNestedInput.schema";
+import { EquipmentUnitUpdateManyWithoutUserNestedInputObjectSchema } from "./EquipmentUnitUpdateManyWithoutUserNestedInput.schema";
+import { DiveCenterUpdateManyWithoutCreatedByUserNestedInputObjectSchema } from "./DiveCenterUpdateManyWithoutCreatedByUserNestedInput.schema";
+import { DiveBuddyUpdateManyWithoutCreatorUserNestedInputObjectSchema } from "./DiveBuddyUpdateManyWithoutCreatorUserNestedInput.schema";
+import { LinkUpdateManyWithoutUserNestedInputObjectSchema } from "./LinkUpdateManyWithoutUserNestedInput.schema";
+import { LinkUpdateManyWithoutCreatorUserNestedInputObjectSchema } from "./LinkUpdateManyWithoutCreatorUserNestedInput.schema";
 
 import type { Prisma } from "@prisma/client";
 
 const Schema: z.ZodType<Prisma.UserUpdateWithoutSessionsInput> = z
   .object({
+    createdAt: z
+      .union([
+        z.date(),
+        z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
+    updatedAt: z
+      .union([
+        z.date(),
+        z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
     id: z
       .union([
         z.string(),
@@ -46,8 +66,41 @@ const Schema: z.ZodType<Prisma.UserUpdateWithoutSessionsInput> = z
     accounts: z
       .lazy(() => AccountUpdateManyWithoutUserNestedInputObjectSchema)
       .optional(),
+    preferences: z
+      .lazy(
+        () => UserPreferencesUpdateOneRequiredWithoutUserNestedInputObjectSchema
+      )
+      .optional(),
+    handle: z
+      .union([
+        z.string(),
+        z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
     dives: z
       .lazy(() => DiveUpdateManyWithoutUserNestedInputObjectSchema)
+      .optional(),
+    asDiveBuddy: z
+      .lazy(
+        () => DiveBuddyUpdateManyWithoutDiveBuddyUserNestedInputObjectSchema
+      )
+      .optional(),
+    equipment: z
+      .lazy(() => EquipmentUnitUpdateManyWithoutUserNestedInputObjectSchema)
+      .optional(),
+    createdDiveCenters: z
+      .lazy(
+        () => DiveCenterUpdateManyWithoutCreatedByUserNestedInputObjectSchema
+      )
+      .optional(),
+    diveBuddy: z
+      .lazy(() => DiveBuddyUpdateManyWithoutCreatorUserNestedInputObjectSchema)
+      .optional(),
+    links: z
+      .lazy(() => LinkUpdateManyWithoutUserNestedInputObjectSchema)
+      .optional(),
+    createdLinks: z
+      .lazy(() => LinkUpdateManyWithoutCreatorUserNestedInputObjectSchema)
       .optional(),
   })
   .strict();

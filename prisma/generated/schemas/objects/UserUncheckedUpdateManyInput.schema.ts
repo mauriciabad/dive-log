@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DateTimeFieldUpdateOperationsInputObjectSchema } from "./DateTimeFieldUpdateOperationsInput.schema";
 import { StringFieldUpdateOperationsInputObjectSchema } from "./StringFieldUpdateOperationsInput.schema";
 import { NullableStringFieldUpdateOperationsInputObjectSchema } from "./NullableStringFieldUpdateOperationsInput.schema";
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema } from "./NullableDateTimeFieldUpdateOperationsInput.schema";
@@ -7,6 +8,18 @@ import type { Prisma } from "@prisma/client";
 
 const Schema: z.ZodType<Prisma.UserUncheckedUpdateManyInput> = z
   .object({
+    createdAt: z
+      .union([
+        z.date(),
+        z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
+    updatedAt: z
+      .union([
+        z.date(),
+        z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
     id: z
       .union([
         z.string(),
@@ -41,6 +54,18 @@ const Schema: z.ZodType<Prisma.UserUncheckedUpdateManyInput> = z
       ])
       .optional()
       .nullable(),
+    userPreferencesId: z
+      .union([
+        z.string(),
+        z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
+    handle: z
+      .union([
+        z.string(),
+        z.lazy(() => StringFieldUpdateOperationsInputObjectSchema),
+      ])
+      .optional(),
   })
   .strict();
 

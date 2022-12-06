@@ -16,20 +16,411 @@ model Dive {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  user   User   @relation(fields: [userId], references: [id], name: "diver")
+  userId String
 
-  date         DateTime
-  maxDepth     Float
-  waterTemp    Float
-  locationName String
+  // BASIC
+  name              String
+  diveNumber        Int // Can skip dives
+  startDateTime     DateTime
+  duration          Int // In milliseconds
+  type              DiveType?
+  specialtyDiveType SpecialtyDiveType?
+  diveSite          DiveSite           @relation(fields: [diveSiteId], references: [id])
+  diveSiteId        String
+  maximumDepth      Decimal            @db.Decimal(3, 2) // In meters
+  averageDepth      Decimal?           @db.Decimal(3, 2) // In meters
+
+  // ENVIRONMENT
+  waterMinimumTemperature Decimal?         @db.Decimal(2, 2) // In Celcius degrees
+  waterAverageTemperature Decimal?         @db.Decimal(2, 2) // In Celcius degrees
+  waterMaximumTemperature Decimal?         @db.Decimal(2, 2) // In Celcius degrees
+  waterBody               WaterBody?
+  waterType               WaterType?
+  waterEntry              WaterEntry?
+  waterCurrent            WaterCurrent?
+  waterSurface            WaterSurface?
+  waterVisibility         WaterVisibility?
+  weather                 Weather?
+  airTemperature          Int? // In Celcius degrees
+
+  // EQUIPMENT
+  weight               Decimal?          @db.Decimal(2, 2) // In kilograms
+  equipment            EquipmentUnit[]
+  startCylinderPresure Int?
+  endCylinderPresure   Int?
+  cylinderMaterial     CylinderMaterial?
+  cylinderVolume       Decimal?          @db.Decimal(3, 2) // In liters
+
+  // PEOPLE
+  diveCenter      DiveCenter?          @relation(fields: [diveCenterId], references: [id])
+  diveCenterId    String?
+  diveBuddies     DiveBuddyInDive[]
+  roleasDiveBuddy DiveBuddyInDiveRole?
+
+  // ORGANISMS
+  organisms WikipediaPage[]
+
+  // PERSONAL
+  rating          Decimal? @db.Decimal(2, 1)
+  links           Link[]
+  experienceNotes String?  @db.LongText
+  technicalNotes  String?  @db.LongText
+
+  @@unique([diveNumber, userId])
+  @@index([diveCenterId])
+  @@index([diveNumber])
+  @@index([diveSiteId])
+  @@index([userId])
+}
+
+model Link {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
+  link          String
+  type          LinkType
+  title         String?
+  thumbnail     String?
+  creatorUser   User     @relation(name: "creator", fields: [creatorUserId], references: [id])
+  creatorUserId String
+
+  dive            Dive?          @relation(fields: [diveId], references: [id])
+  diveId          String?
+  diveBuddy       DiveBuddy?     @relation(fields: [diveBuddyId], references: [id])
+  diveBuddyId     String?
+  diveCenter      DiveCenter?    @relation(fields: [diveCenterId], references: [id])
+  diveCenterId    String?
+  user            User?          @relation(name: "linksInUserProfile", fields: [userId], references: [id])
+  userId          String?
+  diveSite        DiveSite?      @relation(fields: [diveSiteId], references: [id])
+  diveSiteId      String?
+  EquipmentUnit   EquipmentUnit? @relation(fields: [equipmentUnitId], references: [id])
+  equipmentUnitId String?
+
+  @@index([creatorUserId])
+  @@index([diveBuddyId])
+  @@index([diveCenterId])
+  @@index([diveId])
+  @@index([diveSiteId])
+  @@index([equipmentUnitId])
+  @@index([userId])
+}
+
+enum LinkType {
+  IMAGE
+  VIDEO
+  ALBUM
+  PROFILE
+  FILE
+  WEBSITE
+  TEXT
+  OTHER
+}
+
+model WikipediaPage {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        Int      @id
+
+  title       String
+  description String  @db.MediumText
+  image       String?
+
+  dives Dive[]
+}
+
+model EquipmentUnit {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  name         String
+  owned        Boolean   @default(true)
+  image        String?
+  manufacturer String?
+  retailer     String?
+  purchaseDate DateTime?
+  serialNumber String?
+  links        Link[]
+  note         String?   @db.LongText
+
+  // only for some
+  // bluetoothAddress String? // For dive computers import
+  size  String?
+  color String?
+
+  dives Dive[]
 
   @@index([userId])
 }
 
+model DiveSite {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
+  name        String
+  description String? @db.MediumText
+  image       String?
+  latitude    Decimal @db.Decimal(6, 5)
+  longitude   Decimal @db.Decimal(6, 5)
+  links       Link[]
+
+  dives Dive[]
+
+  @@unique([latitude, longitude])
+}
+
+model DiveCenter {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
+  name        String
+  description String? @db.MediumText
+  image       String?
+  latitude    Decimal @db.Decimal(6, 5)
+  longitude   Decimal @db.Decimal(6, 5)
+  links       Link[]
+
+  createdByUser   User   @relation(fields: [createdByUserId], references: [id])
+  createdByUserId String
+
+  dives Dive[]
+
+  @@unique([latitude, longitude])
+  @@index([createdByUserId])
+}
+
+model DiveBuddy {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
+  creatorUser   User   @relation(fields: [creatorUserId], references: [id])
+  creatorUserId String
+
+  diveBuddyUser   User?   @relation(fields: [diveBuddyUserId], references: [id], name: "diveBuddyUser")
+  diveBuddyUserId String?
+
+  // In case the dive buddy is not in the app or we wanc to change how it's displated, we have these custom atributes
+  customName        String?
+  customDescription String? @db.MediumText
+  customImage       String?
+
+  links Link[]
+
+  diveBuddyInDives DiveBuddyInDive[]
+
+  @@unique([diveBuddyUserId, creatorUserId])
+  @@index([creatorUserId])
+}
+
+model DiveBuddyInDive {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dive   Dive   @relation(fields: [diveId], references: [id])
+  diveId String
+
+  diveBuddy   DiveBuddy @relation(fields: [diveBuddyId], references: [id])
+  diveBuddyId String
+
+  notes String?              @db.LongText
+  role  DiveBuddyInDiveRole?
+
+  @@unique([diveId, diveBuddyId])
+  @@index([diveBuddyId])
+  @@index([diveId])
+}
+
+enum DiveBuddyInDiveRole {
+  GUIDE
+  STUDENT
+  RECREATIONAL
+  IRRELEVANT
+}
+
+enum CylinderMaterial {
+  ALUMINIUM
+  STEEL
+}
+
+enum Gas {
+  AIR
+  NITROX
+  OTHER
+}
+
+enum DiveType {
+  RECREATIONAL
+  EDUCATION
+  RESEARCH
+  WORK
+}
+
+enum WaterBody {
+  OCEAN
+  RIVER
+  QUARRY
+  LAKE
+  INDOOR
+  ARTIFICIAL_LAKE
+  POOL
+  CONFINED_WATER
+  OPEN_WATER
+  DRY
+  BLUE_HOLE
+  CAVE
+  CENOTE
+}
+
+enum WaterType {
+  FRESH
+  SALT
+}
+
+enum WaterEntry {
+  SHORE_OR_BEACH
+  BOAT
+  OTHER
+}
+
+enum WaterCurrent {
+  NONE
+  SLIGHT
+  STRONG
+  RIPPING
+}
+
+enum WaterSurface {
+  CALM
+  MOVING
+  STORMY
+}
+
+enum WaterVisibility {
+  BAD
+  MEDIUM
+  GOOD
+  PERFECT
+}
+
+enum Weather {
+  CLOUDLESS
+  CLOUDY
+  RAINY
+  SNOW
+}
+
+enum SpecialtyDiveType {
+  BOAT_DIVE
+  PERFECT_bUOYANCY_DIVE
+  DIVE_COMPUTER
+  DEEP_DIVE
+  DRIFT_DIVE
+  NAVIGATION_DIVE
+  DRY_SUIT_DIVE
+  PHOTO_AND_VIDEO_DIVE
+  DIVE_EQUIPMENT
+  SHARK_DIVE
+  SEARCH_DIVE
+  NIGHT_DIVE
+  NITROX_DIVE
+  CAVE_DIVE
+  WRECK_DIVE
+  SNORKELING
+  ICE_DIVE
+  OPEN_WATER_DIVE
+  DECO_DIVE
+  DPV_OR_SCOOTER
+}
+
+enum EquipmentType {
+  OTHER
+
+  // Delivery System
+  REGULATOR_FIRST_STAGE
+  REGULATOR_SECOND_sTAGE
+  ALTERNATE_AIR_SOURCE
+  FULL_FACE_MASK
+  CYLINDER
+  ALTERNATE_INFLATOR_REGULATOR
+
+  // Information System
+  DIVING_COMPUTER
+  PRESURE_GAUGE
+  DEPTH_GAUGE
+  COMPASS
+  WATCH
+
+  // Exposure System
+  WETSUIT
+  DRYSUIT
+  GLOVES
+  HOOD
+  BOOTS
+  UNDERWEAR
+  WETSUIT_SEMI_DRY
+  WETSUIT_SHORTY
+  WETSUIT_TROPICAL
+  RASHGUARD_OR_TEXTIL
+  NEOPREN_SOCKS
+
+  // Snorkeling System
+  MASK
+  POOL_FINS
+  SNORKEL
+  SCUBA_FINS
+
+  // Buoyancy System
+  JACKETS
+  WEIGHTSYSTEM
+  WING
+
+  // Specialty Training and Accessory System
+  LIGHTS
+  PHOTO
+  VIDEO
+  FLASH
+  UW_COMMUNICATION
+  KNIFE
+  LUGGAGE
+  FLAGS_AND_FLOATS
+  SIGNALING_DEVICES
+}
+
+enum UnitSystem {
+  METRIC
+  IMPERIAL
+}
+
+model UserPreferences {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
+  publicProfile Boolean @default(true)
+
+  // Units
+  lengthUnits      UnitSystem?
+  weightUnits      UnitSystem?
+  temperatureUnits UnitSystem?
+
+  user User[]
+}
+
 // Necessary for Next auth
 model Account {
-  id                String  @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
   userId            String
   type              String
   provider          String
@@ -58,14 +449,31 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  dives         Dive[]
+
+  preferences        UserPreferences @relation(fields: [userPreferencesId], references: [id])
+  userPreferencesId  String
+  handle             String          @unique @default(cuid())
+  dives              Dive[]          @relation(name: "diver")
+  asDiveBuddy        DiveBuddy[]     @relation(name: "diveBuddyUser")
+  equipment          EquipmentUnit[]
+  createdDiveCenters DiveCenter[]
+  diveBuddy          DiveBuddy[]
+  links              Link[]          @relation(name: "linksInUserProfile")
+
+  createdLinks Link[] @relation(name: "creator")
+
+  @@index([handle])
+  @@index([userPreferencesId])
 }
 
 model VerificationToken {
@@ -76,6 +484,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-generator zod {
-  provider = "prisma-zod-generator"
-}
+// generator zod {
+//   provider = "prisma-zod-generator"
+// }

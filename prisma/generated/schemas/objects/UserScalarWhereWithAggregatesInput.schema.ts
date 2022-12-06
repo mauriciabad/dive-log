@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DateTimeWithAggregatesFilterObjectSchema } from "./DateTimeWithAggregatesFilter.schema";
 import { StringWithAggregatesFilterObjectSchema } from "./StringWithAggregatesFilter.schema";
 import { StringNullableWithAggregatesFilterObjectSchema } from "./StringNullableWithAggregatesFilter.schema";
 import { DateTimeNullableWithAggregatesFilterObjectSchema } from "./DateTimeNullableWithAggregatesFilter.schema";
@@ -22,6 +23,12 @@ const Schema: z.ZodType<Prisma.UserScalarWhereWithAggregatesInput> = z
         z.lazy(() => UserScalarWhereWithAggregatesInputObjectSchema),
         z.lazy(() => UserScalarWhereWithAggregatesInputObjectSchema).array(),
       ])
+      .optional(),
+    createdAt: z
+      .union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])
+      .optional(),
+    updatedAt: z
+      .union([z.lazy(() => DateTimeWithAggregatesFilterObjectSchema), z.date()])
       .optional(),
     id: z
       .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
@@ -54,6 +61,12 @@ const Schema: z.ZodType<Prisma.UserScalarWhereWithAggregatesInput> = z
       ])
       .optional()
       .nullable(),
+    userPreferencesId: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    handle: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
   })
   .strict();
 
