@@ -19,3 +19,5 @@ const TermsOfService: CustomNextPage = () => {
 TermsOfService.title = 'Terms of service'
 
 export default TermsOfService;
+
+TermsOfService.customLayout = (page) => page

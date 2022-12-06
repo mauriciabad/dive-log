@@ -21,3 +21,5 @@ const PrivacyPolicy: CustomNextPage = () => {
 PrivacyPolicy.title = 'Privacy policy'
 
 export default PrivacyPolicy;
+
+PrivacyPolicy.customLayout = (page) => page

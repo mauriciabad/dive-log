@@ -18,3 +18,5 @@ const NotFoundPage: CustomNextPage = () => {
 NotFoundPage.title = 'Page not found'
 
 export default NotFoundPage;
+
+NotFoundPage.customLayout = (page) => page

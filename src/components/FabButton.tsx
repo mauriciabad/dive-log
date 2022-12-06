@@ -26,6 +26,7 @@ const FabButton: FC<Props> = ({ className, href, onClick }) => {
       :
       <button
         className={classWrapper}
+        onClick={onClick}
       >
         <TbPlus className={classIcon} />
       </button>

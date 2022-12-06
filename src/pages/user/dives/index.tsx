@@ -6,6 +6,7 @@ import WaveAnimation from '../../../components/WaveAnimation'
 import Link from "next/link";
 import { TbPlus } from 'react-icons/tb'
 import loginRequired from "../../../utils/loginRequired";
+import IconButton from "../../../components/IconButton";
 const Dives: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery();
 
@@ -22,10 +23,7 @@ const Dives: CustomNextPage = () => {
                 :
                 <div className="flex flex-col items-center justify-center h-96">
                   <p className="text-5xl mb-12 font-light text-gray-700">You have 0 dives</p>
-                  <Link href="/user/dives/new" className="bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 flex items-center">
-                    <TbPlus className="w-6 h-6 inline-block text-white mr-2" />
-                    <span>Create your first dive</span>
-                  </Link>
+                  <IconButton href="/user/dives/new" text="Create your first dive" Icon={TbPlus} />
                 </div>
             }
           </div>
