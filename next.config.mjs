@@ -23,7 +23,6 @@ const config = {
       {
         protocol: 'https',
         hostname: 'avatars.dicebear.com',
-        port: '',
         pathname: '/api/avataaars/*.svg',
       },
       {
