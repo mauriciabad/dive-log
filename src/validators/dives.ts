@@ -1,16 +1,16 @@
 import type { Prisma } from '@prisma/client'
 import { z } from 'zod';
-import { CylinderMaterialSchema } from '../../prisma/generated/schemas/enums/CylinderMaterial.schema';
-import { DiveBuddyInDiveRoleSchema } from '../../prisma/generated/schemas/enums/DiveBuddyInDiveRole.schema';
-import { DiveTypeSchema } from '../../prisma/generated/schemas/enums/DiveType.schema';
-import { SpecialtyDiveTypeSchema } from '../../prisma/generated/schemas/enums/SpecialtyDiveType.schema';
-import { WaterBodySchema } from '../../prisma/generated/schemas/enums/WaterBody.schema';
-import { WaterCurrentSchema } from '../../prisma/generated/schemas/enums/WaterCurrent.schema';
-import { WaterEntrySchema } from '../../prisma/generated/schemas/enums/WaterEntry.schema';
-import { WaterSurfaceSchema } from '../../prisma/generated/schemas/enums/WaterSurface.schema';
-import { WaterTypeSchema } from '../../prisma/generated/schemas/enums/WaterType.schema';
-import { WaterVisibilitySchema } from '../../prisma/generated/schemas/enums/WaterVisibility.schema';
-import { WeatherSchema } from '../../prisma/generated/schemas/enums/Weather.schema';
+import { CylinderMaterialSchema } from './enums/CylinderMaterial.schema';
+import { DiveBuddyInDiveRoleSchema } from './enums/DiveBuddyInDiveRole.schema';
+import { DiveTypeSchema } from './enums/DiveType.schema';
+import { SpecialtyDiveTypeSchema } from './enums/SpecialtyDiveType.schema';
+import { WaterBodySchema } from './enums/WaterBody.schema';
+import { WaterCurrentSchema } from './enums/WaterCurrent.schema';
+import { WaterEntrySchema } from './enums/WaterEntry.schema';
+import { WaterSurfaceSchema } from './enums/WaterSurface.schema';
+import { WaterTypeSchema } from './enums/WaterType.schema';
+import { WaterVisibilitySchema } from './enums/WaterVisibility.schema';
+import { WeatherSchema } from './enums/Weather.schema';
 import { DiveBuddyInDiveCreateNestedManyWithoutDiveInputObjectSchema } from '../../prisma/generated/schemas/objects/DiveBuddyInDiveCreateNestedManyWithoutDiveInput.schema';
 import { DiveCenterCreateNestedOneWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/DiveCenterCreateNestedOneWithoutDivesInput.schema';
 import { DiveSiteCreateNestedOneWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/DiveSiteCreateNestedOneWithoutDivesInput.schema';
