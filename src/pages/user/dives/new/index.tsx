@@ -37,7 +37,7 @@ const CreateDive: CustomNextPage = () => {
   const CustomInput: FC<{
     displayLabel: string,
     internalLabel: keyof Inputs,
-    registerOptions: Parameters<UseFormRegister<Input>>[1],
+    registerOptions: Parameters<UseFormRegister<Inputs>>[1],
     inputProps: InputHTMLAttributes<HTMLInputElement>,
     Icon?: IconType
   }> =
