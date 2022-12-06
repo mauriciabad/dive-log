@@ -11,27 +11,40 @@ interface Props {
   href?: string
   onClick?: () => void
   Icon?: IconType
+  disabled?: boolean
 }
 
 
-const IconButton: FC<Props> = ({ className, classNameIcon, href, onClick, text, Icon }) => {
-  const classWrapper = classNames(className, "bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 inline-flex items-center")
+const IconButton: FC<Props> = ({ className, classNameIcon, href, onClick, text, Icon, disabled }) => {
+  const classWrapper = classNames(className, "bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 inline-flex items-center disabled:bg-gray-500")
   const classIcon = classNames(classNameIcon, 'w-6 h-6 inline-block text-white mr-2 shrink-0')
 
+  const click = () => {
+    if (disabled) return
+    return onClick()
+  }
   return (<>
     {href ?
-      <Link
+      disabled ? <span
         className={classWrapper}
-        href={href}
-        onClick={onClick}
       >
         {Icon && <Icon className={classIcon} />}
         <span>{text}</span>
-      </Link>
+      </span>
+        :
+        <Link
+          className={classWrapper}
+          href={href}
+          onClick={click}
+        >
+          {Icon && <Icon className={classIcon} />}
+          <span>{text}</span>
+        </Link>
       :
       <button
         className={classWrapper}
-        onClick={onClick}
+        onClick={click}
+        disabled={disabled}
       >
         {Icon && <Icon className={classIcon} />}
         <span>{text}</span>
