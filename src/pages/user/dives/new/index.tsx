@@ -2,7 +2,6 @@ import { trpc } from "../../../../utils/trpc";
 import type { CustomNextPage } from "../../../_app";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { z } from "zod";
 import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { DiveValidator } from "../../../../validators/dives";
@@ -15,8 +14,9 @@ import {
 import IconButton from "../../../../components/IconButton";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
+import type { Prisma } from "@prisma/client";
 
-type Inputs = z.output<typeof DiveValidator>
+type Inputs = Prisma.DiveCreateInput
 
 const CreateDive: CustomNextPage = () => {
   const router = useRouter();

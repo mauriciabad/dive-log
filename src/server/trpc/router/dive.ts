@@ -1,5 +1,6 @@
 import { router, protectedProcedure } from "../trpc";
-import { DiveCreateOneSchema } from '../../../../prisma/generated/schemas/createOneDive.schema';
+import { DiveValidator } from '../../../validators/dives'
+import { z } from 'zod';
 
 export const diveRouter = router({
   getUserDives: protectedProcedure.query(({ ctx }) => {
@@ -10,7 +11,7 @@ export const diveRouter = router({
     });
   }),
   createDive: protectedProcedure
-    .input(DiveCreateOneSchema)
+    .input(z.object({ data: DiveValidator }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.dive.create({
         data: {
