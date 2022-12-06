@@ -34,12 +34,11 @@ const CreateDive: CustomNextPage = () => {
     router.push("/user/dives");
   }
 
-  type TypeA = UseFormRegister<Inputs>
 
   const CustomInput: FC<{
     displayLabel: string,
     internalLabel: keyof Inputs,
-    registerOptions: Parameters<TypeA>[1],
+    registerOptions: RegisterOptions<Inputs>,
     inputProps: InputHTMLAttributes<HTMLInputElement>,
     Icon?: IconType
   }> =
