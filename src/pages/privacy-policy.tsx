@@ -1,20 +1,26 @@
-import Link from "next/link";
+import { TbChevronLeft } from "react-icons/tb";
+import IconButton from "../components/IconButton";
 import type { CustomNextPage } from "./_app";
 
 const PrivacyPolicy: CustomNextPage = () => {
 
   return <>
-    <h1 className="text-3xl font-bold">Privacy policy</h1>
-    <p>This app allows anyone to manage a regestry of their dives.</p>
-    <p>The information we store is only visible to the owner user.</p>
-    <p>We only use your information for processing and displaying it to you in the application.</p>
-    <p>To delete all your data just delete your account</p>
-    <p>For further information contact <a href="mailto:hello@mauriciabad.com">hello@mauriciabad.com</a></p>
+    <main className="px-6 py-12 sm:py-24 sm:px-12 bg-white min-h-screen">
+      <div className="max-w-3xl mx-auto">
 
-    <Link
-      className="inline-block rounded-full bg-black/20 px-10 py-3 font-semibold no-underline transition hover:bg-black/30"
-      href="/"
-    >Go to home page</Link>
+        <h1 className="text-4xl font-bold mb-12">Privacy policy</h1>
+
+        <ul className="list-disc pl-4 list-outside space-y-2">
+          <li className="text-base">This app allows anyone to manage a regestry of their dives.</li>
+          <li className="text-base">The information we store is only visible to the owner user.</li>
+          <li className="text-base">We only use your information for processing and displaying it to you in the application.</li>
+          <li className="text-base">To delete all your data just delete your account</li>
+          <li className="text-base">For further information contact <a href="mailto:hello@mauriciabad.com">hello@mauriciabad.com</a></li>
+        </ul>
+
+        <IconButton className="mt-12" href="/" text="Go to home page" Icon={TbChevronLeft} />
+      </div>
+    </main>
   </>
 }
 

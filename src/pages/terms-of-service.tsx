@@ -1,18 +1,24 @@
-import Link from "next/link";
+import { TbChevronLeft } from "react-icons/tb";
+import IconButton from "../components/IconButton";
 import type { CustomNextPage } from "./_app";
 
 const TermsOfService: CustomNextPage = () => {
 
   return <>
-    <h1 className="text-3xl font-bold">Terms of service</h1>
-    <p>This app allows anyone to manage a regestry of their dives.</p>
-    <p>The information we store is only visible to the owner user.</p>
-    <p>For further information contact <a href="mailto:hello@mauriciabad.com">hello@mauriciabad.com</a></p>
+    <main className="px-6 py-12 sm:py-24 sm:px-12 bg-white min-h-screen">
+      <div className="max-w-3xl mx-auto">
 
-    <Link
-      className="inline-block rounded-full bg-black/20 px-10 py-3 font-semibold no-underline transition hover:bg-black/30"
-      href="/"
-    >Go to home page</Link>
+        <h1 className="text-4xl font-bold mb-12">Terms of service</h1>
+
+        <ul className="list-disc pl-4 list-outside space-y-2">
+          <li>This app allows anyone to manage a regestry of their dives.</li>
+          <li>The information we store is only visible to the owner user.</li>
+          <li>For further information contact <a href="mailto:hello@mauriciabad.com">hello@mauriciabad.com</a></li>
+        </ul>
+
+        <IconButton className="mt-12" href="/" text="Go to home page" Icon={TbChevronLeft} />
+      </div>
+    </main>
   </>
 }
 
