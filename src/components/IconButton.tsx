@@ -21,7 +21,7 @@ const IconButton: FC<Props> = ({ className, classNameIcon, href, onClick, text, 
 
   const click = () => {
     if (disabled) return
-    return onClick()
+    return onClick?.()
   }
   return (<>
     {href ?
