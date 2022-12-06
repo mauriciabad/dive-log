@@ -24,11 +24,13 @@ Kind of like a backlog.
 - [ ] Upload to play store
 - [ ] Validate dives
 - [ ] Export dives as json
+- [ ] Mark public fields in profile
 
 ## Medium priority
 
 - [ ] Dark theme
 - [ ] Support generating QR to send dive to SSI app
+- [ ] Alternative create dive UI, instead of a form it's like an insta story
 
 ## Low priority
 
