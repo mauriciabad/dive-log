@@ -33,18 +33,18 @@ const WaveAnimation: FC<Props> = ({ className }) => {
     }
     )
 
-    group.current.animate(
-      [
-        { transform: 'translatey(-5%)' },
-        { transform: 'translateY( 5%)' }
-      ],
-      {
-        duration: 450,
-        iterations: Infinity,
-        direction: 'alternate',
-        easing: 'cubic-bezier(.45,.05,.55,.95)'
-      }
-    )
+    // group.current.animate(
+    //   [
+    //     { transform: 'translatey(-5%)' },
+    //     { transform: 'translateY( 5%)' }
+    //   ],
+    //   {
+    //     duration: 450,
+    //     iterations: Infinity,
+    //     direction: 'alternate',
+    //     easing: 'cubic-bezier(.45,.05,.55,.95)'
+    //   }
+    // )
 
   }, []);
 
