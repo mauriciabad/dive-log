@@ -7,7 +7,11 @@ import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { DiveValidator } from "../../../../validators/dives";
 import type { FC, InputHTMLAttributes } from "react"
-import { TbTemperature, TbArrowBarToDown, TbCalendarTime, TbDeviceFloppy } from 'react-icons/tb'
+import {
+  TbTemperature, TbArrowBarToDown, TbCalendarTime, TbDeviceFloppy, TbHash,
+  TbLicense,
+  TbHourglass
+} from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
@@ -21,6 +25,8 @@ const CreateDive: CustomNextPage = () => {
     resolver: zodResolver(DiveValidator)
   });
   const onSubmit: SubmitHandler<Inputs> = async data => {
+    data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
+
     await createDiveMutation.mutateAsync({ data })
     router.push("/user/dives");
   }
@@ -44,18 +50,19 @@ const CreateDive: CustomNextPage = () => {
           {Icon && <Icon className="h-4 w-4 mr-0.5" />}
           <span className="" >{displayLabel}{
             registerOptions?.required && <span className="text-red-400 ml-1">*</span>
-          }</span>
+          }{errors[internalLabel] &&
+            <span className="text-red-500 ml-2">Required</span>
+            }</span>
+
         </div>
         <input
           {...inputProps}
           {...register(internalLabel, registerOptions)}
           className={classNames({
-            'border-red-500 border-2': errors[internalLabel],
-          }, "block bg-white rounded shadow py-1 px-2 w-full min-w-0")}
+            'border-red-500 border-2 m-[-2px]': errors[internalLabel],
+          }, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1")}
         />
-        {errors[internalLabel] &&
-          <span className="text-sm text-red-500">This field is required</span>
-        }
+
       </label>
     </>)
 
@@ -63,6 +70,21 @@ const CreateDive: CustomNextPage = () => {
     <form onSubmit={handleSubmit(onSubmit)} >
       <div className="grid gap-4 items-end justify-center sm:grid-cols-3 ">
 
+        <CustomInput
+          displayLabel="Dive Number"
+          internalLabel="diveNumber"
+          registerOptions={{
+            valueAsNumber: true,
+            min: 1,
+            required: true,
+          }}
+          inputProps={{
+            type: 'number',
+            min: 1,
+            required: true,
+          }}
+          Icon={TbHash}
+        />
 
         <CustomInput
           displayLabel="Date"
@@ -80,15 +102,49 @@ const CreateDive: CustomNextPage = () => {
         />
 
         <CustomInput
+          displayLabel="Name"
+          internalLabel="name"
+          registerOptions={{
+            required: true,
+          }}
+          inputProps={{
+            type: 'text',
+            maxLength: 192,
+            required: true,
+          }}
+          Icon={TbLicense}
+        />
+
+        <CustomInput
+          displayLabel="Duration (in minutes)"
+          internalLabel="duration"
+          registerOptions={{
+            valueAsNumber: true,
+            min: 0,
+            max: 24 * 60,
+            required: true,
+          }}
+          inputProps={{
+            type: 'number',
+            min: 0,
+            max: 24 * 60,
+            required: true,
+          }}
+          Icon={TbHourglass}
+        />
+
+        <CustomInput
           displayLabel="Max depth"
           internalLabel="maximumDepth"
           registerOptions={{
             valueAsNumber: true,
             min: 0,
+            required: true,
           }}
           inputProps={{
             type: 'number',
             min: 0,
+            required: true,
           }}
           Icon={TbArrowBarToDown}
         />
