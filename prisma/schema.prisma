@@ -460,15 +460,15 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  preferences        UserPreferences @relation(fields: [userPreferencesId], references: [id])
-  userPreferencesId  String
-  handle             String          @unique @default(cuid())
-  dives              Dive[]          @relation(name: "diver")
-  asDiveBuddy        DiveBuddy[]     @relation(name: "diveBuddyUser")
+  preferences        UserPreferences? @relation(fields: [userPreferencesId], references: [id])
+  userPreferencesId  String?          @default(cuid())
+  handle             String           @unique @default(cuid())
+  dives              Dive[]           @relation(name: "diver")
+  asDiveBuddy        DiveBuddy[]      @relation(name: "diveBuddyUser")
   equipment          EquipmentUnit[]
   createdDiveCenters DiveCenter[]
   diveBuddy          DiveBuddy[]
-  links              Link[]          @relation(name: "linksInUserProfile")
+  links              Link[]           @relation(name: "linksInUserProfile")
 
   createdLinks Link[] @relation(name: "creator")
 
