@@ -14,6 +14,9 @@ export const diveRouter = router({
     .input(z.object({ data: DiveValidator }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.dive.create({
+        // TODO: fix
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         data: {
           userId: ctx.session.user.id,
           ...input.data
