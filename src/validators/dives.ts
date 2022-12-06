@@ -11,20 +11,14 @@ import { WaterSurfaceSchema } from './enums/WaterSurface.schema';
 import { WaterTypeSchema } from './enums/WaterType.schema';
 import { WaterVisibilitySchema } from './enums/WaterVisibility.schema';
 import { WeatherSchema } from './enums/Weather.schema';
-import { DiveBuddyInDiveCreateNestedManyWithoutDiveInputObjectSchema } from '../../prisma/generated/schemas/objects/DiveBuddyInDiveCreateNestedManyWithoutDiveInput.schema';
-import { DiveCenterCreateNestedOneWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/DiveCenterCreateNestedOneWithoutDivesInput.schema';
-import { DiveSiteCreateNestedOneWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/DiveSiteCreateNestedOneWithoutDivesInput.schema';
-import { EquipmentUnitCreateNestedManyWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/EquipmentUnitCreateNestedManyWithoutDivesInput.schema';
-import { LinkCreateNestedManyWithoutDiveInputObjectSchema } from '../../prisma/generated/schemas/objects/LinkCreateNestedManyWithoutDiveInput.schema';
-import { UserCreateNestedOneWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/UserCreateNestedOneWithoutDivesInput.schema';
-import { WikipediaPageCreateNestedManyWithoutDivesInputObjectSchema } from '../../prisma/generated/schemas/objects/WikipediaPageCreateNestedManyWithoutDivesInput.schema';
 
-export const DiveValidator: z.ZodType<Prisma.DiveCreateInput> = z
+// export const DiveValidator: z.ZodType<Prisma.DiveCreateInput> = z
+export const DiveValidator = z
   .object({
     id: z.string().optional(),
     createdAt: z.date().optional(),
     updatedAt: z.date().optional(),
-    user: z.lazy(() => UserCreateNestedOneWithoutDivesInputObjectSchema),
+    user: z.any(), // Wrong
     name: z.string(),
     diveNumber: z.number(),
     startDateTime: z.date(),
@@ -37,9 +31,7 @@ export const DiveValidator: z.ZodType<Prisma.DiveCreateInput> = z
       .lazy(() => SpecialtyDiveTypeSchema)
       .optional()
       .nullable(),
-    diveSite: z.lazy(
-      () => DiveSiteCreateNestedOneWithoutDivesInputObjectSchema
-    ),
+    diveSite: z.any(), // Wrong
     maximumDepth: z.number(),
     averageDepth: z.number().optional().nullable(),
     waterMinimumTemperature: z.number().optional().nullable(),
@@ -75,9 +67,7 @@ export const DiveValidator: z.ZodType<Prisma.DiveCreateInput> = z
       .nullable(),
     airTemperature: z.number().optional().nullable(),
     weight: z.number().optional().nullable(),
-    equipment: z
-      .lazy(() => EquipmentUnitCreateNestedManyWithoutDivesInputObjectSchema)
-      .optional(),
+    equipment: z.any(), // Wrong
     startCylinderPresure: z.number().optional().nullable(),
     endCylinderPresure: z.number().optional().nullable(),
     cylinderMaterial: z
@@ -85,23 +75,15 @@ export const DiveValidator: z.ZodType<Prisma.DiveCreateInput> = z
       .optional()
       .nullable(),
     cylinderVolume: z.number().optional().nullable(),
-    diveCenter: z
-      .lazy(() => DiveCenterCreateNestedOneWithoutDivesInputObjectSchema)
-      .optional(),
-    diveBuddies: z
-      .lazy(() => DiveBuddyInDiveCreateNestedManyWithoutDiveInputObjectSchema)
-      .optional(),
+    diveCenter: z.any(), // Wrong
+    diveBuddies: z.any(), // Wrong
     roleasDiveBuddy: z
       .lazy(() => DiveBuddyInDiveRoleSchema)
       .optional()
       .nullable(),
-    organisms: z
-      .lazy(() => WikipediaPageCreateNestedManyWithoutDivesInputObjectSchema)
-      .optional(),
+    organisms: z.any(), // Wrong
     rating: z.number().optional().nullable(),
-    links: z
-      .lazy(() => LinkCreateNestedManyWithoutDiveInputObjectSchema)
-      .optional(),
+    links: z.any(), // Wrong
     experienceNotes: z.string().optional().nullable(),
     technicalNotes: z.string().optional().nullable(),
   })
