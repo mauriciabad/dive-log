@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { DateTimeFilterObjectSchema } from "./DateTimeFilter.schema";
 import { StringFilterObjectSchema } from "./StringFilter.schema";
 import { StringNullableFilterObjectSchema } from "./StringNullableFilter.schema";
 import { IntNullableFilterObjectSchema } from "./IntNullableFilter.schema";
@@ -24,6 +25,12 @@ const Schema: z.ZodType<Prisma.AccountWhereInput> = z
         z.lazy(() => AccountWhereInputObjectSchema),
         z.lazy(() => AccountWhereInputObjectSchema).array(),
       ])
+      .optional(),
+    createdAt: z
+      .union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
+      .optional(),
+    updatedAt: z
+      .union([z.lazy(() => DateTimeFilterObjectSchema), z.date()])
       .optional(),
     id: z
       .union([z.lazy(() => StringFilterObjectSchema), z.string()])

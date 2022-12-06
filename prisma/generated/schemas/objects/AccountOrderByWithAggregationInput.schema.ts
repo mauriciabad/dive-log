@@ -10,6 +10,8 @@ import type { Prisma } from "@prisma/client";
 
 const Schema: z.ZodType<Prisma.AccountOrderByWithAggregationInput> = z
   .object({
+    createdAt: z.lazy(() => SortOrderSchema).optional(),
+    updatedAt: z.lazy(() => SortOrderSchema).optional(),
     id: z.lazy(() => SortOrderSchema).optional(),
     userId: z.lazy(() => SortOrderSchema).optional(),
     type: z.lazy(() => SortOrderSchema).optional(),

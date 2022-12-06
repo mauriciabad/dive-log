@@ -4,6 +4,8 @@ import type { Prisma } from "@prisma/client";
 
 const Schema: z.ZodType<Prisma.AccountCreateManyUserInput> = z
   .object({
+    createdAt: z.date().optional(),
+    updatedAt: z.date().optional(),
     id: z.string().optional(),
     type: z.string(),
     provider: z.string(),
