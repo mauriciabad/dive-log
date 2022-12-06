@@ -40,7 +40,8 @@ const CreateDive: CustomNextPage = () => {
     internalLabel: keyof Inputs,
     // TODO: type
     // registerOptions: RegisterOptions<Inputs>,
-    registerOptions: RegisterOptions<Record<string, unknown>>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    registerOptions: any,
     inputProps: InputHTMLAttributes<HTMLInputElement>,
     Icon?: IconType
   }> =
