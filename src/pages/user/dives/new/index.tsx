@@ -27,6 +27,9 @@ const CreateDive: CustomNextPage = () => {
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
 
+    // TODO: remove this
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     await createDiveMutation.mutateAsync({ data })
     router.push("/user/dives");
   }
