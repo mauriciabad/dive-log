@@ -2,7 +2,7 @@ import type { Dive } from "@prisma/client"
 import classNames from "classnames"
 import React from "react"
 import type { FC } from "react"
-import { TbMapPin, TbTemperature, TbArrowBarToDown, TbCalendarTime } from 'react-icons/tb'
+import { TbTemperature, TbArrowBarToDown, TbCalendarTime, TbHourglass } from 'react-icons/tb'
 import ReactTimeAgo from 'react-time-ago'
 import type { IconType } from "react-icons"
 
@@ -17,23 +17,24 @@ const DiveCard: FC<Props> = ({ className, dive }) => {
       className={classNames(className, 'items-center max-w-[30rem] mx-auto w-full bg-white shadow rounded-md p-6')}
     >
       <Label className="-mt-3" text="Name" />
-      <h3 className="text-lg mt-0">Nudibranch kingdom</h3>
+      <h3 className="text-lg mt-0">{dive.name}</h3>
 
       <div className="border-t-2 border-gray-100 my-2" />
       <div className="flex mt-2">
 
         <div className="grow space-y-2">
-          <div className="flex items-start"><Icon Icon={TbMapPin} /><span className="text-base">{dive.locationName}</span></div>
-          <div className="flex items-start"><Icon Icon={TbCalendarTime} /><span className="text-base"><ReactTimeAgo date={dive.date} locale="en-US" /></span></div>
+          {/* <div className="flex items-start"><Icon Icon={TbMapPin} /><span className="text-base">{dive.diveSiteId}</span></div> */}
+          <div className="flex items-start"><Icon Icon={TbHourglass} /><span className="text-base">{dive.duration} minutes</span></div>
+          <div className="flex items-start"><Icon Icon={TbCalendarTime} /><span className="text-base"><ReactTimeAgo date={dive.startDateTime} locale="en-US" /></span></div>
         </div>
 
         <div className="flex flex-col justify-center items-center">
           <Label text="Dive nº" />
-          <span className="block text-4xl font-bold">{21}</span>
+          <span className="block text-4xl font-bold">{dive.diveNumber}</span>
 
           <div className="flex gap-2">
-            <div className="flex items-start"><Icon Icon={TbArrowBarToDown} /><span className="text-base">-{dive.maxDepth}</span> m</div>
-            <div className="flex items-start"><Icon Icon={TbTemperature} /><span className="text-base">{dive.waterTemp}</span> ºC</div>
+            <div className="flex items-start"><Icon Icon={TbArrowBarToDown} /><span className="text-base">-{dive.maximumDepth.toString()}</span> m</div>
+            <div className="flex items-start"><Icon Icon={TbTemperature} /><span className="text-base">{dive.waterAverageTemperature?.toString()}</span> ºC</div>
           </div>
 
         </div>
