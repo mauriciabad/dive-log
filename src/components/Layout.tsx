@@ -65,7 +65,7 @@ export default function Layout({ children, title }: Props) {
                   </div>
                   <div className="ml-auto">
                     <div className="ml-4 flex items-center sm:ml-6">
-                      <div className="relative ml-3">
+                      <div className="relative ml-3 shrink-0">
                         <Link href="/user/profile" className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2 ">
                           <span className="sr-only">Open user menu</span>
                           <Image className="h-8 w-8 rounded-full" src={userImage} alt="" height={32} width={32} />

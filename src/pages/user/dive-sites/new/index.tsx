@@ -8,11 +8,10 @@ import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
 import type { FC, InputHTMLAttributes } from "react"
 import {
-  TbTemperature, TbArrowBarToDown, TbCalendarTime, TbDeviceFloppy, TbHash,
-  TbLicense,
-  TbHourglass
+  TbDeviceFloppy, TbInfoCircle, TbLicense, TbMapPin, TbPhoto
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
+import ErrorBox from "../../../../components/ErrorBox";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
 import type { z } from "zod";
@@ -24,13 +23,6 @@ const CreateDivePage: CustomNextPage = () => {
   const createDiveSiteMutation = trpc.diveSite.createDiveSite.useMutation()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSiteSchema),
-    defaultValues: {
-      name: "Test " + Math.floor(Math.random() * 1000),
-      description: "Awesome dive site",
-      image: "https://picsum.photos/id/237/200/300",
-      latitude: Math.random() * 100,
-      longitude: Math.random() * 100,
-    }
   });
   const onSubmit: SubmitHandler<Inputs> = async data => {
     await createDiveSiteMutation.mutateAsync({ data })
@@ -52,7 +44,7 @@ const CreateDivePage: CustomNextPage = () => {
       inputProps,
       Icon
     }) => (<>
-      <label className="block max-w-xs">
+      <label className="block w-full max-w-md m-x-auto">
         <div className="flex items-center text-gray-800 text-sm">
           {Icon && <Icon className="h-4 w-4 mr-0.5" />}
           <span className="" >{displayLabel}{
@@ -75,36 +67,7 @@ const CreateDivePage: CustomNextPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
-      <div className="grid gap-4 items-end justify-center sm:grid-cols-3 ">
-
-        <CustomInput
-          displayLabel="Dive Number"
-          internalLabel="diveNumber"
-          registerOptions={{
-            valueAsNumber: true,
-            min: 1,
-            required: true,
-          }}
-          inputProps={{
-            type: 'number',
-            min: 1,
-            required: true,
-          }}
-          Icon={TbHash}
-        />
-
-        <CustomInput
-          displayLabel="Date"
-          internalLabel="startDateTime"
-          registerOptions={{
-            required: true,
-          }}
-          inputProps={{
-            type: 'datetime-local',
-            required: true,
-          }}
-          Icon={TbCalendarTime}
-        />
+      <div className="grid gap-4 items-end sm:grid-cols-3 ">
 
         <CustomInput
           displayLabel="Name"
@@ -121,100 +84,85 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
         <CustomInput
-          displayLabel="Duration (in minutes)"
-          internalLabel="duration"
+          displayLabel="Description"
+          internalLabel="description"
           registerOptions={{
-            valueAsNumber: true,
-            min: 0,
-            max: 24 * 60,
             required: true,
           }}
           inputProps={{
-            type: 'number',
-            min: 0,
-            max: 24 * 60,
+            type: 'text',
+            maxLength: 192,
             required: true,
           }}
-          Icon={TbHourglass}
+          Icon={TbInfoCircle}
         />
 
         <CustomInput
-          displayLabel="Max depth"
-          internalLabel="maximumDepth"
+          displayLabel="Image"
+          internalLabel="image"
           registerOptions={{
-            valueAsNumber: true,
-            min: 0,
             required: true,
           }}
           inputProps={{
-            type: 'number',
-            min: 0,
+            type: 'text',
+            maxLength: 192,
             required: true,
           }}
-          Icon={TbArrowBarToDown}
+          Icon={TbPhoto}
         />
 
         <CustomInput
-          displayLabel="Avg. depth"
-          internalLabel="averageDepth"
+          displayLabel="Latitude"
+          internalLabel="latitude"
           registerOptions={{
+            required: true,
             valueAsNumber: true,
-            min: 0,
           }}
           inputProps={{
             type: 'number',
-            min: 0,
+            min: -90,
+            max: 90,
+            step: 0.000001,
+            required: true,
           }}
-          Icon={TbArrowBarToDown}
+          Icon={TbMapPin}
         />
-
-        {/* <CustomInput
-          displayLabel="Dive site"
-          internalLabel="diveSite"
-          registerOptions={{
-            valueAsNumber: true,
-            min: 0,
-            required: true,
-          }}
-          inputProps={{
-            type: 'number',
-            min: 0,
-            required: true,
-          }}
-          Icon={TbArrowBarToDown}
-        /> */}
 
         <CustomInput
-          displayLabel="Average Water temperature"
-          internalLabel="waterAverageTemperature"
+          displayLabel="Longitude"
+          internalLabel="longitude"
           registerOptions={{
+            required: true,
             valueAsNumber: true,
-            min: 0,
           }}
           inputProps={{
             type: 'number',
-            min: 0,
+            min: -90,
+            max: 90,
+            step: 0.000001,
+            required: true,
           }}
-          Icon={TbTemperature}
+          Icon={TbMapPin}
         />
+
+
+        <div className="flex justify-center">
+          <IconButton
+            text="Save"
+            Icon={TbDeviceFloppy}
+            onClick={handleSubmit(onSubmit)}
+            loading={createDiveSiteMutation.isLoading}
+            className="flex mt-8 px-8"
+          />
+        </div>
       </div>
 
-      <div className="flex justify-center">
-        <IconButton
-          text="Save"
-          Icon={TbDeviceFloppy}
-          onClick={handleSubmit(onSubmit)}
-          disabled={createDiveMutation.isLoading}
-          className="flex mt-8 px-8"
-        />
-      </div>
-
-      {createDiveMutation.error && <p>Something went wrong! {createDiveMutation.error.message}</p>}
+      {createDiveSiteMutation.error && <ErrorBox message={createDiveSiteMutation.error.message} className="mt-4" />}
     </form>
   );
 };
 
-CreateDivePage.title = 'New dive'
+CreateDivePage.title = 'New dive site'
 
 export default CreateDivePage;
 

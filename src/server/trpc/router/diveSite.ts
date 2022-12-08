@@ -34,7 +34,7 @@ export const diveSiteRouter = router({
   createDiveSite: protectedProcedure
     .input(z.object({ data: CreateDiveSiteSchema }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.dive.create({
+      return ctx.prisma.diveSite.create({
         data: {
           createdByUser: {
             connect: {

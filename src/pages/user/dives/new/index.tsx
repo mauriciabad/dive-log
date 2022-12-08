@@ -60,7 +60,7 @@ const CreateDivePage: CustomNextPage = () => {
       inputProps,
       Icon
     }) => (<>
-      <label className="block max-w-xs">
+      <label className="block w-full max-w-md m-x-auto">
         <div className="flex items-center text-gray-800 text-sm">
           {Icon && <Icon className="h-4 w-4 mr-0.5" />}
           <span className="" >{displayLabel}{
@@ -83,7 +83,7 @@ const CreateDivePage: CustomNextPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
-      <div className="grid gap-4 items-end justify-center sm:grid-cols-3 ">
+      <div className="grid gap-4 items-end sm:grid-cols-3 ">
 
         <CustomInput
           displayLabel="Dive Number"
