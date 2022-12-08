@@ -16,9 +16,9 @@ import { dateSchema } from './helper'
 export const CreateDiveSchema = z
   .object({
     name: z.string(),
-    diveNumber: z.number(),
+    diveNumber: z.number().positive().,
     startDateTime: dateSchema,
-    duration: z.number(),
+    duration: z.number().positive(),
     type: z
       .lazy(() => DiveTypeSchema)
       .optional(),
