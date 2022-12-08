@@ -7,9 +7,14 @@ import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSchema } from "../../../../validators/Dive";
 import type { FC, InputHTMLAttributes } from "react"
 import {
-  TbTemperature, TbArrowBarToDown, TbCalendarTime, TbDeviceFloppy, TbHash,
+  TbTemperature,
+  TbArrowBarToDown,
+  TbCalendarTime,
+  TbDeviceFloppy,
+  TbHash,
   TbLicense,
-  TbHourglass
+  TbHourglass,
+  TbFold
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import classNames from "classnames"
@@ -167,7 +172,7 @@ const CreateDivePage: CustomNextPage = () => {
             type: 'number',
             min: 0,
           }}
-          Icon={TbArrowBarToDown}
+          Icon={TbFold}
         />
 
         {/* <CustomInput
