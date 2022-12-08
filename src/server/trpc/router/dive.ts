@@ -7,6 +7,9 @@ export const diveRouter = router({
     return ctx.prisma.dive.findMany({
       where: {
         userId: ctx.session.user.id
+      },
+      include: {
+        diveSite: true,
       }
     });
   }),

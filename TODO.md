@@ -36,6 +36,7 @@ Kind of like a backlog.
 
 - [ ] Add friends
 - [ ] Send notifications when dives are validated or validations requested (push and maybe email)
+- [ ] Gamification, add badges and achievements
 - [ ] Add i18n in spanish
 - [ ] Friends feed, see when they do a dive
 - [ ] Integracio amb google lens per identificar animals
