@@ -1,4 +1,4 @@
-import type { Dive } from "@prisma/client"
+import type { Dive, DiveSite } from "@prisma/client"
 import classNames from "classnames"
 import React from "react"
 import type { FC } from "react"
@@ -8,7 +8,9 @@ import type { IconType } from "react-icons"
 
 interface Props {
   className?: string
-  dive: Dive
+  dive: Dive & {
+    diveSite: DiveSite;
+  }
 }
 
 const DiveCard: FC<Props> = ({ className, dive }) => {
