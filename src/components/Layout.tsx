@@ -15,6 +15,7 @@ interface Props {
 
 const navigation = [
   { name: 'Dives', href: '/user/dives' },
+  { name: 'Dive sites', href: '/user/dive-sites' },
   { name: 'Profile', href: '/user/profile' },
 ]
 

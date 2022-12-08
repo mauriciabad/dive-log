@@ -171,9 +171,13 @@ model DiveSite {
   longitude   Float
   links       Link[]
 
+  createdByUser   User   @relation(fields: [createdByUserId], references: [id])
+  createdByUserId String
+
   dives Dive[]
 
   @@unique([latitude, longitude])
+  @@index([createdByUserId])
 }
 
 model DiveCenter {
@@ -466,11 +470,11 @@ model User {
   dives              Dive[]           @relation(name: "diver")
   asDiveBuddy        DiveBuddy[]      @relation(name: "diveBuddyUser")
   equipment          EquipmentUnit[]
-  createdDiveCenters DiveCenter[]
   diveBuddy          DiveBuddy[]
   links              Link[]           @relation(name: "linksInUserProfile")
-
-  createdLinks Link[] @relation(name: "creator")
+  createdDiveCenters DiveCenter[]
+  createdDiveSites   DiveSite[]
+  createdLinks       Link[]           @relation(name: "creator")
 
   @@index([handle])
   @@index([userPreferencesId])
