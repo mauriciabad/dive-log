@@ -20,6 +20,7 @@ import IconButton from "../../../../components/IconButton";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
 import type { z } from "zod";
+import ErrorBox from "../../../../components/ErrorBox";
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
@@ -216,7 +217,7 @@ const CreateDivePage: CustomNextPage = () => {
         />
       </div>
 
-      {createDiveMutation.error && <p>Something went wrong! {createDiveMutation.error.message}</p>}
+      {createDiveMutation.error && <ErrorBox message={createDiveMutation.error.message} className="mt-4" />}
     </form>
   );
 };
