@@ -1,6 +1,6 @@
+import { z } from "zod";
+import { CreateDiveSchema } from "../../../validators/Dive";
 import { router, protectedProcedure } from "../trpc";
-import { DiveValidator } from '../../../validators/dives'
-import { z } from 'zod';
 
 export const diveRouter = router({
   getUserDives: protectedProcedure.query(({ ctx }) => {
@@ -11,14 +11,22 @@ export const diveRouter = router({
     });
   }),
   createDive: protectedProcedure
-    .input(z.object({ data: DiveValidator }))
+    .input(z.object({ data: CreateDiveSchema }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.dive.create({
-        // TODO: fix
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         data: {
-          userId: ctx.session.user.id,
+          user: {
+            connect: {
+              id: ctx.session.user.id,
+            }
+          },
+
+          diveSite: {
+            connect: {
+              id: 'clbeyjoc00000iobvwk98pe2b',
+            }
+          },
+
           ...input.data
         }
       })

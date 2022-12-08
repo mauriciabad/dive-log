@@ -28,13 +28,13 @@ model Dive {
   specialtyDiveType SpecialtyDiveType?
   diveSite          DiveSite           @relation(fields: [diveSiteId], references: [id])
   diveSiteId        String
-  maximumDepth      Decimal            @db.Decimal(3, 2) // In meters
-  averageDepth      Decimal?           @db.Decimal(3, 2) // In meters
+  maximumDepth      Float // In meters
+  averageDepth      Float? // In meters
 
   // ENVIRONMENT
-  waterMinimumTemperature Decimal?         @db.Decimal(2, 2) // In Celcius degrees
-  waterAverageTemperature Decimal?         @db.Decimal(2, 2) // In Celcius degrees
-  waterMaximumTemperature Decimal?         @db.Decimal(2, 2) // In Celcius degrees
+  waterMinimumTemperature Float? // In Celcius degrees
+  waterAverageTemperature Float? // In Celcius degrees
+  waterMaximumTemperature Float? // In Celcius degrees
   waterBody               WaterBody?
   waterType               WaterType?
   waterEntry              WaterEntry?
@@ -45,12 +45,12 @@ model Dive {
   airTemperature          Int? // In Celcius degrees
 
   // EQUIPMENT
-  weight               Decimal?          @db.Decimal(2, 2) // In kilograms
+  weight               Float? // In kilograms
   equipment            EquipmentUnit[]
   startCylinderPresure Int?
   endCylinderPresure   Int?
   cylinderMaterial     CylinderMaterial?
-  cylinderVolume       Decimal?          @db.Decimal(3, 2) // In liters
+  cylinderVolume       Float? // In liters
 
   // PEOPLE
   diveCenter      DiveCenter?          @relation(fields: [diveCenterId], references: [id])
@@ -62,10 +62,10 @@ model Dive {
   organisms WikipediaPage[]
 
   // PERSONAL
-  rating          Decimal? @db.Decimal(2, 1)
+  rating          Int?
   links           Link[]
-  experienceNotes String?  @db.LongText
-  technicalNotes  String?  @db.LongText
+  experienceNotes String? @db.LongText
+  technicalNotes  String? @db.LongText
 
   @@unique([diveNumber, userId])
   @@index([diveCenterId])
@@ -167,8 +167,8 @@ model DiveSite {
   name        String
   description String? @db.MediumText
   image       String?
-  latitude    Decimal @db.Decimal(6, 5)
-  longitude   Decimal @db.Decimal(6, 5)
+  latitude    Float
+  longitude   Float
   links       Link[]
 
   dives Dive[]
@@ -184,8 +184,8 @@ model DiveCenter {
   name        String
   description String? @db.MediumText
   image       String?
-  latitude    Decimal @db.Decimal(6, 5)
-  longitude   Decimal @db.Decimal(6, 5)
+  latitude    Float
+  longitude   Float
   links       Link[]
 
   createdByUser   User   @relation(fields: [createdByUserId], references: [id])
@@ -483,7 +483,3 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
-
-// generator zod {
-//   provider = "prisma-zod-generator"
-// }

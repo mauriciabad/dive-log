@@ -4,7 +4,7 @@ import { type SubmitHandler, useForm, type RegisterOptions } from "react-hook-fo
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
-import { DiveValidator } from "../../../../validators/dives";
+import { CreateDiveSchema } from "../../../../validators/Dive";
 import type { FC, InputHTMLAttributes } from "react"
 import {
   TbTemperature, TbArrowBarToDown, TbCalendarTime, TbDeviceFloppy, TbHash,
@@ -14,24 +14,27 @@ import {
 import IconButton from "../../../../components/IconButton";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
-// import type { Prisma } from "@prisma/client";
+import type { z } from "zod";
 
-// type Inputs = Prisma.DiveCreateInput
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Inputs = Record<string, any>
+type Inputs = z.input<typeof CreateDiveSchema>
 
 const CreateDive: CustomNextPage = () => {
   const router = useRouter();
   const createDiveMutation = trpc.dive.createDive.useMutation()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
-    resolver: zodResolver(DiveValidator)
+    resolver: zodResolver(CreateDiveSchema),
+    defaultValues: {
+      startDateTime: new Date().toISOString().slice(0, 16),
+      diveNumber: 1,
+      waterAverageTemperature: 30,
+      maximumDepth: 18,
+      name: 'Test dive',
+      duration: 71,
+    }
   });
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
 
-    // TODO: remove this
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     await createDiveMutation.mutateAsync({ data })
     router.push("/user/dives");
   }
@@ -57,7 +60,7 @@ const CreateDive: CustomNextPage = () => {
           <span className="" >{displayLabel}{
             registerOptions?.required && <span className="text-red-400 ml-1">*</span>
           }{errors[internalLabel] &&
-            <span className="text-red-500 ml-2">Required</span>
+            <span className="text-red-500 ml-2"><>{errors[internalLabel]?.message}</></span>
             }</span>
 
         </div>
@@ -97,11 +100,9 @@ const CreateDive: CustomNextPage = () => {
           internalLabel="startDateTime"
           registerOptions={{
             required: true,
-            valueAsDate: true,
           }}
           inputProps={{
             type: 'datetime-local',
-            defaultValue: (new Date()).toISOString().substring(0, 16),
             required: true,
           }}
           Icon={TbCalendarTime}
@@ -154,6 +155,36 @@ const CreateDive: CustomNextPage = () => {
           }}
           Icon={TbArrowBarToDown}
         />
+
+        <CustomInput
+          displayLabel="Avg. depth"
+          internalLabel="averageDepth"
+          registerOptions={{
+            valueAsNumber: true,
+            min: 0,
+          }}
+          inputProps={{
+            type: 'number',
+            min: 0,
+          }}
+          Icon={TbArrowBarToDown}
+        />
+
+        {/* <CustomInput
+          displayLabel="Dive site"
+          internalLabel="diveSite"
+          registerOptions={{
+            valueAsNumber: true,
+            min: 0,
+            required: true,
+          }}
+          inputProps={{
+            type: 'number',
+            min: 0,
+            required: true,
+          }}
+          Icon={TbArrowBarToDown}
+        /> */}
 
         <CustomInput
           displayLabel="Average Water temperature"

@@ -11,81 +11,66 @@ import { WaterSurfaceSchema } from './enums/WaterSurface.schema';
 import { WaterTypeSchema } from './enums/WaterType.schema';
 import { WaterVisibilitySchema } from './enums/WaterVisibility.schema';
 import { WeatherSchema } from './enums/Weather.schema';
+import { dateSchema } from './helper'
 
-// export const DiveValidator: z.ZodType<Prisma.DiveCreateInput> = z
-export const DiveValidator = z
+export const CreateDiveSchema = z
   .object({
-    id: z.string().optional(),
-    createdAt: z.date().optional(),
-    updatedAt: z.date().optional(),
-    user: z.any(), // Wrong
     name: z.string(),
     diveNumber: z.number(),
-    startDateTime: z.date(),
+    startDateTime: dateSchema,
     duration: z.number(),
     type: z
       .lazy(() => DiveTypeSchema)
-      .optional()
-      .nullable(),
+      .optional(),
     specialtyDiveType: z
       .lazy(() => SpecialtyDiveTypeSchema)
-      .optional()
-      .nullable(),
-    diveSite: z.any(), // Wrong
+      .optional(),
+    // diveSiteId: z.string(),
     maximumDepth: z.number(),
-    averageDepth: z.number().optional().nullable(),
-    waterMinimumTemperature: z.number().optional().nullable(),
-    waterAverageTemperature: z.number().optional().nullable(),
-    waterMaximumTemperature: z.number().optional().nullable(),
+    averageDepth: z.number(),
+    waterMinimumTemperature: z.number().optional(),
+    waterAverageTemperature: z.number().optional(),
+    waterMaximumTemperature: z.number().optional(),
     waterBody: z
       .lazy(() => WaterBodySchema)
-      .optional()
-      .nullable(),
+      .optional(),
     waterType: z
       .lazy(() => WaterTypeSchema)
-      .optional()
-      .nullable(),
+      .optional(),
     waterEntry: z
       .lazy(() => WaterEntrySchema)
-      .optional()
-      .nullable(),
+      .optional(),
     waterCurrent: z
       .lazy(() => WaterCurrentSchema)
-      .optional()
-      .nullable(),
+      .optional(),
     waterSurface: z
       .lazy(() => WaterSurfaceSchema)
-      .optional()
-      .nullable(),
+      .optional(),
     waterVisibility: z
       .lazy(() => WaterVisibilitySchema)
-      .optional()
-      .nullable(),
+      .optional(),
     weather: z
       .lazy(() => WeatherSchema)
-      .optional()
-      .nullable(),
-    airTemperature: z.number().optional().nullable(),
-    weight: z.number().optional().nullable(),
+      .optional(),
+    airTemperature: z.number().optional(),
+    weight: z.number().optional(),
     equipment: z.any(), // Wrong
-    startCylinderPresure: z.number().optional().nullable(),
-    endCylinderPresure: z.number().optional().nullable(),
+    startCylinderPresure: z.number().optional(),
+    endCylinderPresure: z.number().optional(),
     cylinderMaterial: z
       .lazy(() => CylinderMaterialSchema)
-      .optional()
-      .nullable(),
-    cylinderVolume: z.number().optional().nullable(),
+      .optional(),
+    cylinderVolume: z.number().optional(),
     diveCenter: z.any(), // Wrong
     diveBuddies: z.any(), // Wrong
     roleasDiveBuddy: z
       .lazy(() => DiveBuddyInDiveRoleSchema)
-      .optional()
-      .nullable(),
+      .optional(),
     organisms: z.any(), // Wrong
-    rating: z.number().optional().nullable(),
+    rating: z.number().optional(),
     links: z.any(), // Wrong
-    experienceNotes: z.string().optional().nullable(),
-    technicalNotes: z.string().optional().nullable(),
+    experienceNotes: z.string().optional(),
+    technicalNotes: z.string().optional(),
   })
   .strict();
 
