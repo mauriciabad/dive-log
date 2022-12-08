@@ -2,7 +2,7 @@ import { TbChevronLeft } from "react-icons/tb";
 import IconButton from "../components/IconButton";
 import type { CustomNextPage } from "./_app";
 
-const TermsOfService: CustomNextPage = () => {
+const TermsOfServicePage: CustomNextPage = () => {
 
   return <>
     <main className="px-6 py-12 sm:py-24 sm:px-12 bg-white min-h-screen">
@@ -22,8 +22,8 @@ const TermsOfService: CustomNextPage = () => {
   </>
 }
 
-TermsOfService.title = 'Terms of service'
+TermsOfServicePage.title = 'Terms of service'
 
-export default TermsOfService;
+export default TermsOfServicePage;
 
-TermsOfService.customLayout = (page) => page
+TermsOfServicePage.customLayout = (page) => page
