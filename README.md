@@ -37,12 +37,12 @@ npm run test
 
 The database is hosted on PlanetScale. Here you can update the schema by creating a Deploy request from the `dev` branch after you run `npx prisma db push`:
 
-- PlanetScale: <https://app.planetscale.com/mauri/dive-log>
+- **DB hosting**: <https://app.planetscale.com/mauri/dive-log>
 
 To view the contents of the db, use the Prisma Data Platform:
 
-- Production db: <https://cloud.prisma.io/mauriciabad/dive-log/production/databrowser>
-- Development db: <https://cloud.prisma.io/mauriciabad/dive-log/development/databrowser>
+- **Production db**: <https://cloud.prisma.io/mauriciabad/dive-log/production/databrowser>
+- **Development db**: <https://cloud.prisma.io/mauriciabad/dive-log/development/databrowser>
 
 You can also run Prisma studio locally with the following command. It will load the db based on your `DATABASE_URL` environment variable from the `.env` file.
 
@@ -57,3 +57,9 @@ To connect to the database and authentication providers, you need a `.env` file 
 Maintainers:
 
 - [@mauriciabad](https://github.com/mauriciabad/)
+
+### Backend server
+
+We use Vercel as the backend server:
+
+- **Backend server**: <https://vercel.com/mauriciabad/dive-log>
