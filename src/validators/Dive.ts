@@ -13,12 +13,15 @@ import { WaterVisibilitySchema } from './enums/WaterVisibility.schema';
 import { WeatherSchema } from './enums/Weather.schema';
 import { dateSchema } from './helper'
 
+const MAX_OCEAN_DEPTH = 11022;
+const MAX_WATER_TEMP = 40;
+
 export const CreateDiveSchema = z
   .object({
     name: z.string(),
-    diveNumber: z.number().positive().,
+    diveNumber: z.number().gte(1),
     startDateTime: dateSchema,
-    duration: z.number().positive(),
+    duration: z.number().gte(1).lte(24 * 60 * 60 * 1000),
     type: z
       .lazy(() => DiveTypeSchema)
       .optional(),
@@ -26,11 +29,11 @@ export const CreateDiveSchema = z
       .lazy(() => SpecialtyDiveTypeSchema)
       .optional(),
     // diveSiteId: z.string(),
-    maximumDepth: z.number(),
-    averageDepth: z.number(),
-    waterMinimumTemperature: z.number().optional(),
-    waterAverageTemperature: z.number().optional(),
-    waterMaximumTemperature: z.number().optional(),
+    maximumDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH),
+    averageDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH),
+    waterMinimumTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),
+    waterAverageTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),
+    waterMaximumTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),
     waterBody: z
       .lazy(() => WaterBodySchema)
       .optional(),
@@ -52,26 +55,24 @@ export const CreateDiveSchema = z
     weather: z
       .lazy(() => WeatherSchema)
       .optional(),
-    airTemperature: z.number().optional(),
-    weight: z.number().optional(),
+    airTemperature: z.number().lte(100).optional(),
+    weight: z.number().gte(0).lte(100).optional(),
     equipment: z.any(), // Wrong
-    startCylinderPresure: z.number().optional(),
-    endCylinderPresure: z.number().optional(),
+    startCylinderPresure: z.number().gt(0).optional(),
+    endCylinderPresure: z.number().gte(0).optional(),
     cylinderMaterial: z
       .lazy(() => CylinderMaterialSchema)
       .optional(),
-    cylinderVolume: z.number().optional(),
+    cylinderVolume: z.number().gt(0).optional(),
     diveCenter: z.any(), // Wrong
     diveBuddies: z.any(), // Wrong
     roleasDiveBuddy: z
       .lazy(() => DiveBuddyInDiveRoleSchema)
       .optional(),
     organisms: z.any(), // Wrong
-    rating: z.number().optional(),
+    rating: z.number().int().gte(0).lte(10).optional(),
     links: z.any(), // Wrong
-    experienceNotes: z.string().optional(),
-    technicalNotes: z.string().optional(),
+    experienceNotes: z.string().max(2000).optional(),
+    technicalNotes: z.string().max(2000).optional(),
   })
   .strict();
-
-

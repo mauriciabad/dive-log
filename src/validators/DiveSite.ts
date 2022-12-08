@@ -2,12 +2,9 @@ import { z } from "zod";
 
 export const CreateDiveSiteSchema = z
   .object({
-    createdAt: z.date().optional(),
-    updatedAt: z.date().optional(),
-    id: z.string().optional(),
     name: z.string(),
-    description: z.string().optional().nullable(),
-    image: z.string().optional().nullable(),
+    description: z.string().optional(),
+    image: z.string().url().optional(),
     latitude: z.number(),
     longitude: z.number(),
     links: z

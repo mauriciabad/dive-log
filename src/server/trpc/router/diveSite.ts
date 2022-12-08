@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { CreateDiveSiteSchema } from "../../../validators/DiveSite";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
 
 // This id is invented for now
@@ -29,6 +31,20 @@ export const diveSiteRouter = router({
       },
     });
   }),
+  createDiveSite: protectedProcedure
+    .input(z.object({ data: CreateDiveSiteSchema }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.dive.create({
+        data: {
+          createdByUser: {
+            connect: {
+              id: ctx.session.user.id,
+            }
+          },
 
+          ...input.data
+        }
+      })
+    })
 });
 
