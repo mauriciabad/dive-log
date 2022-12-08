@@ -3,7 +3,6 @@ import Link from "next/link"
 import React from "react"
 import type { FC } from "react"
 import type { IconType } from "react-icons"
-import { TbLoader } from "react-icons/tb"
 
 interface Props {
   text: string
