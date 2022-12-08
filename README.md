@@ -8,9 +8,13 @@
 
 Use here: <https://divelog.vercel.app/>
 
-## Develop Commands
+## Develop
 
-PRs are wecome :smile:
+### Contributions
+
+PRs are welcome :smile:
+
+### Commands
 
 ```zsh
 # Setup
@@ -28,3 +32,28 @@ npm run build
 # Tests
 npm run test
 ```
+
+### DB
+
+The database is hosted on PlanetScale. Here you can update the schema by creating a Deploy request from the `dev` branch after you run `npx prisma db push`:
+
+- PlanetScale: <https://app.planetscale.com/mauri/dive-log>
+
+To view the contents of the db, use the Prisma Data Platform:
+
+- Production db: <https://cloud.prisma.io/mauriciabad/dive-log/production/databrowser>
+- Development db: <https://cloud.prisma.io/mauriciabad/dive-log/development/databrowser>
+
+You can also run Prisma studio locally with the following command. It will load the db based on your `DATABASE_URL` environment variable from the `.env` file.
+
+```zsh
+npx prisma studio
+```
+
+### Environment variables
+
+To connect to the database and authentication providers, you need a `.env` file in the root. This file is private and the only way to get it is to ask someone that has it to send it to you, in this case, the maintainers of the project.
+
+Maintainers:
+
+- [@mauriciabad](https://github.com/mauriciabad/)
