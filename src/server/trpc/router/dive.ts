@@ -26,7 +26,7 @@ export const diveRouter = router({
 
           diveSite: {
             connect: {
-              id: 'clbeyjoc00000iobvwk98pe2b',
+              id: input.data.diveSiteId,
             }
           },
 

@@ -14,13 +14,17 @@ import {
   TbHash,
   TbLicense,
   TbHourglass,
-  TbFold
+  TbFold,
+  TbMapPin
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
+import Selector from "../../../../components/Selector";
 import classNames from "classnames"
 import type { IconType } from "react-icons";
 import type { z } from "zod";
 import ErrorBox from "../../../../components/ErrorBox";
+import InputSimple from "../../../../components/InputSimple";
+import InputSelect from "../../../../components/InputSelect";
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
@@ -45,47 +49,15 @@ const CreateDivePage: CustomNextPage = () => {
     router.push("/user/dives");
   }
 
-
-  const CustomInput: FC<{
-    displayLabel: string,
-    internalLabel: keyof Inputs,
-    registerOptions: RegisterOptions<Inputs>,
-    inputProps: InputHTMLAttributes<HTMLInputElement>,
-    Icon?: IconType
-  }> =
-    ({
-      displayLabel,
-      internalLabel,
-      registerOptions,
-      inputProps,
-      Icon
-    }) => (<>
-      <label className="block w-full max-w-md m-x-auto">
-        <div className="flex items-center text-gray-800 text-sm">
-          {Icon && <Icon className="h-4 w-4 mr-0.5" />}
-          <span className="" >{displayLabel}{
-            registerOptions?.required && <span className="text-red-400 ml-1">*</span>
-          }{errors[internalLabel] &&
-            <span className="text-red-500 ml-2"><>{errors[internalLabel]?.message}</></span>
-            }</span>
-
-        </div>
-        <input
-          {...inputProps}
-          {...register(internalLabel, registerOptions)}
-          className={classNames({
-            'border-red-500 border-2 m-[-2px]': errors[internalLabel],
-          }, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1")}
-        />
-
-      </label>
-    </>)
+  const { data: userCreatedDiveSites } = trpc.diveSite.getUserCreatedDiveSites.useQuery();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
       <div className="grid gap-4 items-end sm:grid-cols-3 ">
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.diveNumber}
           displayLabel="Dive Number"
           internalLabel="diveNumber"
           registerOptions={{
@@ -101,7 +73,9 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbHash}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.startDateTime}
           displayLabel="Date"
           internalLabel="startDateTime"
           registerOptions={{
@@ -109,44 +83,42 @@ const CreateDivePage: CustomNextPage = () => {
           }}
           inputProps={{
             type: 'datetime-local',
-            required: true,
           }}
           Icon={TbCalendarTime}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.name}
           displayLabel="Name"
           internalLabel="name"
           registerOptions={{
             required: true,
+            maxLength: 192,
           }}
           inputProps={{
             type: 'text',
-            maxLength: 192,
-            required: true,
           }}
           Icon={TbLicense}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.duration}
           displayLabel="Duration (in minutes)"
           internalLabel="duration"
           registerOptions={{
             valueAsNumber: true,
-            min: 0,
-            max: 24 * 60,
-            required: true,
           }}
           inputProps={{
             type: 'number',
-            min: 0,
-            max: 24 * 60,
-            required: true,
           }}
           Icon={TbHourglass}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.maximumDepth}
           displayLabel="Max depth"
           internalLabel="maximumDepth"
           registerOptions={{
@@ -156,13 +128,13 @@ const CreateDivePage: CustomNextPage = () => {
           }}
           inputProps={{
             type: 'number',
-            min: 0,
-            required: true,
           }}
           Icon={TbArrowBarToDown}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.averageDepth}
           displayLabel="Avg. depth"
           internalLabel="averageDepth"
           registerOptions={{
@@ -171,28 +143,27 @@ const CreateDivePage: CustomNextPage = () => {
           }}
           inputProps={{
             type: 'number',
-            min: 0,
           }}
           Icon={TbFold}
         />
 
-        {/* <CustomInput
+        <InputSelect
+          register={register}
+          error={errors.diveSiteId}
           displayLabel="Dive site"
-          internalLabel="diveSite"
+          internalLabel="diveSiteId"
           registerOptions={{
-            valueAsNumber: true,
-            min: 0,
             required: true,
           }}
-          inputProps={{
-            type: 'number',
-            min: 0,
-            required: true,
-          }}
-          Icon={TbArrowBarToDown}
-        /> */}
+          Icon={TbMapPin}
+          data={userCreatedDiveSites}
+          displayValue={(diveSite) => diveSite.name}
+          returnValue={(diveSite) => diveSite.id}
+        />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.waterAverageTemperature}
           displayLabel="Average Water temperature"
           internalLabel="waterAverageTemperature"
           registerOptions={{
@@ -201,7 +172,6 @@ const CreateDivePage: CustomNextPage = () => {
           }}
           inputProps={{
             type: 'number',
-            min: 0,
           }}
           Icon={TbTemperature}
         />

@@ -28,7 +28,7 @@ export const CreateDiveSchema = z
     specialtyDiveType: z
       .lazy(() => SpecialtyDiveTypeSchema)
       .optional(),
-    // diveSiteId: z.string(),
+    diveSiteId: z.string().cuid(),
     maximumDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH),
     averageDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH),
     waterMinimumTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),

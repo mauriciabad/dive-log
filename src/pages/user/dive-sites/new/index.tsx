@@ -1,19 +1,17 @@
 import React from "react";
 import { trpc } from "../../../../utils/trpc";
 import type { CustomNextPage } from "../../../_app";
-import { type SubmitHandler, useForm, type RegisterOptions } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
-import type { FC, InputHTMLAttributes } from "react"
 import {
   TbDeviceFloppy, TbInfoCircle, TbLicense, TbMapPin, TbPhoto
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
+import InputSimple from "../../../../components/InputSimple";
 import ErrorBox from "../../../../components/ErrorBox";
-import classNames from "classnames"
-import type { IconType } from "react-icons";
 import type { z } from "zod";
 
 type Inputs = z.input<typeof CreateDiveSiteSchema>
@@ -29,47 +27,13 @@ const CreateDivePage: CustomNextPage = () => {
     router.push("/user/dive-sites");
   }
 
-
-  const CustomInput: FC<{
-    displayLabel: string,
-    internalLabel: keyof Inputs,
-    registerOptions: RegisterOptions<Inputs>,
-    inputProps: InputHTMLAttributes<HTMLInputElement>,
-    Icon?: IconType
-  }> =
-    ({
-      displayLabel,
-      internalLabel,
-      registerOptions,
-      inputProps,
-      Icon
-    }) => (<>
-      <label className="block w-full max-w-md m-x-auto">
-        <div className="flex items-center text-gray-800 text-sm">
-          {Icon && <Icon className="h-4 w-4 mr-0.5" />}
-          <span className="" >{displayLabel}{
-            registerOptions?.required && <span className="text-red-400 ml-1">*</span>
-          }{errors[internalLabel] &&
-            <span className="text-red-500 ml-2"><>{errors[internalLabel]?.message}</></span>
-            }</span>
-
-        </div>
-        <input
-          {...inputProps}
-          {...register(internalLabel, registerOptions)}
-          className={classNames({
-            'border-red-500 border-2 m-[-2px]': errors[internalLabel],
-          }, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1")}
-        />
-
-      </label>
-    </>)
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
       <div className="grid gap-4 items-end sm:grid-cols-3 ">
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.name}
           displayLabel="Name"
           internalLabel="name"
           registerOptions={{
@@ -83,7 +47,9 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbLicense}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.description}
           displayLabel="Description"
           internalLabel="description"
           registerOptions={{
@@ -97,7 +63,9 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbInfoCircle}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.image}
           displayLabel="Image"
           internalLabel="image"
           registerOptions={{
@@ -111,7 +79,9 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbPhoto}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.latitude}
           displayLabel="Latitude"
           internalLabel="latitude"
           registerOptions={{
@@ -128,7 +98,9 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbMapPin}
         />
 
-        <CustomInput
+        <InputSimple
+          register={register}
+          error={errors.longitude}
           displayLabel="Longitude"
           internalLabel="longitude"
           registerOptions={{
