@@ -2,7 +2,7 @@ import { TbChevronLeft } from "react-icons/tb";
 import IconButton from "../components/IconButton";
 import type { CustomNextPage } from "./_app";
 
-const PrivacyPolicy: CustomNextPage = () => {
+const PrivacyPolicyPage: CustomNextPage = () => {
 
   return <>
     <main className="px-6 py-12 sm:py-24 sm:px-12 bg-white min-h-screen">
@@ -24,8 +24,8 @@ const PrivacyPolicy: CustomNextPage = () => {
   </>
 }
 
-PrivacyPolicy.title = 'Privacy policy'
+PrivacyPolicyPage.title = 'Privacy policy'
 
-export default PrivacyPolicy;
+export default PrivacyPolicyPage;
 
-PrivacyPolicy.customLayout = (page) => page
+PrivacyPolicyPage.customLayout = (page) => page

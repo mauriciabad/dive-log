@@ -3,7 +3,7 @@ import loginRequired from "../../utils/loginRequired";
 import IconButton from "../../components/IconButton";
 import { TbBook } from 'react-icons/tb'
 
-const Home: CustomNextPage = () => {
+const HomePage: CustomNextPage = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center h-96">
@@ -14,8 +14,8 @@ const Home: CustomNextPage = () => {
   );
 };
 
-Home.title = 'Home'
+HomePage.title = 'Home'
 
-export default Home;
+export default HomePage;
 
 export const getServerSideProps = loginRequired

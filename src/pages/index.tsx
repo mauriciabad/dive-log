@@ -2,7 +2,7 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import type { CustomNextPage } from "./_app";
 
-const Landing: CustomNextPage = () => {
+const LandingPage: CustomNextPage = () => {
   const { data: session } = useSession();
 
   return (
@@ -43,8 +43,8 @@ const Landing: CustomNextPage = () => {
   );
 };
 
-Landing.title = 'Easy to use Dive Log'
+LandingPage.title = 'Easy to use Dive Log'
 
-export default Landing;
+export default LandingPage;
 
-Landing.customLayout = (page) => page
+LandingPage.customLayout = (page) => page

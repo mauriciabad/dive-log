@@ -18,7 +18,7 @@ import type { z } from "zod";
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
-const CreateDive: CustomNextPage = () => {
+const CreateDivePage: CustomNextPage = () => {
   const router = useRouter();
   const createDiveMutation = trpc.dive.createDive.useMutation()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
@@ -216,8 +216,8 @@ const CreateDive: CustomNextPage = () => {
   );
 };
 
-CreateDive.title = 'New dive'
+CreateDivePage.title = 'New dive'
 
-export default CreateDive;
+export default CreateDivePage;
 
 export const getServerSideProps = loginRequired

@@ -5,7 +5,7 @@ import IconButton from "../components/IconButton";
 import type { CustomNextPage } from "./_app";
 import bgRipples from '../assets/backgrounds/ripples.png'
 
-const Login: CustomNextPage = () => {
+const LoginPage: CustomNextPage = () => {
 
   return <>
     <main className="h-screen flex flex-col items-center justify-center p-2" style={{ backgroundImage: `url(${bgRipples.src})` }}>
@@ -24,11 +24,11 @@ const Login: CustomNextPage = () => {
   </>
 }
 
-Login.title = 'Login'
+LoginPage.title = 'Login'
 
-Login.customLayout = (page) => page
+LoginPage.customLayout = (page) => page
 
-export default Login;
+export default LoginPage;
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

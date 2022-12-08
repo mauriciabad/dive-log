@@ -6,7 +6,7 @@ import WaveAnimation from '../../../components/WaveAnimation'
 import { TbPlus } from 'react-icons/tb'
 import loginRequired from "../../../utils/loginRequired";
 import IconButton from "../../../components/IconButton";
-const Dives: CustomNextPage = () => {
+const DivesPage: CustomNextPage = () => {
   const { data: dives } = trpc.dive.getUserDives.useQuery();
 
   return (
@@ -43,9 +43,9 @@ const Dives: CustomNextPage = () => {
   );
 };
 
-Dives.title = 'My dives'
+DivesPage.title = 'My dives'
 
-export default Dives;
+export default DivesPage;
 
 
 export const getServerSideProps = loginRequired

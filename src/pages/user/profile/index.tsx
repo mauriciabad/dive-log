@@ -6,7 +6,7 @@ import type { CustomNextPage } from "../../_app";
 import { TbLogout, TbBook } from "react-icons/tb";
 import IconButton from "../../../components/IconButton";
 
-const Profile: CustomNextPage = () => {
+const ProfilePage: CustomNextPage = () => {
   const { data: session } = useSession();
   const { data: dives } = trpc.dive.getUserDives.useQuery()
 
@@ -36,8 +36,8 @@ const Profile: CustomNextPage = () => {
   </>
 }
 
-Profile.title = 'Profile'
+ProfilePage.title = 'Profile'
 
-export default Profile;
+export default ProfilePage;
 
 export const getServerSideProps = loginRequired
