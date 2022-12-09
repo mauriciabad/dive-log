@@ -1,33 +1,34 @@
-import type { PropsWithChildren } from 'react';
 import React from 'react'
 import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { TbChevronDown, TbCheck } from 'react-icons/tb'
 import classNames from 'classnames';
-import type { ChangeHandler, RefCallBack } from 'react-hook-form';
+import type { FieldPath, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-interface Props<T extends {
+interface Props<K extends keyof Inputs, Inputs extends FieldValues, T extends {
   id: string
-}, R, K extends string> {
+}, R> {
   classNameError?: string
   data: T[]
-  displayValue: (value: T) => string
-  returnValue: (value: T) => R
-  onChange: ChangeHandler;
-  onBlur: ChangeHandler;
-  ref: RefCallBack;
-  name: K;
+  displayValue: (value: T | null) => string
+  returnValue: (value: T | null) => R
+  internalLabel: K,
+  register: UseFormRegister<Inputs>,
+  registerOptions: RegisterOptions<Inputs>,
+
 }
 
-const Selector = <T extends { id: string }, R, K extends string>({
+const Selector = <K extends FieldPath<Inputs>, Inputs extends FieldValues, T extends {
+  id: string
+}, R>({
   data,
   displayValue,
   classNameError,
-  onChange,
-  onBlur,
-  ref,
-  name
-}: PropsWithChildren<Props<T, R, K>>) => {
+  internalLabel,
+  returnValue,
+  register,
+  registerOptions
+}: Props<K, Inputs, T, R>) => {
   const [selected, setSelected] = useState<T | null>(null)
   const [query, setQuery] = useState('')
 
@@ -40,12 +41,13 @@ const Selector = <T extends { id: string }, R, K extends string>({
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
       )
+  const { onChange, onBlur, ...registerOutput } = register(internalLabel, registerOptions)
 
   return (
     <Combobox value={selected} onChange={(event => {
       setSelected(event)
       onChange({
-        target: { value: event ? displayValue(event) : null }, type: 'text'
+        target: { value: returnValue(event) }, type: 'text'
       })
     })} >
       <div className="relative mt-1 block w-full max-w-md mx-auto">
@@ -54,9 +56,10 @@ const Selector = <T extends { id: string }, R, K extends string>({
             className="w-full border-none py-2 pl-3 pr-10 text-gray-900"
             displayValue={(value: null | T) => !value ? '' : displayValue(value)}
             onChange={(event) => setQuery(event.target.value)}
-            onBlur={onBlur}
-            ref={ref}
-            name={name}
+            {...registerOutput}
+            onBlur={() => onBlur({
+              target: { value: returnValue(selected) }, type: 'text'
+            })}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <TbChevronDown

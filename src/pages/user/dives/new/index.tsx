@@ -1,11 +1,10 @@
 import { trpc } from "../../../../utils/trpc";
 import type { CustomNextPage } from "../../../_app";
-import { type SubmitHandler, useForm, type RegisterOptions } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSchema } from "../../../../validators/Dive";
-import type { FC, InputHTMLAttributes } from "react"
 import {
   TbTemperature,
   TbArrowBarToDown,
@@ -18,9 +17,6 @@ import {
   TbMapPin
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
-import Selector from "../../../../components/Selector";
-import classNames from "classnames"
-import type { IconType } from "react-icons";
 import type { z } from "zod";
 import ErrorBox from "../../../../components/ErrorBox";
 import InputSimple from "../../../../components/InputSimple";
@@ -61,15 +57,10 @@ const CreateDivePage: CustomNextPage = () => {
           displayLabel="Dive Number"
           internalLabel="diveNumber"
           registerOptions={{
-            valueAsNumber: true,
             min: 1,
             required: true,
           }}
-          inputProps={{
-            type: 'number',
-            min: 1,
-            required: true,
-          }}
+          type="number"
           Icon={TbHash}
         />
 
@@ -81,9 +72,7 @@ const CreateDivePage: CustomNextPage = () => {
           registerOptions={{
             required: true,
           }}
-          inputProps={{
-            type: 'datetime-local',
-          }}
+          type="datetime"
           Icon={TbCalendarTime}
         />
 
@@ -96,9 +85,7 @@ const CreateDivePage: CustomNextPage = () => {
             required: true,
             maxLength: 192,
           }}
-          inputProps={{
-            type: 'text',
-          }}
+          type="text"
           Icon={TbLicense}
         />
 
@@ -108,11 +95,8 @@ const CreateDivePage: CustomNextPage = () => {
           displayLabel="Duration (in minutes)"
           internalLabel="duration"
           registerOptions={{
-            valueAsNumber: true,
           }}
-          inputProps={{
-            type: 'number',
-          }}
+          type="number"
           Icon={TbHourglass}
         />
 
@@ -122,13 +106,10 @@ const CreateDivePage: CustomNextPage = () => {
           displayLabel="Max depth"
           internalLabel="maximumDepth"
           registerOptions={{
-            valueAsNumber: true,
             min: 0,
             required: true,
           }}
-          inputProps={{
-            type: 'number',
-          }}
+          type="number"
           Icon={TbArrowBarToDown}
         />
 
@@ -138,12 +119,9 @@ const CreateDivePage: CustomNextPage = () => {
           displayLabel="Avg. depth"
           internalLabel="averageDepth"
           registerOptions={{
-            valueAsNumber: true,
             min: 0,
           }}
-          inputProps={{
-            type: 'number',
-          }}
+          type="number"
           Icon={TbFold}
         />
 
@@ -157,8 +135,8 @@ const CreateDivePage: CustomNextPage = () => {
           }}
           Icon={TbMapPin}
           data={userCreatedDiveSites}
-          displayValue={(diveSite) => diveSite.name}
-          returnValue={(diveSite) => diveSite.id}
+          displayValue={(diveSite) => diveSite?.name ?? ''}
+          returnValue={(diveSite) => diveSite?.id ?? undefined}
         />
 
         <InputSimple
@@ -167,12 +145,9 @@ const CreateDivePage: CustomNextPage = () => {
           displayLabel="Average Water temperature"
           internalLabel="waterAverageTemperature"
           registerOptions={{
-            valueAsNumber: true,
             min: 0,
           }}
-          inputProps={{
-            type: 'number',
-          }}
+          type="number"
           Icon={TbTemperature}
         />
       </div>

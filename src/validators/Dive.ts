@@ -30,7 +30,7 @@ export const CreateDiveSchema = z
       .optional(),
     diveSiteId: z.string().cuid(),
     maximumDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH),
-    averageDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH),
+    averageDepth: z.number().gte(1).lte(MAX_OCEAN_DEPTH).optional(),
     waterMinimumTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),
     waterAverageTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),
     waterMaximumTemperature: z.number().gte(1).lte(MAX_WATER_TEMP).optional(),
