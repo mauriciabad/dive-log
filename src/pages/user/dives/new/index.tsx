@@ -19,15 +19,15 @@ import {
 import IconButton from "../../../../components/IconButton";
 import type { z } from "zod";
 import ErrorBox from "../../../../components/ErrorBox";
-import InputSimple from "../../../../components/InputSimple";
-import InputSelect from "../../../../components/InputSelect";
+import { makeCustomInputSelect } from "../../../../components/InputSelect";
+import { makeCustomInputSimple } from "../../../../components/InputSimple";
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
 const CreateDivePage: CustomNextPage = () => {
   const router = useRouter();
   const createDiveMutation = trpc.dive.createDive.useMutation()
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
+  const { handleSubmit, formState: { errors }, control } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSchema),
     defaultValues: {
       startDateTime: new Date().toISOString().slice(0, 16),
@@ -38,6 +38,9 @@ const CreateDivePage: CustomNextPage = () => {
       duration: 71,
     }
   });
+  const CustomInputSimple = makeCustomInputSimple({ control, errors })
+  const CustomInputSelect = makeCustomInputSelect({ control, errors })
+
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
 
@@ -51,103 +54,88 @@ const CreateDivePage: CustomNextPage = () => {
     <form onSubmit={handleSubmit(onSubmit)} >
       <div className="grid gap-4 items-end sm:grid-cols-3 ">
 
-        <InputSimple
-          register={register}
-          error={errors.diveNumber}
-          displayLabel="Dive Number"
+        <CustomInputSimple
+          label="Dive Number"
           internalLabel="diveNumber"
-          registerOptions={{
+          inputProps={{
+            type: "number",
             min: 1,
             required: true,
           }}
-          type="number"
           Icon={TbHash}
         />
 
-        <InputSimple
-          register={register}
-          error={errors.startDateTime}
-          displayLabel="Date"
+        <CustomInputSimple
+          label="Date"
           internalLabel="startDateTime"
-          registerOptions={{
+          inputProps={{
+            type: "datetime",
             required: true,
           }}
-          type="datetime"
           Icon={TbCalendarTime}
         />
 
-        <InputSimple
-          register={register}
-          error={errors.name}
-          displayLabel="Name"
+        <CustomInputSimple
+          label="Name"
           internalLabel="name"
-          registerOptions={{
+          inputProps={{
+            type: "text",
             required: true,
             maxLength: 192,
           }}
-          type="text"
           Icon={TbLicense}
         />
 
-        <InputSimple
-          register={register}
-          error={errors.duration}
-          displayLabel="Duration (in minutes)"
+        <CustomInputSimple
+          label="Duration (in minutes)"
           internalLabel="duration"
-          registerOptions={{
+          inputProps={{
+            type: "number"
           }}
-          type="number"
           Icon={TbHourglass}
         />
 
-        <InputSimple
-          register={register}
-          error={errors.maximumDepth}
-          displayLabel="Max depth"
+        <CustomInputSimple
+          label="Max depth"
           internalLabel="maximumDepth"
-          registerOptions={{
+          inputProps={{
+            type: "number",
             min: 0,
             required: true,
           }}
-          type="number"
           Icon={TbArrowBarToDown}
         />
 
-        <InputSimple
-          register={register}
-          error={errors.averageDepth}
-          displayLabel="Avg. depth"
+        <CustomInputSimple
+          label="Avg. depth"
           internalLabel="averageDepth"
-          registerOptions={{
+          inputProps={{
+            type: "number",
             min: 0,
           }}
-          type="number"
           Icon={TbFold}
         />
 
-        <InputSelect
-          register={register}
-          error={errors.diveSiteId}
-          displayLabel="Dive site"
+        <CustomInputSelect
+          label="Dive site"
           internalLabel="diveSiteId"
-          registerOptions={{
-            required: true,
-          }}
+          required={true}
           Icon={TbMapPin}
           data={userCreatedDiveSites}
+          // TODO: Remove this @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           displayValue={(diveSite) => diveSite?.name ?? ''}
           returnValue={(diveSite) => diveSite?.id ?? undefined}
         />
 
-        <InputSimple
-          register={register}
-          error={errors.waterAverageTemperature}
-          displayLabel="Average Water temperature"
+        <CustomInputSimple
+          label="Average Water temperature"
           internalLabel="waterAverageTemperature"
-          registerOptions={{
+          inputProps={{
+            type: "number",
             min: 0,
           }}
-          type="number"
           Icon={TbTemperature}
         />
       </div>

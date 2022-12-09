@@ -3,32 +3,29 @@ import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { TbChevronDown, TbCheck } from 'react-icons/tb'
 import classNames from 'classnames';
-import type { FieldPath, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form';
+import type { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
 
-interface Props<K extends keyof Inputs, Inputs extends FieldValues, T extends {
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, T extends {
   id: string
-}, R> {
+}, R> = {
   classNameError?: string
   data: T[]
   displayValue: (value: T | null) => string
   returnValue: (value: T | null) => R
-  internalLabel: K,
-  register: UseFormRegister<Inputs>,
-  registerOptions: RegisterOptions<Inputs>,
+} & Partial<ControllerRenderProps<TFieldValues, TName>>
 
-}
-
-const Selector = <K extends FieldPath<Inputs>, Inputs extends FieldValues, T extends {
+const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, T extends {
   id: string
 }, R>({
   data,
   displayValue,
   classNameError,
-  internalLabel,
   returnValue,
-  register,
-  registerOptions
-}: Props<K, Inputs, T, R>) => {
+  onChange,
+  onBlur,
+  name,
+  ref
+}: Props<TFieldValues, TName, T, R>) => {
   const [selected, setSelected] = useState<T | null>(null)
   const [query, setQuery] = useState('')
 
@@ -41,12 +38,11 @@ const Selector = <K extends FieldPath<Inputs>, Inputs extends FieldValues, T ext
           .replace(/\s+/g, '')
           .includes(query.toLowerCase().replace(/\s+/g, ''))
       )
-  const { onChange, onBlur, ...registerOutput } = register(internalLabel, registerOptions)
 
   return (
     <Combobox value={selected} onChange={(event => {
       setSelected(event)
-      onChange({
+      onChange?.({
         target: { value: returnValue(event) }, type: 'text'
       })
     })} >
@@ -56,10 +52,9 @@ const Selector = <K extends FieldPath<Inputs>, Inputs extends FieldValues, T ext
             className="w-full border-none py-2 pl-3 pr-10 text-gray-900"
             displayValue={(value: null | T) => !value ? '' : displayValue(value)}
             onChange={(event) => setQuery(event.target.value)}
-            {...registerOutput}
-            onBlur={() => onBlur({
-              target: { value: returnValue(selected) }, type: 'text'
-            })}
+            name={name}
+            ref={ref}
+            onBlur={onBlur}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <TbChevronDown

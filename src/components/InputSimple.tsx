@@ -1,56 +1,51 @@
-import type { PropsWithChildren } from "react";
+import type { InputHTMLAttributes } from "react";
 import React from "react"
-import type { IconType } from "react-icons/lib"
-import type { FieldErrors, FieldPath, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
+import type { FieldErrors, FieldPath, FieldValues } from 'react-hook-form'
 import classNames from "classnames"
+import type { InputWrapperProps } from './InputWrapper';
 import InputWrapper from './InputWrapper'
 
-const customTypeToInputType = {
-  number: 'number',
-  text: 'text',
-  datetime: 'datetime-local',
-} as const
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
+  inputProps: InputHTMLAttributes<HTMLInputElement>,
+} &
+  Omit<InputWrapperProps<TFieldValues, TName>, 'render'>
 
-const CustomInput =
-  <K extends FieldPath<Inputs>, Inputs extends FieldValues>({
-    displayLabel,
-    internalLabel,
-    registerOptions,
+const InputSimple =
+  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
+    label,
     Icon,
-    error,
-    register,
-    classNameError,
-    type,
-  }: PropsWithChildren<{
-    displayLabel: string,
-    internalLabel: K,
-    registerOptions: RegisterOptions<Inputs>,
-    Icon?: IconType
-    error?: FieldErrors<Inputs>[K]
-    register: UseFormRegister<Inputs>
-    classNameError?: string
-    type: keyof typeof customTypeToInputType
-  }>) => (
+    inputProps,
+    control,
+    internalLabel,
+    required
+  }: Props<TFieldValues, TName>) => (
     <InputWrapper
-      error={error}
-      displayLabel={displayLabel}
-      registerOptions={registerOptions}
+      control={control}
+      label={label}
       Icon={Icon}
-    >
-      <input
-        className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}
-        type={customTypeToInputType[type]}
-        {...register(internalLabel, {
-          setValueAs: (value: unknown) => {
-            switch (type) {
-              case 'number': return value !== '' ? Number(value) : undefined
-              case 'datetime': return value !== '' ? value : undefined
-              case 'text': return value !== '' ? typeof value === 'string' ? value.trim() : value : undefined
-            }
-          }, ...registerOptions
-        })}
-      />
-    </InputWrapper>
+      internalLabel={internalLabel}
+      required={required}
+      render={({ classNameError, controllerProps }) => (
+        <input
+          className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}
+          {...inputProps}
+          {...controllerProps.field}
+        />
+      )}
+    />
   )
 
-export default CustomInput
+export const makeCustomInputSimple = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>(rebundantProps: {
+  errors: FieldErrors<TFieldValues>,
+  control: Props<TFieldValues, TName>['control']
+}) => {
+  return (props: Omit<Props<TFieldValues, TName>, 'control'>) => {
+    return InputSimple({
+      control: rebundantProps.control,
+      error: rebundantProps.errors[props.internalLabel],
+      ...props
+    })
+  }
+}
+
+export default InputSimple
