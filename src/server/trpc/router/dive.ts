@@ -16,10 +16,9 @@ export const diveRouter = router({
   createDive: protectedProcedure
     .input(z.object({ data: CreateDiveSchema }))
     .mutation(({ ctx, input }) => {
+      const { diveSiteId, ...data } = input.data
+
       return ctx.prisma.dive.create({
-        // TODO: Remove this @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         data: {
           user: {
             connect: {
@@ -29,11 +28,11 @@ export const diveRouter = router({
 
           diveSite: {
             connect: {
-              id: input.data.diveSiteId,
+              id: diveSiteId,
             }
           },
 
-          ...input.data
+          ...data
         }
       })
     })
