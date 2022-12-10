@@ -35,7 +35,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider
       session={session}
       refetchWhenOffline={false}
-      refetchInterval={24 * 60 * 60} // 24 hours
+      refetchInterval={0}
       refetchOnWindowFocus={navigator?.onLine}
     >
       <Head>
