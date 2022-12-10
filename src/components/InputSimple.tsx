@@ -4,48 +4,92 @@ import type { FieldErrors, FieldPath, FieldValues } from 'react-hook-form'
 import classNames from "classnames"
 import type { InputWrapperProps } from './InputWrapper';
 import InputWrapper from './InputWrapper'
+import { getInputAttributesFromZod } from '../validators/helpers'
+import type { ZodRawShape } from "zod";
 
-type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
-  inputProps: InputHTMLAttributes<HTMLInputElement>,
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> = {
+  inputProps?: InputHTMLAttributes<HTMLInputElement>,
 } &
-  Omit<InputWrapperProps<TFieldValues, TName>, 'render'>
+  Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
 const InputSimple =
-  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
+  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape>({
     label,
     Icon,
     inputProps,
     control,
     internalLabel,
-    error
-  }: Props<TFieldValues, TName>) => (
-    <InputWrapper
-      control={control}
-      label={label}
-      Icon={Icon}
-      internalLabel={internalLabel}
-      required={inputProps.required}
-      error={error}
-      render={({ classNameError, controllerProps }) => (
-        <input
-          className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}
-          {...inputProps}
-          {...controllerProps.field}
-        />
-      )}
-    />
-  )
+    error,
+    schema
+  }: Props<TFieldValues, TName, TZodSchema>) => {
+    const itemSchema = schema.shape[internalLabel]
+    const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
+    if (!itemSchema) console.warn(`Input ${internalLabel} doesn't exist in the zod validation schema root level`);
 
-export const makeCustomInputSimple = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>(rebundantProps: {
+    return (
+      <InputWrapper
+        control={control}
+        label={label}
+        Icon={Icon}
+        internalLabel={internalLabel}
+        error={error}
+        schema={schema}
+        render={({ classNameError, controllerProps }) => {
+          const { onChange, value, ...controllerFieldProps } = controllerProps.field
+
+          return (
+            <input
+              className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}
+              {...inputPropsFromZod}
+              {...inputProps}
+              onChange={({ target: { value } }) => onChange(parseOutput(value, inputProps?.type || inputPropsFromZod?.type || 'text'))}
+              value={parseInput(value, inputProps?.type || inputPropsFromZod?.type || 'text')}
+              {...controllerFieldProps}
+            />
+          )
+        }}
+      />
+    )
+  }
+
+export const makeCustomInputSimple = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape>(rebundantProps: {
   errors: FieldErrors<TFieldValues>,
-  control: Props<TFieldValues, TName>['control']
+  control: Props<TFieldValues, TName, TZodSchema>['control']
+  schema: Props<TFieldValues, TName, TZodSchema>['schema']
 }) => {
-  return (props: Omit<Props<TFieldValues, TName>, 'control'>) => {
+  return (props: Omit<Props<TFieldValues, TName, TZodSchema>, keyof typeof rebundantProps>) => {
     return InputSimple({
       control: rebundantProps.control,
+      schema: rebundantProps.schema,
       error: rebundantProps.errors[props.internalLabel],
+
       ...props
     })
+  }
+}
+
+function parseOutput(value: string, type: InputHTMLAttributes<HTMLInputElement>['type']): string | number | Date | null {
+  if (value === '' || value === null || value === undefined) return null
+
+  switch (type) {
+    case 'datetime-local': return new Date(value)
+    case 'number': return Number(value)
+    case 'text': default: return value
+  }
+}
+
+function parseInput(value: string | number | Date, type: InputHTMLAttributes<HTMLInputElement>['type']): string {
+  if (value === '' || value === null || value === undefined) return ''
+
+  switch (type) {
+    case 'datetime-local': {
+      if (!(value instanceof Date)) {
+        console.warn(`Input with type datetime-local recieved a value that's not a date. Setting it to "".`, value);
+        return ''
+      }
+      return value.toISOString().slice(0, 16)
+    }
+    case 'number': case 'text': default: return String(value)
   }
 }
 

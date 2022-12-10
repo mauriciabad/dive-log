@@ -4,33 +4,34 @@ import type { InputWrapperProps } from './InputWrapper';
 import InputWrapper from './InputWrapper'
 import Selector from "./Selector";
 import { TbLoader } from "react-icons/tb";
+import type { ZodRawShape } from "zod";
 
-type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>> = {
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>, TZodSchema extends ZodRawShape> = {
   data?: Data[]
   exposedProperty: keyof Data
   displayValue: (value: Data | null) => string
 } &
-  Omit<InputWrapperProps<TFieldValues, TName>, 'render'>
+  Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
 const InputSelect =
-  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>>({
+  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>, TZodSchema extends ZodRawShape>({
     label,
     Icon,
     internalLabel,
     data,
     displayValue,
-    required,
     control,
     error,
-    exposedProperty
-  }: Props<TFieldValues, TName, Data>) => (
+    exposedProperty,
+    schema
+  }: Props<TFieldValues, TName, Data, TZodSchema>) => (
     <InputWrapper
       control={control}
       label={label}
       Icon={Icon}
       internalLabel={internalLabel}
-      required={required}
       error={error}
+      schema={schema}
       render={({ classNameError, controllerProps }) => (
         <>
           {data
@@ -55,14 +56,17 @@ const InputSelect =
     />
   )
 
-export const makeCustomInputSelect = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>>(rebundantProps: {
+export const makeCustomInputSelect = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>, TZodSchema extends ZodRawShape>(rebundantProps: {
   errors: FieldErrors<TFieldValues>,
-  control: Props<TFieldValues, TName, Data>['control']
+  control: Props<TFieldValues, TName, Data, TZodSchema>['control']
+  schema: Props<TFieldValues, TName, Data, TZodSchema>['schema']
 }) => {
-  return (props: Omit<Props<TFieldValues, TName, Data>, 'control'>) => {
+  return (props: Omit<Props<TFieldValues, TName, Data, TZodSchema>, keyof typeof rebundantProps>) => {
     return InputSelect({
       control: rebundantProps.control,
+      schema: rebundantProps.schema,
       error: rebundantProps.errors[props.internalLabel],
+
       ...props
     })
   }

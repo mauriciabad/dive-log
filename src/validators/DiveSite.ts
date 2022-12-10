@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { latitudeSchema, longitudeSchema } from "./helper";
+import { latitudeSchema, longitudeSchema } from "./helpers";
 
 export const CreateDiveSiteSchema = z
   .object({

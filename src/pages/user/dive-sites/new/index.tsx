@@ -24,7 +24,7 @@ const CreateDivePage: CustomNextPage = () => {
   const { handleSubmit, control, formState: { errors } } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSiteSchema),
   });
-  const CustomInputSimple = makeCustomInputSimple({ control, errors })
+  const CustomInputSimple = makeCustomInputSimple({ control, errors, schema: CreateDiveSiteSchema })
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     await createDiveSiteMutation.mutateAsync({ data })
@@ -38,49 +38,26 @@ const CreateDivePage: CustomNextPage = () => {
         <CustomInputSimple
           label="Name"
           internalLabel="name"
-          required={true}
-          inputProps={{
-            type: 'text',
-            maxLength: 192,
-            required: true,
-          }}
           Icon={TbLicense}
         />
 
         <CustomInputSimple
           label="Description"
           internalLabel="description"
-          required={true}
-          inputProps={{
-            type: 'text',
-            maxLength: 192,
-            required: true,
-          }}
           Icon={TbInfoCircle}
         />
 
         <CustomInputSimple
           label="Image"
           internalLabel="image"
-          required={true}
-          inputProps={{
-            type: 'text',
-            maxLength: 192,
-            required: true,
-          }}
           Icon={TbPhoto}
         />
 
         <CustomInputSimple
           label="Latitude"
           internalLabel="latitude"
-          required={true}
           inputProps={{
-            type: 'number',
-            min: -90,
-            max: 90,
             step: 0.000001,
-            required: true,
           }}
           Icon={TbMapPin}
         />
@@ -88,13 +65,8 @@ const CreateDivePage: CustomNextPage = () => {
         <CustomInputSimple
           label="Longitude"
           internalLabel="longitude"
-          required={true}
           inputProps={{
-            type: 'number',
-            min: -90,
-            max: 90,
             step: 0.000001,
-            required: true,
           }}
           Icon={TbMapPin}
         />

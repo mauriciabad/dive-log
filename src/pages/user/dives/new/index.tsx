@@ -3,7 +3,6 @@ import type { CustomNextPage } from "../../../_app";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSchema } from "../../../../validators/Dive";
 import {
   TbTemperature,
@@ -30,7 +29,7 @@ const CreateDivePage: CustomNextPage = () => {
   const { handleSubmit, formState: { errors }, control } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSchema),
     defaultValues: {
-      startDateTime: new Date().toISOString().slice(0, 16),
+      startDateTime: new Date(),
       diveNumber: 1,
       waterAverageTemperature: 30,
       maximumDepth: 18,
@@ -38,8 +37,8 @@ const CreateDivePage: CustomNextPage = () => {
       duration: 71,
     }
   });
-  const CustomInputSimple = makeCustomInputSimple({ control, errors })
-  const CustomInputSelect = makeCustomInputSelect({ control, errors })
+  const CustomInputSimple = makeCustomInputSimple({ control, errors, schema: CreateDiveSchema })
+  const CustomInputSelect = makeCustomInputSelect({ control, errors, schema: CreateDiveSchema })
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
@@ -57,69 +56,42 @@ const CreateDivePage: CustomNextPage = () => {
         <CustomInputSimple
           label="Dive Number"
           internalLabel="diveNumber"
-          inputProps={{
-            type: "number",
-            min: 1,
-            required: true,
-          }}
           Icon={TbHash}
         />
 
         <CustomInputSimple
           label="Date"
           internalLabel="startDateTime"
-          inputProps={{
-            type: "datetime-local",
-            required: true,
-          }}
           Icon={TbCalendarTime}
         />
 
         <CustomInputSimple
           label="Name"
           internalLabel="name"
-          inputProps={{
-            type: "text",
-            required: true,
-            maxLength: 192,
-          }}
           Icon={TbLicense}
         />
 
         <CustomInputSimple
           label="Duration (in minutes)"
           internalLabel="duration"
-          inputProps={{
-            type: "number"
-          }}
           Icon={TbHourglass}
         />
 
         <CustomInputSimple
           label="Max depth"
           internalLabel="maximumDepth"
-          inputProps={{
-            type: "number",
-            min: 0,
-            required: true,
-          }}
           Icon={TbArrowBarToDown}
         />
 
         <CustomInputSimple
           label="Avg. depth"
           internalLabel="averageDepth"
-          inputProps={{
-            type: "number",
-            min: 0,
-          }}
           Icon={TbFold}
         />
 
         <CustomInputSelect
           label="Dive site"
           internalLabel="diveSiteId"
-          required={true}
           Icon={TbMapPin}
           data={userCreatedDiveSites}
           displayValue={(diveSite) => String(diveSite?.name ?? '')}
@@ -129,10 +101,6 @@ const CreateDivePage: CustomNextPage = () => {
         <CustomInputSimple
           label="Average Water temperature"
           internalLabel="waterAverageTemperature"
-          inputProps={{
-            type: "number",
-            min: 0,
-          }}
           Icon={TbTemperature}
         />
       </div>
@@ -156,4 +124,3 @@ CreateDivePage.title = 'New dive'
 
 export default CreateDivePage;
 
-export const getServerSideProps = loginRequired

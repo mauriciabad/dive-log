@@ -11,16 +11,15 @@ import { WaterSurfaceSchema } from './enums/WaterSurface.schema';
 import { WaterTypeSchema } from './enums/WaterType.schema';
 import { WaterVisibilitySchema } from './enums/WaterVisibility.schema';
 import { WeatherSchema } from './enums/Weather.schema';
-import { dateSchema } from './helper'
 
 const MAX_OCEAN_DEPTH = 11022;
 const MAX_WATER_TEMP = 40;
 
 export const CreateDiveSchema = z
   .object({
-    name: z.string(),
+    name: z.string().max(192),
     diveNumber: z.number().gte(1),
-    startDateTime: dateSchema,
+    startDateTime: z.date(),
     duration: z.number().gte(1).lte(24 * 60 * 60 * 1000),
     type: z
       .lazy(() => DiveTypeSchema)

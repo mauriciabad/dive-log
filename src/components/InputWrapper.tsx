@@ -3,8 +3,10 @@ import type { IconType } from "react-icons/lib"
 import type { FieldPath, FieldValues, ControllerProps, Control, FieldErrors } from 'react-hook-form';
 import { Controller } from 'react-hook-form'
 import classNames from "classnames"
+import type { ZodObject, ZodRawShape } from "zod";
+import { isZodOptional } from "../validators/helpers";
 
-export interface InputWrapperProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> {
+export interface InputWrapperProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> {
   label: string,
   Icon?: IconType
   render: (props: {
@@ -14,20 +16,22 @@ export interface InputWrapperProps<TFieldValues extends FieldValues, TName exten
   control: Control<TFieldValues>,
   internalLabel: TName,
   error?: FieldErrors<TFieldValues>[TName]
-  // TODO: find a way to not have to pass it 
-  required?: boolean,
+  schema: ZodObject<TZodSchema, "strict">
 }
 
 const InputWrapper =
-  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
+  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape>({
     label,
     Icon,
     render,
-    required,
     control,
     internalLabel,
-    error
-  }: InputWrapperProps<TFieldValues, TName>) => {
+    error,
+    schema
+  }: InputWrapperProps<TFieldValues, TName, TZodSchema>) => {
+    const itemSchema = schema.shape[internalLabel]
+    const required = !isZodOptional(itemSchema)
+
     return (
       <label className="block w-full max-w-md mx-auto" >
         <div className="flex items-center text-gray-800 text-sm">

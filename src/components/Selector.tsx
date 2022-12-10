@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { TbChevronDown, TbCheck } from 'react-icons/tb'
@@ -56,6 +56,7 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
             displayValue={displayValue}
             onChange={(event) => setQuery(event.target.value)}
             ref={ref}
+            type="search"
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
             <TbChevronDown
