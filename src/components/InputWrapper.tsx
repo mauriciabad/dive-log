@@ -29,7 +29,7 @@ const InputWrapper =
     internalLabel,
     error,
     schema,
-    note
+    note,
   }: InputWrapperProps<TFieldValues, TName, TZodSchema>) => {
     const itemSchema = schema.shape[internalLabel]
     const required = !isZodOptional(itemSchema)

@@ -81,6 +81,7 @@ const CreateDivePage: CustomNextPage = () => {
           label="Date"
           internalLabel="startDateTime"
           Icon={TbCalendarTime}
+          autoFocus
         />
 
         <CustomInputSimple
