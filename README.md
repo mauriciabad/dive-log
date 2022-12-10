@@ -4,7 +4,7 @@
 
 # <img height="32" src="src/assets/logo/logo-outline.svg" /> Dive Log
 
-:diving_mask: Easy to use Dive Log for Scuba Divers.
+:diving_mask: Easy to use Dive Log book for Scuba Divers.
 
 Use here: <https://divelog.vercel.app/>
 
