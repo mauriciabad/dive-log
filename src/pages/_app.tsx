@@ -32,7 +32,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const title = originalTitle ? `${originalTitle} | Dive Log` : 'Dive Log'
 
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session} refetchWhenOffline={false}>
       <Head>
         <title>{title}</title>
         <meta name="description" content="" />
