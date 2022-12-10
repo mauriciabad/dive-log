@@ -13,6 +13,16 @@ export const diveRouter = router({
       }
     });
   }),
+  getLastDive: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.dive.findFirst({
+      where: {
+        userId: ctx.session.user.id,
+      },
+      orderBy: {
+        diveNumber: 'desc',
+      }
+    })
+  }),
   createDive: protectedProcedure
     .input(z.object({ data: CreateDiveSchema }))
     .mutation(({ ctx, input }) => {

@@ -18,27 +18,24 @@ import {
 import IconButton from "../../../../components/IconButton";
 import type { z } from "zod";
 import ErrorBox from "../../../../components/ErrorBox";
+import InfoBox from "../../../../components/InfoBox";
 import { makeCustomInputSelect } from "../../../../components/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
+import { useEffect } from "react";
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
 const CreateDivePage: CustomNextPage = () => {
   const router = useRouter();
   const createDiveMutation = trpc.dive.createDive.useMutation()
-  const { handleSubmit, formState: { errors }, control } = useForm<Inputs>({
+  const { handleSubmit, formState, control, setValue } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSchema),
     defaultValues: {
       startDateTime: new Date(),
-      diveNumber: 1,
-      waterAverageTemperature: 30,
-      maximumDepth: 18,
-      name: 'Test dive',
-      duration: 71,
     }
   });
-  const CustomInputSimple = makeCustomInputSimple({ control, errors, schema: CreateDiveSchema })
-  const CustomInputSelect = makeCustomInputSelect({ control, errors, schema: CreateDiveSchema })
+  const CustomInputSimple = makeCustomInputSimple({ control, errors: formState.errors, schema: CreateDiveSchema })
+  const CustomInputSelect = makeCustomInputSelect({ control, errors: formState.errors, schema: CreateDiveSchema })
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
@@ -46,17 +43,29 @@ const CreateDivePage: CustomNextPage = () => {
     await createDiveMutation.mutateAsync({ data })
     router.push("/user/dives");
   }
+  const { data: lastDive } = trpc.dive.getLastDive.useQuery();
+  useEffect(() => {
+    if (lastDive && !control.getFieldState('diveNumber').isDirty) setValue('diveNumber', lastDive['diveNumber'] + 1)
+    if (lastDive && !control.getFieldState('waterAverageTemperature').isDirty) setValue('waterAverageTemperature', lastDive['waterAverageTemperature'] ?? undefined)
+  })
 
   const { data: userCreatedDiveSites } = trpc.diveSite.getUserCreatedDiveSites.useQuery();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
+      {lastDive && <InfoBox
+        message="Some fields have been pre-filled based on your last dive"
+        className="mb-4"
+      />}
       <div className="grid gap-4 items-end sm:grid-cols-3 ">
 
         <CustomInputSimple
           label="Dive Number"
           internalLabel="diveNumber"
           Icon={TbHash}
+          inputProps={{
+            placeholder: lastDive ? String(lastDive.diveNumber + 1) : undefined
+          }}
         />
 
         <CustomInputSimple
