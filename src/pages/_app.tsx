@@ -36,7 +36,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       session={session}
       refetchWhenOffline={false}
       refetchInterval={0}
-      refetchOnWindowFocus={navigator?.onLine}
+      refetchOnWindowFocus={typeof navigator !== "undefined" && navigator.onLine}
     >
       <Head>
         <title>{title}</title>
