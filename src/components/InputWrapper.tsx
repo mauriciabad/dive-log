@@ -17,6 +17,7 @@ export interface InputWrapperProps<TFieldValues extends FieldValues, TName exten
   internalLabel: TName,
   error?: FieldErrors<TFieldValues>[TName]
   schema: ZodObject<TZodSchema, "strict">
+  note?: string
 }
 
 const InputWrapper =
@@ -27,7 +28,8 @@ const InputWrapper =
     control,
     internalLabel,
     error,
-    schema
+    schema,
+    note
   }: InputWrapperProps<TFieldValues, TName, TZodSchema>) => {
     const itemSchema = schema.shape[internalLabel]
     const required = !isZodOptional(itemSchema)
@@ -37,9 +39,11 @@ const InputWrapper =
         <div className="flex items-center text-gray-800 text-sm">
           {Icon && <Icon className="h-4 w-4 mr-0.5" />}
           <span className="" >{label}{
-            required && <span className="text-red-400 ml-1">*</span>
-          }{error &&
-            <span className="text-red-500 ml-2"><>{error?.message}</></span>
+            note && <span className="text-xs text-gray-600"> ({note})</span>
+          }{
+              required && <span className="text-red-400 ml-1">*</span>
+            }{error &&
+              <span className="text-red-500 ml-2"><>{error?.message}</></span>
             }</span>
         </div>
 

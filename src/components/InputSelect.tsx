@@ -23,7 +23,8 @@ const InputSelect =
     control,
     error,
     exposedProperty,
-    schema
+    schema,
+    note
   }: Props<TFieldValues, TName, Data, TZodSchema>) => (
     <InputWrapper
       control={control}
@@ -32,6 +33,7 @@ const InputSelect =
       internalLabel={internalLabel}
       error={error}
       schema={schema}
+      note={note}
       render={({ classNameError, controllerProps }) => {
         return (
           <>

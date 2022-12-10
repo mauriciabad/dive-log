@@ -13,7 +13,16 @@ import {
   TbLicense,
   TbHourglass,
   TbFold,
-  TbMapPin
+  TbMapPin,
+  TbTemperatureMinus,
+  TbTemperaturePlus,
+  TbWind,
+  TbBarbell,
+  TbBattery,
+  TbBattery1,
+  TbBattery4,
+  TbStar,
+  TbTag
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import type { z } from "zod";
@@ -77,25 +86,14 @@ const CreateDivePage: CustomNextPage = () => {
         <CustomInputSimple
           label="Name"
           internalLabel="name"
-          Icon={TbLicense}
+          Icon={TbTag}
         />
 
         <CustomInputSimple
-          label="Duration (in minutes)"
+          label="Duration"
+          note="in minutes"
           internalLabel="duration"
           Icon={TbHourglass}
-        />
-
-        <CustomInputSimple
-          label="Max depth"
-          internalLabel="maximumDepth"
-          Icon={TbArrowBarToDown}
-        />
-
-        <CustomInputSimple
-          label="Avg. depth"
-          internalLabel="averageDepth"
-          Icon={TbFold}
         />
 
         <CustomInputSelect
@@ -108,10 +106,115 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
         <CustomInputSimple
-          label="Average Water temperature"
+          label="Max. depth"
+          note="in meters"
+          internalLabel="maximumDepth"
+          Icon={TbArrowBarToDown}
+        />
+
+        <CustomInputSimple
+          label="Avg. depth"
+          note="in meters"
+          internalLabel="averageDepth"
+          Icon={TbFold}
+        />
+
+        <CustomInputSimple
+          label="Min. water temp."
+          note="in celcius"
+          internalLabel="waterMinimumTemperature"
+          Icon={TbTemperatureMinus}
+        />
+
+        <CustomInputSimple
+          label="Avg. water temp."
+          note="in celcius"
           internalLabel="waterAverageTemperature"
           Icon={TbTemperature}
         />
+
+        <CustomInputSimple
+          label="Max. water temp."
+          note="in celcius"
+          internalLabel="waterMaximumTemperature"
+          Icon={TbTemperaturePlus}
+        />
+
+        <CustomInputSimple
+          label="Air temp."
+          note="in celcius"
+          internalLabel="airTemperature"
+          Icon={TbWind}
+        />
+
+        <CustomInputSimple
+          label="Weight"
+          note="in kilograms"
+          internalLabel="weight"
+          // TODO: This icon is better, but not avilable in react icons. update the lib
+          // Icon={TbWeight} 
+          Icon={TbBarbell}
+        />
+
+        <CustomInputSimple
+          label="Start cylinder presure"
+          note="in bar"
+          internalLabel="startCylinderPresure"
+          Icon={TbBattery4}
+        />
+
+        <CustomInputSimple
+          label="End cylinder presure"
+          note="in bar"
+          internalLabel="endCylinderPresure"
+          Icon={TbBattery1}
+        />
+
+        <CustomInputSimple
+          label="Cylinder volume"
+          note="in liters"
+          internalLabel="cylinderVolume"
+          Icon={TbBattery}
+        />
+
+        <CustomInputSimple
+          label="Rating"
+          note="from 0 to 10"
+          internalLabel="rating"
+          Icon={TbStar}
+        />
+
+        <CustomInputSimple
+          label="Experience notes"
+          internalLabel="experienceNotes"
+          Icon={TbLicense}
+        />
+
+        <CustomInputSimple
+          label="Technical notes"
+          internalLabel="technicalNotes"
+          Icon={TbLicense}
+        />
+
+        {/* Missing fields */}
+        {/* Enums */}
+        {/* type
+        specialtyDiveType
+        waterBody
+        waterType
+        waterEntry
+        waterCurrent
+        waterSurface
+        weather
+        cylinderMaterial
+        roleasDiveBuddy */}
+        {/* Lining to other db entities */}
+        {/* equipment
+        diveCenter
+        diveBuddies
+        organisms
+        links */}
+
       </div>
 
       <div className="flex justify-center">

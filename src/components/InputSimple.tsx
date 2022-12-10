@@ -20,7 +20,8 @@ const InputSimple =
     control,
     internalLabel,
     error,
-    schema
+    schema,
+    note
   }: Props<TFieldValues, TName, TZodSchema>) => {
     const itemSchema = schema.shape[internalLabel]
     const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
@@ -34,6 +35,7 @@ const InputSimple =
         internalLabel={internalLabel}
         error={error}
         schema={schema}
+        note={note}
         render={({ classNameError, controllerProps }) => {
           const { onChange, value, ...controllerFieldProps } = controllerProps.field
 
