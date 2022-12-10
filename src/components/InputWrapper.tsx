@@ -45,7 +45,7 @@ const InputWrapper =
           render={(controllerProps) => render({
             controllerProps,
             classNameError: classNames({
-              'border-red-500 border-2 m-[-2px]': controllerProps.fieldState.error,
+              'border-red-500 border-2 m-[-2px]': error,
             }),
           })} />
 

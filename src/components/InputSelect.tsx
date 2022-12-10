@@ -5,43 +5,40 @@ import InputWrapper from './InputWrapper'
 import Selector from "./Selector";
 import { TbLoader } from "react-icons/tb";
 
-type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends {
-  id: string
-}, R> = {
-  required?: boolean,
+type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>> = {
   data?: Data[]
+  exposedProperty: keyof Data
   displayValue: (value: Data | null) => string
-  returnValue: (value: Data | null) => R
 } &
   Omit<InputWrapperProps<TFieldValues, TName>, 'render'>
 
 const InputSelect =
-  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends {
-    id: string
-  }, R>({
+  <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>>({
     label,
     Icon,
     internalLabel,
     data,
     displayValue,
-    returnValue,
     required,
-    control
-  }: Props<TFieldValues, TName, Data, R>) => (
+    control,
+    error,
+    exposedProperty
+  }: Props<TFieldValues, TName, Data>) => (
     <InputWrapper
       control={control}
       label={label}
       Icon={Icon}
       internalLabel={internalLabel}
       required={required}
+      error={error}
       render={({ classNameError, controllerProps }) => (
         <>
           {data
             ? <Selector
               data={data}
-              displayValue={displayValue}
               classNameError={classNameError}
-              returnValue={returnValue}
+              displayValue={displayValue}
+              exposedProperty={exposedProperty}
               {...controllerProps}
             />
             : <div className="block relative bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 cursor-progress">
@@ -58,13 +55,11 @@ const InputSelect =
     />
   )
 
-export const makeCustomInputSelect = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends {
-  id: string
-}, R>(rebundantProps: {
+export const makeCustomInputSelect = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>>(rebundantProps: {
   errors: FieldErrors<TFieldValues>,
-  control: Props<TFieldValues, TName, Data, R>['control']
+  control: Props<TFieldValues, TName, Data>['control']
 }) => {
-  return (props: Omit<Props<TFieldValues, TName, Data, R>, 'control'>) => {
+  return (props: Omit<Props<TFieldValues, TName, Data>, 'control'>) => {
     return InputSelect({
       control: rebundantProps.control,
       error: rebundantProps.errors[props.internalLabel],

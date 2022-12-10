@@ -17,14 +17,15 @@ const InputSimple =
     inputProps,
     control,
     internalLabel,
-    required
+    error
   }: Props<TFieldValues, TName>) => (
     <InputWrapper
       control={control}
       label={label}
       Icon={Icon}
       internalLabel={internalLabel}
-      required={required}
+      required={inputProps.required}
+      error={error}
       render={({ classNameError, controllerProps }) => (
         <input
           className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}

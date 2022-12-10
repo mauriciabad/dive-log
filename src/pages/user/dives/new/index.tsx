@@ -69,7 +69,7 @@ const CreateDivePage: CustomNextPage = () => {
           label="Date"
           internalLabel="startDateTime"
           inputProps={{
-            type: "datetime",
+            type: "datetime-local",
             required: true,
           }}
           Icon={TbCalendarTime}
@@ -122,11 +122,8 @@ const CreateDivePage: CustomNextPage = () => {
           required={true}
           Icon={TbMapPin}
           data={userCreatedDiveSites}
-          // TODO: Remove this @ts-ignore
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          displayValue={(diveSite) => diveSite?.name ?? ''}
-          returnValue={(diveSite) => diveSite?.id ?? undefined}
+          displayValue={(diveSite) => String(diveSite?.name ?? '')}
+          exposedProperty="id"
         />
 
         <CustomInputSimple
