@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
 import {
-  TbDeviceFloppy, TbInfoCircle, TbLicense, TbMapPin, TbPhoto
+  TbDeviceFloppy, TbInfoCircle, TbMapPin, TbPhoto, TbTag
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
@@ -38,7 +38,7 @@ const CreateDivePage: CustomNextPage = () => {
         <CustomInputSimple
           label="Name"
           internalLabel="name"
-          Icon={TbLicense}
+          Icon={TbTag}
         />
 
         <CustomInputSimple
@@ -72,15 +72,15 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
 
-        <div className="flex justify-center">
-          <IconButton
-            text="Save"
-            Icon={TbDeviceFloppy}
-            onClick={handleSubmit(onSubmit)}
-            loading={createDiveSiteMutation.isLoading}
-            className="flex mt-8 px-8"
-          />
-        </div>
+      </div>
+      <div className="flex justify-center">
+        <IconButton
+          text="Save"
+          Icon={TbDeviceFloppy}
+          onClick={handleSubmit(onSubmit)}
+          loading={createDiveSiteMutation.isLoading}
+          className="flex mt-8 px-8"
+        />
       </div>
 
       {createDiveSiteMutation.error && <ErrorBox message={createDiveSiteMutation.error.message} className="mt-4" />}
