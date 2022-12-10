@@ -32,27 +32,29 @@ const InputSelect =
       internalLabel={internalLabel}
       error={error}
       schema={schema}
-      render={({ classNameError, controllerProps }) => (
-        <>
-          {data
-            ? <Selector
-              data={data}
-              classNameError={classNameError}
-              displayValue={displayValue}
-              exposedProperty={exposedProperty}
-              {...controllerProps}
-            />
-            : <div className="block relative bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 cursor-progress">
-              <span className="animate-pulse text-gray-400">Loading...</span>
-              <div className=" absolute inset-y-2 right-0 pr-2 flex items-center">
-                <TbLoader
-                  className="h-5 w-5 text-gray-400 animate-spin"
-                />
+      render={({ classNameError, controllerProps }) => {
+        return (
+          <>
+            {data
+              ? <Selector
+                data={data}
+                classNameError={classNameError}
+                displayValue={displayValue}
+                exposedProperty={exposedProperty}
+                {...controllerProps.field}
+              />
+              : <div className="block relative bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 cursor-progress">
+                <span className="animate-pulse text-gray-400">Loading...</span>
+                <div className=" absolute inset-y-2 right-0 pr-2 flex items-center">
+                  <TbLoader
+                    className="h-5 w-5 text-gray-400 animate-spin"
+                  />
+                </div>
               </div>
-            </div>
-          }
-        </>
-      )}
+            }
+          </>
+        )
+      }}
     />
   )
 
