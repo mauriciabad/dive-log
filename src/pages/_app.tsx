@@ -32,7 +32,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const title = originalTitle ? `${originalTitle} | Dive Log` : 'Dive Log'
 
   return (
-    <SessionProvider session={session} refetchWhenOffline={false}>
+    <SessionProvider
+      session={session}
+      refetchWhenOffline={false}
+      refetchInterval={24 * 60 * 60} // 24 hours
+      refetchOnWindowFocus={navigator?.onLine}
+    >
       <Head>
         <title>{title}</title>
         <meta name="description" content="" />
