@@ -15,16 +15,16 @@ export function getInputAttributesFromZod<T extends ZodType>(schema: T): InputHT
   }
 
   if (isZodString(nestedSchema)) {
-    
+
     result.type = 'text'
-    
+
     if (nestedSchema.maxLength) result.maxLength = nestedSchema.maxLength
     if (nestedSchema.minLength) result.minLength = nestedSchema.minLength
     if (nestedSchema.isEmail) result.type = 'email'
     if (nestedSchema.isURL) result.type = 'url'
-  
+
   } else if (isZodNumber(nestedSchema)) {
-    
+
     result.type = 'number'
 
     if (nestedSchema.maxValue) result.max = nestedSchema.maxValue
@@ -32,9 +32,9 @@ export function getInputAttributesFromZod<T extends ZodType>(schema: T): InputHT
     if (nestedSchema.isInt) result.step = 1
 
   } else if (isZodDate(nestedSchema)) {
-    
+
     result.type = 'datetime-local'
-    
+
   } else {
     console.warn(`Unknown input type for schema`, schema);
   }
