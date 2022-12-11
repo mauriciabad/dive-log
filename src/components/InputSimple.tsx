@@ -9,7 +9,6 @@ import type { ZodRawShape } from "zod";
 
 type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> = {
   inputProps?: InputHTMLAttributes<HTMLInputElement>,
-  autoFocus?: boolean
 } &
   Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
@@ -22,8 +21,7 @@ const InputSimple =
     internalLabel,
     error,
     schema,
-    note,
-    autoFocus
+    note
   }: Props<TFieldValues, TName, TZodSchema>) => {
     const itemSchema = schema.shape[internalLabel]
     const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
@@ -44,7 +42,6 @@ const InputSimple =
           return (
             <input
               className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}
-              autoFocus={autoFocus}
               {...inputPropsFromZod}
               {...inputProps}
               onChange={({ target: { value } }) => onChange(parseOutput(value, inputProps?.type || inputPropsFromZod?.type || 'text'))}
