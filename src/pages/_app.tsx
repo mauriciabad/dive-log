@@ -7,7 +7,7 @@ import "../utils/timeAgoInitialization";
 
 import "../styles/globals.css";
 import type { NextPage } from "next";
-import Layout from "../components/Layout";
+import Layout from "../components/layouts/Layout";
 import type { ReactElement, ReactNode } from "react";
 import Head from "next/head";
 
