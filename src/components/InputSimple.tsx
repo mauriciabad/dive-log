@@ -10,6 +10,7 @@ import type { ZodRawShape } from "zod";
 type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> = {
   inputProps?: InputHTMLAttributes<HTMLInputElement>,
   theme?: 'filled' | 'outline'
+  className?: string
 } &
   Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
@@ -23,7 +24,8 @@ const InputSimple =
     error,
     schema,
     note,
-    theme = 'filled'
+    theme = 'filled',
+    className
   }: Props<TFieldValues, TName, TZodSchema>) => {
     const itemSchema = schema.shape[internalLabel]
     const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
@@ -38,6 +40,7 @@ const InputSimple =
         error={error}
         schema={schema}
         note={note}
+        className={className}
         render={({ classNameError, controllerProps }) => {
           const { onChange, value, ...controllerFieldProps } = controllerProps.field
 

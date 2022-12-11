@@ -25,9 +25,11 @@ const FormSection: FC<Props> = ({
           {description && <p className="mt-1 text-sm text-gray-600">{description}</p>}
         </div>
       </div>
-      <div className={classNames(className, "mt-5 md:col-span-2 md:mt-0 -mx-4 sm:-mx-6 md:mx-0")} >
+      <div className="mt-5 md:col-span-2 md:mt-0 -mx-4 sm:-mx-6 md:mx-0" >
         <div className="shadow sm:rounded-md bg-white space-y-6  px-4 py-5 sm:p-6">
-          {children}
+          <div className={classNames(className, 'grid grid-cols-12 gap-6')}>
+            {children}
+          </div>
         </div>
       </div>
     </div>

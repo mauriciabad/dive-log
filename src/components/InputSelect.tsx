@@ -12,6 +12,7 @@ type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValue
   exposedProperty: keyof Data
   displayValue: (value: Data | null) => string
   theme?: 'filled' | 'outline'
+  className?: string
 } &
   Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
@@ -27,7 +28,8 @@ const InputSelect =
     exposedProperty,
     schema,
     note,
-    theme = 'filled'
+    theme = 'filled',
+    className
   }: Props<TFieldValues, TName, Data, TZodSchema>) => (
     <InputWrapper
       control={control}
@@ -37,6 +39,7 @@ const InputSelect =
       error={error}
       schema={schema}
       note={note}
+      className={className}
       render={({ classNameError, controllerProps }) => {
         return (
           <>
@@ -49,9 +52,9 @@ const InputSelect =
                 theme={theme}
                 {...controllerProps.field}
               />
-              : <div className={classNames(classNameError, "block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 cursor-progress focus:border-blue-500 focus:ring-blue-500", {
+              : <div className={classNames(classNameError, "block relative py-2 px-4 bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 cursor-progress", {
                 "shadow": theme === 'filled',
-                "border-gray-300 shadow-sm": theme === 'outline',
+                "border-gray-300 border shadow-sm": theme === 'outline',
               })}>
                 <span className="animate-pulse text-gray-400">Loading...</span>
                 <div className=" absolute inset-y-2 right-0 pr-2 flex items-center">

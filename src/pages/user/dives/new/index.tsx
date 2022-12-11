@@ -90,22 +90,14 @@ const CreateDivePage: CustomNextPage = () => {
           inputProps={{
             placeholder: lastDive ? String(lastDive.diveNumber + 1) : undefined
           }}
-        />
-        <CustomInputSimple
-          label="Date"
-          internalLabel="startDateTime"
-          Icon={TbCalendarTime}
-        />
-        <CustomInputSimple
-          label="Name"
-          internalLabel="name"
-          Icon={TbTag}
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSimple
           label="Duration"
           note="in minutes"
           internalLabel="duration"
           Icon={TbHourglass}
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Dive site"
@@ -114,6 +106,19 @@ const CreateDivePage: CustomNextPage = () => {
           data={userCreatedDiveSites}
           displayValue={(diveSite) => String(diveSite?.name ?? '')}
           exposedProperty="id"
+          className="col-span-12 sm:col-span-6"
+        />
+        <CustomInputSimple
+          label="Date"
+          internalLabel="startDateTime"
+          Icon={TbCalendarTime}
+          className="col-span-12 sm:col-span-6"
+        />
+        <CustomInputSimple
+          label="Name"
+          internalLabel="name"
+          Icon={TbTag}
+          className="col-span-12 sm:col-span-12"
         />
         <CustomInputSelect
           label="Dive type"
@@ -122,6 +127,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.DiveType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Specialty dive type"
@@ -130,18 +136,21 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.SpecialtyDiveType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSimple
           label="Max. depth"
           note="in meters"
           internalLabel="maximumDepth"
           Icon={TbArrowBarToDown}
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSimple
           label="Avg. depth"
           note="in meters"
           internalLabel="averageDepth"
           Icon={TbFold}
+          className="col-span-12 sm:col-span-6"
         />
       </FormSection>
 
@@ -154,18 +163,21 @@ const CreateDivePage: CustomNextPage = () => {
           note="in celcius"
           internalLabel="waterMinimumTemperature"
           Icon={TbTemperatureMinus}
+          className="col-span-12 sm:col-span-4"
         />
         <CustomInputSimple
           label="Avg. water temp."
           note="in celcius"
           internalLabel="waterAverageTemperature"
           Icon={TbTemperature}
+          className="col-span-12 sm:col-span-4"
         />
         <CustomInputSimple
           label="Max. water temp."
           note="in celcius"
           internalLabel="waterMaximumTemperature"
           Icon={TbTemperaturePlus}
+          className="col-span-12 sm:col-span-4"
         />
         <CustomInputSelect
           label="Water body"
@@ -174,6 +186,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterBody)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Water type"
@@ -182,6 +195,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Water entry"
@@ -190,6 +204,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterEntry)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-12"
         />
         <CustomInputSelect
           label="Water current"
@@ -198,6 +213,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterCurrent)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Water surface"
@@ -206,6 +222,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterSurface)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Weather"
@@ -214,12 +231,14 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.Weather)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSimple
           label="Air temp."
           note="in celcius"
           internalLabel="airTemperature"
           Icon={TbWind}
+          className="col-span-12 sm:col-span-6"
         />
       </FormSection>
 
@@ -234,24 +253,28 @@ const CreateDivePage: CustomNextPage = () => {
           // TODO: This icon is better, but not avilable in react icons. update the lib
           // Icon={TbWeight} 
           Icon={TbBarbell}
+          className="col-span-12 sm:col-span-12"
         />
         <CustomInputSimple
           label="Start cylinder presure"
           note="in bar"
           internalLabel="startCylinderPresure"
           Icon={TbBattery4}
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSimple
           label="End cylinder presure"
           note="in bar"
           internalLabel="endCylinderPresure"
           Icon={TbBattery1}
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSimple
           label="Cylinder volume"
           note="in liters"
           internalLabel="cylinderVolume"
           Icon={TbBattery}
+          className="col-span-12 sm:col-span-6"
         />
         <CustomInputSelect
           label="Cylinder material"
@@ -260,6 +283,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.CylinderMaterial)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+          className="col-span-12 sm:col-span-6"
         />
 
         {/* Missing fields */}
@@ -270,7 +294,7 @@ const CreateDivePage: CustomNextPage = () => {
         title="People"
         description="Information about other divers and dive centers."
       >
-        <div className="py-6 text-xl text-center text-gray-400">In development...</div>
+        <div className="py-6 text-xl text-center text-gray-300 col-span-12">In development...</div>
         {/* Missing fields */}
         {/* Lining to other db entities */}
         {/* diveCenter */}
@@ -281,7 +305,7 @@ const CreateDivePage: CustomNextPage = () => {
         title="Organisms"
         description="Creatures you saw that you consider relevant."
       >
-        <div className="py-6 text-xl text-center text-gray-400">In development...</div>
+        <div className="py-6 text-xl text-center text-gray-300 col-span-12">In development...</div>
         {/* Missing fields */}
         {/* Lining to other db entities */}
         {/* organisms */}
@@ -297,16 +321,19 @@ const CreateDivePage: CustomNextPage = () => {
           note="from 0 to 10"
           internalLabel="rating"
           Icon={TbStar}
+          className="col-span-12 sm:col-span-12"
         />
         <CustomInputSimple
           label="Experience notes"
           internalLabel="experienceNotes"
           Icon={TbLicense}
+          className="col-span-12 sm:col-span-12"
         />
         <CustomInputSimple
           label="Technical notes"
           internalLabel="technicalNotes"
           Icon={TbLicense}
+          className="col-span-12 sm:col-span-12"
         />
 
         {/* Missing fields */}

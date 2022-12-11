@@ -51,7 +51,7 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
       name={name}
       nullable={true}
     >
-      <div className="relative mt-1 block w-full max-w-md mx-auto">
+      <div className="relative mt-1 block w-full">
         <div className={classNames(classNameError, "relative w-full cursor-default text-left")}>
           <Combobox.Input
             className={classNames(classNameError, "pr-10 block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 focus:border-blue-500 focus:ring-blue-500", {
@@ -80,7 +80,11 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
             onBlur?.()
           }}
         >
-          <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg z-[1]">
+          <Combobox.Options
+            className={classNames(classNameError, "absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg z-[1]", {
+              "": theme === 'filled',
+              "border-gray-300 border": theme === 'outline',
+            })}>
             {filteredData.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none py-2 px-4 text-gray-500">
                 Empty
@@ -89,10 +93,12 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
               filteredData.map((value) => (
                 <Combobox.Option
                   key={String(value[exposedProperty])}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-500 text-white' : 'text-gray-900'
-                    }`
-                  }
+                  className={({ active, selected }) =>
+                    classNames('relative cursor-default select-none py-2 pl-10 pr-4', {
+                      'bg-blue-50': selected && !active,
+                      'bg-blue-500 text-white': active,
+                      'text-gray-900': !active,
+                    })}
                   value={value}
                 >
                   {({ selected, active }) => (
@@ -119,7 +125,7 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
           </Combobox.Options>
         </Transition>
       </div>
-    </Combobox>
+    </Combobox >
   )
 }
 
