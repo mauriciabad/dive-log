@@ -5,11 +5,13 @@ import InputWrapper from './InputWrapper'
 import Selector from "./Selector";
 import { TbLoader } from "react-icons/tb";
 import type { ZodRawShape } from "zod";
+import classNames from "classnames";
 
 type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Data extends Record<string, unknown>, TZodSchema extends ZodRawShape> = {
   data?: Data[]
   exposedProperty: keyof Data
   displayValue: (value: Data | null) => string
+  theme?: 'filled' | 'outline'
 } &
   Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
@@ -24,7 +26,8 @@ const InputSelect =
     error,
     exposedProperty,
     schema,
-    note
+    note,
+    theme = 'filled'
   }: Props<TFieldValues, TName, Data, TZodSchema>) => (
     <InputWrapper
       control={control}
@@ -43,9 +46,13 @@ const InputSelect =
                 classNameError={classNameError}
                 displayValue={displayValue}
                 exposedProperty={exposedProperty}
+                theme={theme}
                 {...controllerProps.field}
               />
-              : <div className="block relative bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 cursor-progress">
+              : <div className={classNames(classNameError, "block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 cursor-progress focus:border-blue-500 focus:ring-blue-500", {
+                "shadow": theme === 'filled',
+                "border-gray-300 shadow-sm": theme === 'outline',
+              })}>
                 <span className="animate-pulse text-gray-400">Loading...</span>
                 <div className=" absolute inset-y-2 right-0 pr-2 flex items-center">
                   <TbLoader
@@ -64,11 +71,13 @@ export const makeCustomInputSelect = <TFieldValues extends FieldValues, TName ex
   errors: FieldErrors<TFieldValues>,
   control: Props<TFieldValues, TName, Data, TZodSchema>['control']
   schema: Props<TFieldValues, TName, Data, TZodSchema>['schema']
+  theme: Props<TFieldValues, TName, Data, TZodSchema>['theme']
 }) => {
   return (props: Omit<Props<TFieldValues, TName, Data, TZodSchema>, keyof typeof rebundantProps>) => {
     return InputSelect({
       control: rebundantProps.control,
       schema: rebundantProps.schema,
+      theme: rebundantProps.theme,
       error: rebundantProps.errors[props.internalLabel],
 
       ...props

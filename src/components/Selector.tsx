@@ -10,6 +10,7 @@ type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValue
   data: T[]
   displayValue: (value: T | null) => string
   exposedProperty: keyof T
+  theme?: 'filled' | 'outline'
 } & Partial<ControllerRenderProps<TFieldValues, TName>>
 
 const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, T extends Record<string, unknown>>({
@@ -21,7 +22,8 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
   name,
   ref,
   value,
-  exposedProperty
+  exposedProperty,
+  theme = 'filled'
 }: Props<TFieldValues, TName, T>) => {
   const [selected, setSelected] = useState<T | null>(
     data.find(d => d[exposedProperty] === value) ?? null
@@ -50,9 +52,12 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
       nullable={true}
     >
       <div className="relative mt-1 block w-full max-w-md mx-auto">
-        <div className={classNames(classNameError, "relative w-full cursor-default overflow-hidden rounded-md bg-white text-left shadow focus-within:outline-2")}>
+        <div className={classNames(classNameError, "relative w-full cursor-default text-left")}>
           <Combobox.Input
-            className="w-full border-none py-2 pl-3 pr-10 text-gray-900"
+            className={classNames(classNameError, "pr-10 block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 focus:border-blue-500 focus:ring-blue-500", {
+              "border-none shadow": theme === 'filled',
+              "border-gray-300 shadow-sm": theme === 'outline',
+            })}
             displayValue={displayValue}
             onChange={(event) => setQuery(event.target.value)}
             ref={ref}

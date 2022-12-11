@@ -34,6 +34,7 @@ import {
   TbBatteryCharging
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
+import FormSection from "../../../../components/FormSection";
 import type { z } from "zod";
 import ErrorBox from "../../../../components/ErrorBox";
 import InfoBox from "../../../../components/InfoBox";
@@ -53,8 +54,8 @@ const CreateDivePage: CustomNextPage = () => {
       startDateTime: new Date(),
     }
   });
-  const CustomInputSimple = makeCustomInputSimple({ control, errors: formState.errors, schema: CreateDiveSchema })
-  const CustomInputSelect = makeCustomInputSelect({ control, errors: formState.errors, schema: CreateDiveSchema })
+  const CustomInputSimple = makeCustomInputSimple({ control, errors: formState.errors, schema: CreateDiveSchema, theme: 'outline' })
+  const CustomInputSelect = makeCustomInputSelect({ control, errors: formState.errors, schema: CreateDiveSchema, theme: 'outline' })
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
@@ -76,7 +77,11 @@ const CreateDivePage: CustomNextPage = () => {
         message="Some fields have been pre-filled based on your last dive"
         className="mb-4"
       />}
-      <div className="grid gap-4 items-end sm:grid-cols-3 ">
+
+      <FormSection
+        title="Basic"
+        description="The minimum information you need to keep."
+      >
 
         <CustomInputSimple
           label="Dive Number"
@@ -86,26 +91,22 @@ const CreateDivePage: CustomNextPage = () => {
             placeholder: lastDive ? String(lastDive.diveNumber + 1) : undefined
           }}
         />
-
         <CustomInputSimple
           label="Date"
           internalLabel="startDateTime"
           Icon={TbCalendarTime}
         />
-
         <CustomInputSimple
           label="Name"
           internalLabel="name"
           Icon={TbTag}
         />
-
         <CustomInputSimple
           label="Duration"
           note="in minutes"
           internalLabel="duration"
           Icon={TbHourglass}
         />
-
         <CustomInputSelect
           label="Dive site"
           internalLabel="diveSiteId"
@@ -114,100 +115,8 @@ const CreateDivePage: CustomNextPage = () => {
           displayValue={(diveSite) => String(diveSite?.name ?? '')}
           exposedProperty="id"
         />
-
-        <CustomInputSimple
-          label="Max. depth"
-          note="in meters"
-          internalLabel="maximumDepth"
-          Icon={TbArrowBarToDown}
-        />
-
-        <CustomInputSimple
-          label="Avg. depth"
-          note="in meters"
-          internalLabel="averageDepth"
-          Icon={TbFold}
-        />
-
-        <CustomInputSimple
-          label="Min. water temp."
-          note="in celcius"
-          internalLabel="waterMinimumTemperature"
-          Icon={TbTemperatureMinus}
-        />
-
-        <CustomInputSimple
-          label="Avg. water temp."
-          note="in celcius"
-          internalLabel="waterAverageTemperature"
-          Icon={TbTemperature}
-        />
-
-        <CustomInputSimple
-          label="Max. water temp."
-          note="in celcius"
-          internalLabel="waterMaximumTemperature"
-          Icon={TbTemperaturePlus}
-        />
-
-        <CustomInputSimple
-          label="Air temp."
-          note="in celcius"
-          internalLabel="airTemperature"
-          Icon={TbWind}
-        />
-
-        <CustomInputSimple
-          label="Weight"
-          note="in kilograms"
-          internalLabel="weight"
-          // TODO: This icon is better, but not avilable in react icons. update the lib
-          // Icon={TbWeight} 
-          Icon={TbBarbell}
-        />
-
-        <CustomInputSimple
-          label="Start cylinder presure"
-          note="in bar"
-          internalLabel="startCylinderPresure"
-          Icon={TbBattery4}
-        />
-
-        <CustomInputSimple
-          label="End cylinder presure"
-          note="in bar"
-          internalLabel="endCylinderPresure"
-          Icon={TbBattery1}
-        />
-
-        <CustomInputSimple
-          label="Cylinder volume"
-          note="in liters"
-          internalLabel="cylinderVolume"
-          Icon={TbBattery}
-        />
-
-        <CustomInputSimple
-          label="Rating"
-          note="from 0 to 10"
-          internalLabel="rating"
-          Icon={TbStar}
-        />
-
-        <CustomInputSimple
-          label="Experience notes"
-          internalLabel="experienceNotes"
-          Icon={TbLicense}
-        />
-
-        <CustomInputSimple
-          label="Technical notes"
-          internalLabel="technicalNotes"
-          Icon={TbLicense}
-        />
-
         <CustomInputSelect
-          label="Type"
+          label="Dive type"
           internalLabel="type"
           Icon={TbFlag}
           data={enumLabelsAsArray(enumLabels.DiveType)}
@@ -221,6 +130,42 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.SpecialtyDiveType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
+        />
+        <CustomInputSimple
+          label="Max. depth"
+          note="in meters"
+          internalLabel="maximumDepth"
+          Icon={TbArrowBarToDown}
+        />
+        <CustomInputSimple
+          label="Avg. depth"
+          note="in meters"
+          internalLabel="averageDepth"
+          Icon={TbFold}
+        />
+      </FormSection>
+
+      <FormSection
+        title="Environment"
+        description="Information about the conditions you dived in."
+      >
+        <CustomInputSimple
+          label="Min. water temp."
+          note="in celcius"
+          internalLabel="waterMinimumTemperature"
+          Icon={TbTemperatureMinus}
+        />
+        <CustomInputSimple
+          label="Avg. water temp."
+          note="in celcius"
+          internalLabel="waterAverageTemperature"
+          Icon={TbTemperature}
+        />
+        <CustomInputSimple
+          label="Max. water temp."
+          note="in celcius"
+          internalLabel="waterMaximumTemperature"
+          Icon={TbTemperaturePlus}
         />
         <CustomInputSelect
           label="Water body"
@@ -270,6 +215,44 @@ const CreateDivePage: CustomNextPage = () => {
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
         />
+        <CustomInputSimple
+          label="Air temp."
+          note="in celcius"
+          internalLabel="airTemperature"
+          Icon={TbWind}
+        />
+      </FormSection>
+
+      <FormSection
+        title="Equipment"
+        description="Information related to the equipment you used."
+      >
+        <CustomInputSimple
+          label="Weight"
+          note="in kilograms"
+          internalLabel="weight"
+          // TODO: This icon is better, but not avilable in react icons. update the lib
+          // Icon={TbWeight} 
+          Icon={TbBarbell}
+        />
+        <CustomInputSimple
+          label="Start cylinder presure"
+          note="in bar"
+          internalLabel="startCylinderPresure"
+          Icon={TbBattery4}
+        />
+        <CustomInputSimple
+          label="End cylinder presure"
+          note="in bar"
+          internalLabel="endCylinderPresure"
+          Icon={TbBattery1}
+        />
+        <CustomInputSimple
+          label="Cylinder volume"
+          note="in liters"
+          internalLabel="cylinderVolume"
+          Icon={TbBattery}
+        />
         <CustomInputSelect
           label="Cylinder material"
           internalLabel="cylinderMaterial"
@@ -280,14 +263,56 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
         {/* Missing fields */}
-        {/* Lining to other db entities */}
-        {/* equipment
-        diveCenter
-        diveBuddies
-        organisms
-        links */}
+        {/* equipment */}
+      </FormSection>
 
-      </div>
+      <FormSection
+        title="People"
+        description="Information about other divers and dive centers."
+      >
+        <div className="py-6 text-xl text-center text-gray-400">In development...</div>
+        {/* Missing fields */}
+        {/* Lining to other db entities */}
+        {/* diveCenter */}
+        {/* diveBuddies */}
+      </FormSection>
+
+      <FormSection
+        title="Organisms"
+        description="Creatures you saw that you consider relevant."
+      >
+        <div className="py-6 text-xl text-center text-gray-400">In development...</div>
+        {/* Missing fields */}
+        {/* Lining to other db entities */}
+        {/* organisms */}
+      </FormSection>
+
+      <FormSection
+        title="Personal"
+        description="So you don't forget what happened during the dive."
+        separator={false}
+      >
+        <CustomInputSimple
+          label="Rating"
+          note="from 0 to 10"
+          internalLabel="rating"
+          Icon={TbStar}
+        />
+        <CustomInputSimple
+          label="Experience notes"
+          internalLabel="experienceNotes"
+          Icon={TbLicense}
+        />
+        <CustomInputSimple
+          label="Technical notes"
+          internalLabel="technicalNotes"
+          Icon={TbLicense}
+        />
+
+        {/* Missing fields */}
+        {/* Lining to other db entities */}
+        {/* links */}
+      </FormSection>
 
       <div className="flex justify-center">
         <IconButton

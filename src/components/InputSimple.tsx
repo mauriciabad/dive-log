@@ -9,6 +9,7 @@ import type { ZodRawShape } from "zod";
 
 type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> = {
   inputProps?: InputHTMLAttributes<HTMLInputElement>,
+  theme?: 'filled' | 'outline'
 } &
   Omit<InputWrapperProps<TFieldValues, TName, TZodSchema>, 'render'>
 
@@ -21,7 +22,8 @@ const InputSimple =
     internalLabel,
     error,
     schema,
-    note
+    note,
+    theme = 'filled'
   }: Props<TFieldValues, TName, TZodSchema>) => {
     const itemSchema = schema.shape[internalLabel]
     const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
@@ -41,7 +43,10 @@ const InputSimple =
 
           return (
             <input
-              className={classNames(classNameError, "block bg-white rounded shadow py-2 px-4 w-full min-w-0 mt-1 text-gray-900")}
+              className={classNames(classNameError, "block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 focus:border-blue-500 focus:ring-blue-500", {
+                "shadow": theme === 'filled',
+                "border-gray-300 shadow-sm": theme === 'outline',
+              })}
               {...inputPropsFromZod}
               {...inputProps}
               onChange={({ target: { value } }) => onChange(parseOutput(value, inputProps?.type || inputPropsFromZod?.type || 'text'))}
@@ -58,11 +63,13 @@ export const makeCustomInputSimple = <TFieldValues extends FieldValues, TName ex
   errors: FieldErrors<TFieldValues>,
   control: Props<TFieldValues, TName, TZodSchema>['control']
   schema: Props<TFieldValues, TName, TZodSchema>['schema']
+  theme: Props<TFieldValues, TName, TZodSchema>['theme']
 }) => {
   return (props: Omit<Props<TFieldValues, TName, TZodSchema>, keyof typeof rebundantProps>) => {
     return InputSimple({
       control: rebundantProps.control,
       schema: rebundantProps.schema,
+      theme: rebundantProps.theme,
       error: rebundantProps.errors[props.internalLabel],
 
       ...props
