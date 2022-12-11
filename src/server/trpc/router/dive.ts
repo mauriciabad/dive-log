@@ -10,6 +10,9 @@ export const diveRouter = router({
       },
       include: {
         diveSite: true,
+      },
+      orderBy: {
+        diveNumber: 'desc',
       }
     });
   }),
