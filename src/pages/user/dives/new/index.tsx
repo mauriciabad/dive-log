@@ -40,6 +40,7 @@ import ErrorBox from "../../../../components/ErrorBox";
 import InfoBox from "../../../../components/InfoBox";
 import { makeCustomInputSelect } from "../../../../components/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
+import { makeCustomInputMultiline } from "../../../../components/InputMultiline";
 import { useEffect } from "react";
 import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
 
@@ -54,8 +55,16 @@ const CreateDivePage: CustomNextPage = () => {
       startDateTime: new Date(),
     }
   });
-  const CustomInputSimple = makeCustomInputSimple({ control, errors: formState.errors, schema: CreateDiveSchema, theme: 'outline' })
-  const CustomInputSelect = makeCustomInputSelect({ control, errors: formState.errors, schema: CreateDiveSchema, theme: 'outline' })
+
+  const makeCustomInputsProps = {
+    control,
+    errors: formState.errors,
+    schema: CreateDiveSchema,
+    theme: 'outline'
+  } as const
+  const CustomInputSimple = makeCustomInputSimple(makeCustomInputsProps)
+  const CustomInputSelect = makeCustomInputSelect(makeCustomInputsProps)
+  const CustomInputMultiline = makeCustomInputMultiline(makeCustomInputsProps)
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
@@ -323,17 +332,19 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbStar}
           className="col-span-12 sm:col-span-12"
         />
-        <CustomInputSimple
+        <CustomInputMultiline
           label="Experience notes"
           internalLabel="experienceNotes"
           Icon={TbLicense}
           className="col-span-12 sm:col-span-12"
+          rows={5}
         />
-        <CustomInputSimple
+        <CustomInputMultiline
           label="Technical notes"
           internalLabel="technicalNotes"
           Icon={TbLicense}
           className="col-span-12 sm:col-span-12"
+          rows={5}
         />
 
         {/* Missing fields */}

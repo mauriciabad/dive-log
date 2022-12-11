@@ -2,8 +2,9 @@ import type { InputHTMLAttributes } from "react";
 import type { ZodType } from "zod";
 import { isZodDate, isZodNumber, isZodOptional, isZodString } from ".";
 
-export function getInputAttributesFromZod<T extends ZodType>(schema: T): InputHTMLAttributes<HTMLInputElement> {
-  const result: InputHTMLAttributes<HTMLInputElement> = {}
+type InputProps = InputHTMLAttributes<HTMLInputElement>
+export function getInputAttributesFromZod<T extends ZodType>(schema: T): InputProps {
+  const result: InputProps = {}
   let nestedSchema: ZodType = schema
 
   if (isZodOptional(schema)) {
