@@ -1,5 +1,6 @@
 import { trpc } from "../../../../utils/trpc";
 import type { CustomNextPage } from "../../../_app";
+import type { Path } from "react-hook-form";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
@@ -43,6 +44,7 @@ import { makeCustomInputSimple } from "../../../../components/InputSimple";
 import { makeCustomInputMultiline } from "../../../../components/InputMultiline";
 import { useEffect } from "react";
 import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
+import type { Dive } from "@prisma/client";
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
@@ -72,20 +74,46 @@ const CreateDivePage: CustomNextPage = () => {
     await createDiveMutation.mutateAsync({ data })
     router.push("/user/dives");
   }
+
   const { data: lastDive } = trpc.dive.getLastDive.useQuery();
+  function autofill(...internalLabels: (keyof Dive & Path<Inputs>)[]): void {
+    for (const internalLabel of internalLabels) {
+      if (lastDive && !control.getFieldState(internalLabel).isDirty) setValue(internalLabel, lastDive[internalLabel] ?? undefined)
+    }
+  }
   useEffect(() => {
     if (lastDive && !control.getFieldState('diveNumber').isDirty) setValue('diveNumber', lastDive['diveNumber'] + 1)
-    if (lastDive && !control.getFieldState('waterAverageTemperature').isDirty) setValue('waterAverageTemperature', lastDive['waterAverageTemperature'] ?? undefined)
+    autofill(
+      'type',
+      'waterMinimumTemperature',
+      'waterAverageTemperature',
+      'waterMaximumTemperature',
+      'waterBody',
+      'waterType',
+      'waterEntry',
+      'waterCurrent',
+      'waterSurface',
+      'weather',
+      'airTemperature',
+      'weight',
+      'cylinderVolume',
+      'cylinderMaterial',
+    )
   })
 
   const { data: userCreatedDiveSites } = trpc.diveSite.getUserCreatedDiveSites.useQuery();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
-      {lastDive && <InfoBox
+      {lastDive ? <InfoBox
         message="Some fields have been pre-filled based on your last dive"
         className="mb-4"
-      />}
+      />
+        :
+        <InfoBox
+          message="Trying to guess some fields..."
+          className="mb-4"
+        />}
 
       <FormSection
         title="Basic"
