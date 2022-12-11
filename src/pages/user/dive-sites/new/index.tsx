@@ -24,7 +24,7 @@ const CreateDivePage: CustomNextPage = () => {
   const { handleSubmit, control, formState: { errors } } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSiteSchema),
   });
-  const CustomInputSimple = makeCustomInputSimple({ control, errors, schema: CreateDiveSiteSchema })
+  const CustomInputSimple = makeCustomInputSimple({ control, errors, schema: CreateDiveSiteSchema, theme: 'filled' })
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     await createDiveSiteMutation.mutateAsync({ data })

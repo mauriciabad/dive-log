@@ -4,7 +4,7 @@ import type { FieldErrors, FieldPath, FieldValues } from 'react-hook-form'
 import classNames from "classnames"
 import type { InputWrapperProps } from './InputWrapper';
 import InputWrapper from './InputWrapper'
-import { getInputAttributesFromZod } from '../validators/helpers'
+import { getInputAttributesFromZod } from '../../validators/helpers'
 import type { ZodRawShape } from "zod";
 
 type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> = {
