@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
 import {
-  TbDeviceFloppy, TbInfoCircle, TbMapPin, TbPhoto, TbTag
+  TbDeviceFloppy, TbInfoCircle, TbPhoto, TbTag, TbWorldLatitude, TbWorldLongitude
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
@@ -59,7 +59,7 @@ const CreateDivePage: CustomNextPage = () => {
           inputProps={{
             step: 0.000001,
           }}
-          Icon={TbMapPin}
+          Icon={TbWorldLatitude}
         />
 
         <CustomInputSimple
@@ -68,7 +68,7 @@ const CreateDivePage: CustomNextPage = () => {
           inputProps={{
             step: 0.000001,
           }}
-          Icon={TbMapPin}
+          Icon={TbWorldLongitude}
         />
 
 

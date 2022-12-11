@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const SpecialtyDiveTypeSchema = z.enum([
   "BOAT_DIVE",
-  "PERFECT_bUOYANCY_DIVE",
+  "PERFECT_BUOYANCY_DIVE",
   "DIVE_COMPUTER",
   "DEEP_DIVE",
   "DRIFT_DIVE",

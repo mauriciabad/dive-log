@@ -1,4 +1,3 @@
-// import type { Prisma } from '@prisma/client'
 import { z } from 'zod';
 import { CylinderMaterialSchema } from './enums/CylinderMaterial.schema';
 import { DiveBuddyInDiveRoleSchema } from './enums/DiveBuddyInDiveRole.schema';

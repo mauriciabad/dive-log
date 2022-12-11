@@ -22,7 +22,16 @@ import {
   TbBattery1,
   TbBattery4,
   TbStar,
-  TbTag
+  TbTag,
+  TbRipple,
+  TbAward,
+  TbCloud,
+  TbDroplet,
+  TbFall,
+  TbFlag,
+  TbHaze,
+  TbSalt,
+  TbBatteryCharging
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import type { z } from "zod";
@@ -31,6 +40,7 @@ import InfoBox from "../../../../components/InfoBox";
 import { makeCustomInputSelect } from "../../../../components/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
 import { useEffect } from "react";
+import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
@@ -196,18 +206,80 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbLicense}
         />
 
+        <CustomInputSelect
+          label="Type"
+          internalLabel="type"
+          Icon={TbFlag}
+          data={enumLabelsAsArray(enumLabels.DiveType)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Specialty dive type"
+          internalLabel="specialtyDiveType"
+          Icon={TbAward}
+          data={enumLabelsAsArray(enumLabels.SpecialtyDiveType)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Water body"
+          internalLabel="waterBody"
+          Icon={TbDroplet}
+          data={enumLabelsAsArray(enumLabels.WaterBody)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Water type"
+          internalLabel="waterType"
+          Icon={TbSalt}
+          data={enumLabelsAsArray(enumLabels.WaterType)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Water entry"
+          internalLabel="waterEntry"
+          Icon={TbFall}
+          data={enumLabelsAsArray(enumLabels.WaterEntry)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Water current"
+          internalLabel="waterCurrent"
+          Icon={TbRipple}
+          data={enumLabelsAsArray(enumLabels.WaterCurrent)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Water surface"
+          internalLabel="waterSurface"
+          Icon={TbHaze}
+          data={enumLabelsAsArray(enumLabels.WaterSurface)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Weather"
+          internalLabel="weather"
+          Icon={TbCloud}
+          data={enumLabelsAsArray(enumLabels.Weather)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+        <CustomInputSelect
+          label="Cylinder material"
+          internalLabel="cylinderMaterial"
+          Icon={TbBatteryCharging}
+          data={enumLabelsAsArray(enumLabels.CylinderMaterial)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+        />
+
         {/* Missing fields */}
-        {/* Enums */}
-        {/* type
-        specialtyDiveType
-        waterBody
-        waterType
-        waterEntry
-        waterCurrent
-        waterSurface
-        weather
-        cylinderMaterial
-        roleasDiveBuddy */}
         {/* Lining to other db entities */}
         {/* equipment
         diveCenter
