@@ -13,21 +13,44 @@ interface Props {
   Icon?: IconType
   disabled?: boolean
   loading?: boolean
+  onlyIcon?: boolean
 }
 
 
-const IconButton: FC<Props> = ({ className, classNameIcon, href, onClick, text, Icon, disabled, loading }) => {
-  const classWrapper = classNames(className, "bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 inline-flex items-center")
-  const classIcon = classNames(classNameIcon, 'w-6 h-6 inline-block text-white mr-2 shrink-0')
-
+const IconButton: FC<Props> = ({
+  className,
+  classNameIcon,
+  href,
+  onClick,
+  text,
+  Icon,
+  disabled,
+  loading,
+  onlyIcon
+}) => {
+  const classWrapper = classNames(className, {
+    'bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 focus-visible:ring-offset-2': !onlyIcon,
+    'text-current p-2 rounded-full border-gray-300 border hover:bg-gray-50 shadow-sm justify-center aspect-square': onlyIcon,
+  }, 'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none overflow-hidden inline-flex items-center')
+  const classIcon = classNames(classNameIcon, {
+    'inline-block mr-2 shrink-0': !onlyIcon,
+    '': onlyIcon,
+  }, 'w-6 h-6')
+  const classText = classNames({
+    '': !onlyIcon,
+    'sr-only': onlyIcon
+  })
 
   return (<>
     {
       disabled || loading ? <span
-        className={classNames(classWrapper, 'bg-gray-500')}
+        className={classNames(classWrapper, {
+          'bg-gray-500': !onlyIcon,
+          'opacity-70': onlyIcon,
+        }, 'cursor-not-allowed')}
       >
         {Icon && <Icon className={classNames(classIcon, { 'animate-pulse': loading })} />}
-        <span>{text}</span>
+        <span className={classText}>{text}</span>
       </span>
         : href ?
           <Link
@@ -36,7 +59,7 @@ const IconButton: FC<Props> = ({ className, classNameIcon, href, onClick, text, 
             onClick={onClick}
           >
             {Icon && <Icon className={classIcon} />}
-            <span>{text}</span>
+            <span className={classText}>{text}</span>
           </Link>
           :
           <button
@@ -44,7 +67,7 @@ const IconButton: FC<Props> = ({ className, classNameIcon, href, onClick, text, 
             onClick={onClick}
           >
             {Icon && <Icon className={classIcon} />}
-            <span>{text}</span>
+            <span className={classText}>{text}</span>
           </button>
     }</>)
 }

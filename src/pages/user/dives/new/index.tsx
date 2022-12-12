@@ -360,44 +360,43 @@ const CreateDivePage: CustomNextPage = () => {
           rows={5}
         />
 
-        {fields.map((item, index) => (
-          <div
-            className="grid grid-cols-12 col-span-12 gap-4"
-            key={item.id}
-          >
-            <CustomInputSimple
-              label="Link"
-              internalLabel={`links.${index}.link`}
-              Icon={TbLink}
-              className="col-span-6 sm:col-span-6"
-            />
-            <CustomInputSelect
-              label="Type"
-              internalLabel={`links.${index}.type`}
-              Icon={TbFile}
-              data={enumLabelsAsArray(enumLabels.LinkType)}
-              displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
-              exposedProperty="value"
-              className="col-span-4 sm:col-span-4"
-            />
-            <IconButton
-              text="Delete"
-              onClick={() => remove(index)}
-              className="col-span-2 sm:col-span-2"
-              Icon={TbTrash}
-            />
-          </div>
-        ))}
+        <div className="grid grid-cols-[2fr,minmax(12ch,1fr),auto] items-end col-span-12 gap-4">
+          {fields.map((item, index) => (
+            <div key={item.id} className="contents">
+              <CustomInputSimple
+                label="Link"
+                internalLabel={`links.${index}.link`}
+                Icon={TbLink}
+              />
+              <CustomInputSelect
+                label="Type"
+                internalLabel={`links.${index}.type`}
+                Icon={TbFile}
+                data={enumLabelsAsArray(enumLabels.LinkType)}
+                displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+                exposedProperty="value"
+              />
+              <IconButton
+                text="Delete"
+                onClick={() => remove(index)}
+                Icon={TbTrash}
+                onlyIcon
+              />
+            </div>
+          ))}
+        </div>
 
-        <IconButton
-          text="Add link"
-          onClick={() => append({
-            link: '',
-            type: 'OTHER',
-          })}
-          className="col-span-12 sm:col-span-12"
-          Icon={TbPlus}
-        />
+        <div className="col-span-12 sm:col-span-12">
+          <IconButton
+            text="Add link"
+            onClick={() => append({
+              link: '',
+              type: 'OTHER',
+            })}
+            Icon={TbPlus}
+
+          />
+        </div>
 
       </FormSection>
 
