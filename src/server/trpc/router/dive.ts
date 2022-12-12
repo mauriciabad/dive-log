@@ -1,3 +1,4 @@
+import { userAgent } from "next/server";
 import { z } from "zod";
 import { CreateDiveSchema } from "../../../validators/Dive";
 import { router, protectedProcedure } from "../trpc";
@@ -29,7 +30,7 @@ export const diveRouter = router({
   createDive: protectedProcedure
     .input(z.object({ data: CreateDiveSchema }))
     .mutation(({ ctx, input }) => {
-      const { diveSiteId, ...data } = input.data
+      const { diveSiteId, links, ...data } = input.data
 
       return ctx.prisma.dive.create({
         data: {
@@ -42,6 +43,15 @@ export const diveRouter = router({
           diveSite: {
             connect: {
               id: diveSiteId,
+            }
+          },
+
+          links: {
+            createMany: {
+              data: links.map(link => ({
+                creatorUserId: ctx.session.user.id,
+                ...link
+              }))
             }
           },
 
