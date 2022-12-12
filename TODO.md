@@ -9,6 +9,11 @@ Kind of like a backlog.
 - [x] View: Dive details
 - [ ] Install Radix UI
 - [x] View: Create dive
+- [ ] View: View dive
+- [ ] View: Edit dive
+- [ ] View: View Dive Site
+- [ ] View: Edit Dive Site
+- [ ] Delete dive with confirm tooltip
 - [x] Login with Google, email, Facebook and as many as possible
 - [ ] Work offline
   - [ ] Create dive offline
@@ -16,6 +21,19 @@ Kind of like a backlog.
 - [x] Setup hosting
 - [ ] Setup CI/CD
 - [ ] Remove all `@ts-ignore`s
+- [ ] Fix change page is slow
+
+### Sub tasks
+
+- [ ] New input select
+- [ ] Joined input
+- [ ] Put units inside input
+- [ ] 5 star input
+- [ ] Create divesite from create dive
+- [ ] Links items
+- [ ] Dive buddies
+- [ ] Dive centers
+- [ ] Organisms
 
 ## High priority
 
