@@ -47,6 +47,7 @@ import InfoBox from "../../../../components/InfoBox";
 import { makeCustomInputSelect } from "../../../../components/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
 import { makeCustomInputMultiline } from "../../../../components/InputMultiline";
+import InputGroup from "../../../../components/inputs/InputGroup"
 import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
 import { useCreateDiveAutofill } from '../../../../hooks/useCreateDiveAutofill'
 
@@ -363,11 +364,10 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
         <div className="col-span-12">
-          <div className="flex items-center text-gray-800 text-sm mb-1">
-            <TbPaperclip className="h-4 w-4 mr-0.5" />
-            <span className="" >Attechments</span>
-          </div>
-          <div className="border-2 border-gray-200 rounded-md">
+          <InputGroup
+            label="Attechments"
+            Icon={TbPaperclip}
+          >
             {fields.map((item, index) => (
               <div key={item.id} className="grid grid-cols-[repeat(6,1fr),auto] items-end col-span-12 gap-4 p-4 border-b-2 border-gray-200">
                 <CustomInputSimple
@@ -413,10 +413,9 @@ const CreateDivePage: CustomNextPage = () => {
                   type: 'OTHER',
                 })}
                 Icon={TbPlus}
-
               />
             </div>
-          </div>
+          </InputGroup>
         </div>
 
       </FormSection>
@@ -432,7 +431,7 @@ const CreateDivePage: CustomNextPage = () => {
       </div>
 
       {createDiveMutation.error && <ErrorBox message={createDiveMutation.error.message} className="mt-4" />}
-    </form>
+    </form >
   );
 };
 
