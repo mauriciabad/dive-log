@@ -1,5 +1,5 @@
 import type { ZodTypeAny } from "zod";
-import { ZodDate, ZodNumber, ZodOptional, ZodString } from "zod";
+import { ZodArray, ZodObject, ZodDate, ZodNumber, ZodOptional, ZodString } from "zod";
 
 export function isZodNumber(candidate: unknown): candidate is ZodNumber {
   return candidate instanceof ZodNumber
@@ -15,6 +15,14 @@ export function isZodDate(candidate: unknown): candidate is ZodDate {
 
 export function isZodOptional<T extends ZodTypeAny>(candidate: unknown): candidate is ZodOptional<T> {
   return candidate instanceof ZodOptional
+}
+
+export function isZodObject<T extends ZodTypeAny>(candidate: unknown): candidate is ZodObject<T> {
+  return candidate instanceof ZodObject
+}
+
+export function isZodArray<T extends ZodTypeAny>(candidate: unknown): candidate is ZodArray<T> {
+  return candidate instanceof ZodArray
 }
 
 

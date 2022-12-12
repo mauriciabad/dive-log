@@ -27,9 +27,7 @@ const InputSimple =
     theme = 'filled',
     className
   }: Props<TFieldValues, TName, TZodSchema>) => {
-    const itemSchema = schema.shape[internalLabel]
-    const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
-    if (!itemSchema) console.warn(`Input ${internalLabel} doesn't exist in the zod validation schema root level`);
+    const inputPropsFromZod = getInputAttributesFromZod(schema, internalLabel)
 
     return (
       <InputWrapper

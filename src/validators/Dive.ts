@@ -10,6 +10,7 @@ import { WaterSurfaceSchema } from './enums/WaterSurface.schema';
 import { WaterTypeSchema } from './enums/WaterType.schema';
 import { WaterVisibilitySchema } from './enums/WaterVisibility.schema';
 import { WeatherSchema } from './enums/Weather.schema';
+import { CreateLinkSchema } from './Link';
 
 const MAX_OCEAN_DEPTH = 11022;
 const MAX_WATER_TEMP = 40;
@@ -69,7 +70,7 @@ export const CreateDiveSchema = z
       .optional(),
     organisms: z.any(), // Wrong
     rating: z.number().int().gte(0).lte(10).optional(),
-    links: z.any(), // Wrong
+    links: z.array(CreateLinkSchema),
     experienceNotes: z.string().max(2000).optional(),
     technicalNotes: z.string().max(2000).optional(),
   })

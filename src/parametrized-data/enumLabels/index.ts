@@ -2,6 +2,7 @@ import type { ZodEnum } from 'zod';
 import type { CylinderMaterialSchema } from '../../validators/enums/CylinderMaterial.schema';
 import type { DiveBuddyInDiveRoleSchema } from '../../validators/enums/DiveBuddyInDiveRole.schema';
 import type { DiveTypeSchema } from '../../validators/enums/DiveType.schema';
+import type { LinkTypeSchema } from '../../validators/enums/LinkType.schema';
 import type { SpecialtyDiveTypeSchema } from '../../validators/enums/SpecialtyDiveType.schema';
 import type { WaterBodySchema } from '../../validators/enums/WaterBody.schema';
 import type { WaterCurrentSchema } from '../../validators/enums/WaterCurrent.schema';
@@ -41,6 +42,7 @@ export const enumLabels: {
   WaterType: EnumOptionsLabels<typeof WaterTypeSchema>,
   WaterVisibility: EnumOptionsLabels<typeof WaterVisibilitySchema>,
   Weather: EnumOptionsLabels<typeof WeatherSchema>,
+  LinkType: EnumOptionsLabels<typeof LinkTypeSchema>,
 } = {
   CylinderMaterial: {
     ALUMINIUM: 'Aluminium',
@@ -127,5 +129,15 @@ export const enumLabels: {
     CLOUDY: 'Cloudy',
     RAINY: 'Rainy',
     SNOW: 'Snow',
-  }
+  },
+  LinkType: {
+    IMAGE: 'Image',
+    VIDEO: 'Video',
+    ALBUM: 'Album',
+    PROFILE: 'Profile',
+    FILE: 'File',
+    WEBSITE: 'Website',
+    TEXT: 'Text',
+    OTHER: 'Other',
+  },
 }

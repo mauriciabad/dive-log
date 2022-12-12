@@ -1,16 +1,29 @@
 import type { InputHTMLAttributes } from "react";
-import type { ZodType } from "zod";
-import { isZodDate, isZodNumber, isZodOptional, isZodString } from ".";
+import type { FieldPath, FieldValues } from "react-hook-form";
+import type { ZodObject, ZodRawShape, ZodType } from "zod";
+import { isZodArray, isZodDate, isZodNumber, isZodObject, isZodOptional, isZodString } from ".";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>
-export function getInputAttributesFromZod<T extends ZodType>(schema: T): InputProps {
-  const result: InputProps = {}
+export function getInputAttributesFromZod<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, Schema extends ZodObject<TZodSchema, "strict">, TZodSchema extends ZodRawShape>(schema: Schema, internalLabel: TName): InputProps {
+  const path = internalLabel.split('.')
   let nestedSchema: ZodType = schema
 
-  if (isZodOptional(schema)) {
-    result.required = false
+  // TODO: I think that optional Objects or Array wont work
+  for (const label of path) {
+    if (isZodObject(nestedSchema)) {
+      nestedSchema = nestedSchema.shape[label as unknown as keyof typeof nestedSchema['shape']]
+    } else if (isZodArray(nestedSchema)) {
+      nestedSchema = nestedSchema.element
+    } else {
+      nestedSchema = nestedSchema
+    }
+  }
 
-    nestedSchema = schema._def.innerType
+  const result: InputProps = {}
+
+  if (isZodOptional(nestedSchema)) {
+    result.required = false
+    nestedSchema = nestedSchema._def.innerType
   } else {
     result.required = true
   }
@@ -37,7 +50,7 @@ export function getInputAttributesFromZod<T extends ZodType>(schema: T): InputPr
     result.type = 'datetime-local'
 
   } else {
-    console.warn(`Unknown input type for schema`, schema);
+    console.warn(`Unknown input type for schema`, itemSchema);
   }
 
   return result

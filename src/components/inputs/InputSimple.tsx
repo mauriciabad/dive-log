@@ -27,9 +27,7 @@ const InputSimple =
     theme = 'filled',
     className
   }: Props<TFieldValues, TName, TZodSchema>) => {
-    const itemSchema = schema.shape[internalLabel]
-    const inputPropsFromZod = itemSchema ? getInputAttributesFromZod(itemSchema) : {}
-    if (!itemSchema) console.warn(`Input ${internalLabel} doesn't exist in the zod validation schema root level`);
+    const inputPropsFromZod = getInputAttributesFromZod(schema, internalLabel)
 
     return (
       <InputWrapper
@@ -46,7 +44,7 @@ const InputSimple =
 
           return (
             <input
-              className={classNames(classNameError, "block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 focus:border-blue-500 focus:ring-blue-500", {
+              className={classNames(classNameError, "block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 appearance-none focus:border-blue-500 focus:ring-blue-500", {
                 "shadow": theme === 'filled',
                 "border-gray-300 shadow-sm": theme === 'outline',
               })}
