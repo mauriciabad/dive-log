@@ -1,4 +1,3 @@
-import { userAgent } from "next/server";
 import { z } from "zod";
 import { CreateDiveSchema } from "../../../validators/Dive";
 import { router, protectedProcedure } from "../trpc";
@@ -11,6 +10,7 @@ export const diveRouter = router({
       },
       include: {
         diveSite: true,
+        links: true,
       },
       orderBy: {
         diveNumber: 'desc',
