@@ -79,30 +79,35 @@ const CreateDivePage: CustomNextPage = () => {
     router.push("/user/dives");
   }
 
-  const { data: lastDive } = trpc.dive.getLastDive.useQuery();
+  const { data: lastDive, isLoading, isSuccess } = trpc.dive.getLastDive.useQuery();
   function autofill(...internalLabels: (keyof Dive & Path<Inputs>)[]): void {
     for (const internalLabel of internalLabels) {
       if (lastDive && !control.getFieldState(internalLabel).isDirty) setValue(internalLabel, lastDive[internalLabel] ?? undefined)
     }
   }
   useEffect(() => {
-    if (lastDive && !control.getFieldState('diveNumber').isDirty) setValue('diveNumber', lastDive['diveNumber'] + 1)
-    autofill(
-      'type',
-      'waterMinimumTemperature',
-      'waterAverageTemperature',
-      'waterMaximumTemperature',
-      'waterBody',
-      'waterType',
-      'waterEntry',
-      'waterCurrent',
-      'waterSurface',
-      'weather',
-      'airTemperature',
-      'weight',
-      'cylinderVolume',
-      'cylinderMaterial',
-    )
+    if (isSuccess) {
+      if (!control.getFieldState('diveNumber').isDirty) {
+        setValue('diveNumber', lastDive ? lastDive['diveNumber'] + 1 : 1)
+      }
+
+      autofill(
+        'type',
+        'waterMinimumTemperature',
+        'waterAverageTemperature',
+        'waterMaximumTemperature',
+        'waterBody',
+        'waterType',
+        'waterEntry',
+        'waterCurrent',
+        'waterSurface',
+        'weather',
+        'airTemperature',
+        'weight',
+        'cylinderVolume',
+        'cylinderMaterial',
+      )
+    }
   })
 
   const { data: userCreatedDiveSites } = trpc.diveSite.getUserCreatedDiveSites.useQuery();
@@ -114,15 +119,17 @@ const CreateDivePage: CustomNextPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
-      {lastDive ? <InfoBox
-        message="Some fields have been pre-filled based on your last dive"
+      {isLoading ? <InfoBox
+        message="Trying to guess some fields..."
         className="mb-4"
       />
         :
+        lastDive &&
         <InfoBox
-          message="Trying to guess some fields..."
+          message="Some fields have been pre-filled based on your last dive"
           className="mb-4"
-        />}
+        />
+      }
 
       <FormSection
         title="Basic"
