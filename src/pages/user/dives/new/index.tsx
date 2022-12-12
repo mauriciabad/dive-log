@@ -35,7 +35,9 @@ import {
   TbLink,
   TbTrash,
   TbPlus,
-  TbFile
+  TbFile,
+  TbPhoto,
+  TbPaperclip
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import FormSection from "../../../../components/FormSection";
@@ -360,42 +362,61 @@ const CreateDivePage: CustomNextPage = () => {
           rows={5}
         />
 
-        <div className="grid grid-cols-[2fr,minmax(12ch,1fr),auto] items-end col-span-12 gap-4">
-          {fields.map((item, index) => (
-            <div key={item.id} className="contents">
-              <CustomInputSimple
-                label="Link"
-                internalLabel={`links.${index}.link`}
-                Icon={TbLink}
-              />
-              <CustomInputSelect
-                label="Type"
-                internalLabel={`links.${index}.type`}
-                Icon={TbFile}
-                data={enumLabelsAsArray(enumLabels.LinkType)}
-                displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
-                exposedProperty="value"
-              />
+        <div className="col-span-12">
+          <div className="flex items-center text-gray-800 text-sm mb-1">
+            <TbPaperclip className="h-4 w-4 mr-0.5" />
+            <span className="" >Attechments</span>
+          </div>
+          <div className="border-2 border-gray-200 rounded-md">
+            {fields.map((item, index) => (
+              <div key={item.id} className="grid grid-cols-[repeat(6,1fr),auto] items-end col-span-12 gap-4 p-4 border-b-2 border-gray-200">
+                <CustomInputSimple
+                  label="Title"
+                  internalLabel={`links.${index}.title`}
+                  Icon={TbTag}
+                  className="col-span-4"
+                />
+                <CustomInputSelect
+                  label="Type"
+                  internalLabel={`links.${index}.type`}
+                  Icon={TbFile}
+                  data={enumLabelsAsArray(enumLabels.LinkType)}
+                  displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+                  exposedProperty="value"
+                  className="col-span-3"
+                />
+                <CustomInputSimple
+                  label="Link"
+                  internalLabel={`links.${index}.link`}
+                  Icon={TbLink}
+                  className="col-span-3"
+                />
+                <CustomInputSimple
+                  label="Thumbnail"
+                  internalLabel={`links.${index}.thumbnail`}
+                  Icon={TbPhoto}
+                  className="col-span-3"
+                />
+                <IconButton
+                  text="Delete"
+                  onClick={() => remove(index)}
+                  Icon={TbTrash}
+                  onlyIcon
+                />
+              </div>
+            ))}
+            <div className="col-span-12 sm:col-span-12 p-4 text-center">
               <IconButton
-                text="Delete"
-                onClick={() => remove(index)}
-                Icon={TbTrash}
-                onlyIcon
+                text="Add attechment"
+                onClick={() => append({
+                  link: '',
+                  type: 'OTHER',
+                })}
+                Icon={TbPlus}
+
               />
             </div>
-          ))}
-        </div>
-
-        <div className="col-span-12 sm:col-span-12">
-          <IconButton
-            text="Add link"
-            onClick={() => append({
-              link: '',
-              type: 'OTHER',
-            })}
-            Icon={TbPlus}
-
-          />
+          </div>
         </div>
 
       </FormSection>
