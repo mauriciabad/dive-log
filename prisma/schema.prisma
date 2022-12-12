@@ -16,7 +16,7 @@ model Dive {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id], name: "diver")
+  user   User   @relation(fields: [userId], references: [id], name: "diver", onDelete: Cascade)
   userId String
 
   // BASIC
@@ -26,7 +26,7 @@ model Dive {
   duration          Int // In milliseconds
   type              DiveType?
   specialtyDiveType SpecialtyDiveType?
-  diveSite          DiveSite           @relation(fields: [diveSiteId], references: [id])
+  diveSite          DiveSite           @relation(fields: [diveSiteId], references: [id], onDelete: Restrict)
   diveSiteId        String
   maximumDepth      Float // In meters
   averageDepth      Float? // In meters
@@ -53,7 +53,7 @@ model Dive {
   cylinderVolume       Float? // In liters
 
   // PEOPLE
-  diveCenter      DiveCenter?          @relation(fields: [diveCenterId], references: [id])
+  diveCenter      DiveCenter?          @relation(fields: [diveCenterId], references: [id], onDelete: SetNull)
   diveCenterId    String?
   diveBuddies     DiveBuddyInDive[]
   roleasDiveBuddy DiveBuddyInDiveRole?
@@ -83,20 +83,20 @@ model Link {
   type          LinkType
   title         String?
   thumbnail     String?
-  creatorUser   User     @relation(name: "creator", fields: [creatorUserId], references: [id])
+  creatorUser   User     @relation(name: "creator", fields: [creatorUserId], references: [id], onDelete: Cascade)
   creatorUserId String
 
-  dive            Dive?          @relation(fields: [diveId], references: [id])
+  dive            Dive?          @relation(fields: [diveId], references: [id], onDelete: Cascade)
   diveId          String?
-  diveBuddy       DiveBuddy?     @relation(fields: [diveBuddyId], references: [id])
+  diveBuddy       DiveBuddy?     @relation(fields: [diveBuddyId], references: [id], onDelete: Cascade)
   diveBuddyId     String?
-  diveCenter      DiveCenter?    @relation(fields: [diveCenterId], references: [id])
+  diveCenter      DiveCenter?    @relation(fields: [diveCenterId], references: [id], onDelete: Cascade)
   diveCenterId    String?
-  user            User?          @relation(name: "linksInUserProfile", fields: [userId], references: [id])
+  user            User?          @relation(name: "linksInUserProfile", fields: [userId], references: [id], onDelete: Cascade)
   userId          String?
-  diveSite        DiveSite?      @relation(fields: [diveSiteId], references: [id])
+  diveSite        DiveSite?      @relation(fields: [diveSiteId], references: [id], onDelete: Cascade)
   diveSiteId      String?
-  EquipmentUnit   EquipmentUnit? @relation(fields: [equipmentUnitId], references: [id])
+  EquipmentUnit   EquipmentUnit? @relation(fields: [equipmentUnitId], references: [id], onDelete: Cascade)
   equipmentUnitId String?
 
   @@index([creatorUserId])
@@ -136,7 +136,7 @@ model EquipmentUnit {
   updatedAt DateTime @updatedAt
   id        String   @id @default(cuid())
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   name         String
@@ -206,10 +206,10 @@ model DiveBuddy {
   updatedAt DateTime @updatedAt
   id        String   @id @default(cuid())
 
-  creatorUser   User   @relation(fields: [creatorUserId], references: [id])
+  creatorUser   User   @relation(fields: [creatorUserId], references: [id], onDelete: Cascade)
   creatorUserId String
 
-  diveBuddyUser   User?   @relation(fields: [diveBuddyUserId], references: [id], name: "diveBuddyUser")
+  diveBuddyUser   User?   @relation(fields: [diveBuddyUserId], references: [id], name: "diveBuddyUser", onDelete: SetNull)
   diveBuddyUserId String?
 
   // In case the dive buddy is not in the app or we wanc to change how it's displated, we have these custom atributes
@@ -229,10 +229,10 @@ model DiveBuddyInDive {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  dive   Dive   @relation(fields: [diveId], references: [id])
+  dive   Dive   @relation(fields: [diveId], references: [id], onDelete: Cascade)
   diveId String
 
-  diveBuddy   DiveBuddy @relation(fields: [diveBuddyId], references: [id])
+  diveBuddy   DiveBuddy @relation(fields: [diveBuddyId], references: [id], onDelete: Cascade)
   diveBuddyId String
 
   notes String?              @db.LongText
@@ -464,7 +464,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  preferences        UserPreferences? @relation(fields: [userPreferencesId], references: [id])
+  preferences        UserPreferences? @relation(fields: [userPreferencesId], references: [id], onDelete: SetNull)
   userPreferencesId  String?          @default(cuid())
   handle             String           @unique @default(cuid())
   dives              Dive[]           @relation(name: "diver")
