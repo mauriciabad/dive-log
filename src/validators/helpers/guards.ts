@@ -1,4 +1,4 @@
-import type { ZodTypeAny } from "zod";
+import type { ZodRawShape, ZodTypeAny } from "zod";
 import { ZodArray, ZodObject, ZodDate, ZodNumber, ZodOptional, ZodString } from "zod";
 
 export function isZodNumber(candidate: unknown): candidate is ZodNumber {
@@ -17,7 +17,7 @@ export function isZodOptional<T extends ZodTypeAny>(candidate: unknown): candida
   return candidate instanceof ZodOptional
 }
 
-export function isZodObject<T extends ZodTypeAny>(candidate: unknown): candidate is ZodObject<T> {
+export function isZodObject<T extends ZodRawShape>(candidate: unknown): candidate is ZodObject<T> {
   return candidate instanceof ZodObject
 }
 

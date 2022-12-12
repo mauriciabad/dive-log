@@ -11,7 +11,8 @@ export function getInputAttributesFromZod<TFieldValues extends FieldValues, TNam
   // TODO: I think that optional Objects or Array wont work
   for (const label of path) {
     if (isZodObject(nestedSchema)) {
-      nestedSchema = nestedSchema.shape[label as unknown as keyof typeof nestedSchema['shape']]
+      const newNestedSchema = nestedSchema.shape[label as unknown as keyof typeof nestedSchema['shape']]
+      if (newNestedSchema) nestedSchema = newNestedSchema
     } else if (isZodArray(nestedSchema)) {
       nestedSchema = nestedSchema.element
     } else {
@@ -50,7 +51,7 @@ export function getInputAttributesFromZod<TFieldValues extends FieldValues, TNam
     result.type = 'datetime-local'
 
   } else {
-    console.warn(`Unknown input type for schema`, itemSchema);
+    console.warn(`Unknown input type for schema`, nestedSchema);
   }
 
   return result
