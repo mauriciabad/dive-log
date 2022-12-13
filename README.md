@@ -10,6 +10,20 @@ Use here: <https://divelog.vercel.app/>
 
 ## Develop
 
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+
+The main technollogies used are:
+
+- [TypeSctipt](https://www.typescriptlang.org/)
+- [React.js](https://reactjs.org/)
+- [Next.js](https://nextjs.org)
+- [NextAuth.js](https://next-auth.js.org)
+- [Prisma](https://prisma.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod](https://zod.dev/)
+
 ### Contributions
 
 PRs are welcome :smile:
