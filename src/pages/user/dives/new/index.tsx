@@ -46,7 +46,7 @@ import ErrorBox from "../../../../components/ErrorBox";
 import InfoBox from "../../../../components/InfoBox";
 import { makeCustomInputSelect } from "../../../../components/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/InputSimple";
-import { makeCustomInputMultiline } from "../../../../components/InputMultiline";
+import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
 import InputGroup from "../../../../components/inputs/InputGroup"
 import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
 import { useCreateDiveAutofill } from '../../../../hooks/useCreateDiveAutofill'
@@ -353,14 +353,12 @@ const CreateDivePage: CustomNextPage = () => {
           internalLabel="experienceNotes"
           Icon={TbLicense}
           className="col-span-12 sm:col-span-12"
-          rows={5}
         />
         <CustomInputMultiline
           label="Technical notes"
           internalLabel="technicalNotes"
           Icon={TbLicense}
           className="col-span-12 sm:col-span-12"
-          rows={5}
         />
 
         <div className="col-span-12">

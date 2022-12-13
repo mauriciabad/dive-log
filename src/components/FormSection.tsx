@@ -6,7 +6,7 @@ interface Props {
   className?: string
   title: string
   description?: string
-  children?: ReactNode
+  children?: ReactNode | ReactNode[]
   separator?: boolean
 }
 

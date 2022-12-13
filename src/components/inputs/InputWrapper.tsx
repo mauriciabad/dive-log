@@ -4,7 +4,7 @@ import type { FieldPath, FieldValues, ControllerProps, Control, FieldErrors } fr
 import { Controller } from 'react-hook-form'
 import classNames from "classnames"
 import type { ZodObject, ZodRawShape } from "zod";
-import { isZodOptional } from "../../validators/helpers";
+import { getInputAttributesFromZod } from "../../validators/helpers";
 
 export interface InputWrapperProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape> {
   label: string,
@@ -33,8 +33,7 @@ const InputWrapper =
     note,
     className
   }: InputWrapperProps<TFieldValues, TName, TZodSchema>) => {
-    const itemSchema = schema.shape[internalLabel]
-    const required = !isZodOptional(itemSchema)
+    const { required } = getInputAttributesFromZod(schema, internalLabel)
 
     return (
       <label className={classNames(className, 'block w-full')} >

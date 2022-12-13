@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { latitudeSchema, longitudeSchema } from "./helpers";
+import { CreateLinkSchema } from "./Link";
 
 export const CreateDiveSiteSchema = z
   .object({
@@ -8,8 +9,6 @@ export const CreateDiveSiteSchema = z
     image: z.string().url().optional(),
     latitude: latitudeSchema,
     longitude: longitudeSchema,
-    links: z
-      .any()
-      .optional(), // Wrong
+    links: z.array(CreateLinkSchema),
   })
   .strict();

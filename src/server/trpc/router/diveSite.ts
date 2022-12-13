@@ -34,6 +34,8 @@ export const diveSiteRouter = router({
   createDiveSite: protectedProcedure
     .input(z.object({ data: CreateDiveSiteSchema }))
     .mutation(({ ctx, input }) => {
+      const { links, ...data } = input.data
+
       return ctx.prisma.diveSite.create({
         data: {
           createdByUser: {
@@ -42,7 +44,16 @@ export const diveSiteRouter = router({
             }
           },
 
-          ...input.data
+          links: {
+            createMany: {
+              data: links.map(link => ({
+                creatorUserId: ctx.session.user.id,
+                ...link
+              }))
+            }
+          },
+
+          ...data
         }
       })
     })

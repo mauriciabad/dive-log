@@ -27,7 +27,7 @@ const InputSimple =
     note,
     theme = 'filled',
     className,
-    rows = 1
+    rows = 5
   }: Props<TFieldValues, TName, TZodSchema>) => {
     const inputPropsFromZod = getInputAttributesFromZod(schema, internalLabel)
 
