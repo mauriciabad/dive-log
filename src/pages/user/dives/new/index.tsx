@@ -44,8 +44,8 @@ import FormSection from "../../../../components/FormSection";
 import type { z } from "zod";
 import ErrorBox from "../../../../components/ErrorBox";
 import InfoBox from "../../../../components/InfoBox";
-import { makeCustomInputSelect } from "../../../../components/InputSelect";
-import { makeCustomInputSimple } from "../../../../components/InputSimple";
+import { makeCustomInputSelect } from "../../../../components/inputs/InputSelect";
+import { makeCustomInputSimple } from "../../../../components/inputs/InputSimple";
 import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
 import InputGroup from "../../../../components/inputs/InputGroup"
 import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
