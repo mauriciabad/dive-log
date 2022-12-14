@@ -1,12 +1,10 @@
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type Leaflet from 'leaflet'
 import classNames from 'classnames';
-
-const center: [number, number] = [51.505, -0.09]
-const zoom = 13
+import { TbCurrentLocation } from 'react-icons/tb';
 
 type Location = {
   latitude: number;
@@ -50,7 +48,7 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
 
   const reCenter = useCallback(() => {
     if (map && initialPosition) {
-      map.setView(toLatLang(initialPosition), zoom)
+      map.setView(toLatLang(initialPosition), 13)
     }
   }, [initialPosition, map])
 
@@ -71,11 +69,11 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
   const displayMap = useMemo(
     () => (
       <MapContainer
-        center={toLatLang(initialPosition) ?? center}
-        zoom={zoom}
+        center={toLatLang(initialPosition) ?? [0, 0]}
+        zoom={initialPosition ? 13 : 1}
         scrollWheelZoom={false}
         ref={setMap}
-        className={classNames(className, "h-[67vh] w-full")}
+        className={classNames(className, "h-[67vh] w-full z-0")}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -87,8 +85,12 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
   )
 
   return (
-    <div>
+    <div className='relative'>
       {displayMap}
+      <div className='absolute inset-0 pointer-events-none flex items-center justify-center z-10'>
+        <TbCurrentLocation className='h-12 w-12 absolute text-black opacity-20 stroke-[4px] -z-1' />
+        <TbCurrentLocation className='h-12 w-12 absolute text-white stroke-[1.5px]' />
+      </div>
       {render && render({ location, reCenter })}
     </div>
   )
