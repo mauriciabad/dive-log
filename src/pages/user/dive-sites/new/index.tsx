@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
 import {
-  TbDeviceFloppy, TbFile, TbInfoCircle, TbLink, TbMapPin, TbPaperclip, TbPhoto, TbPlus, TbTag, TbTrash, TbWorldLatitude, TbWorldLongitude
+  TbDeviceFloppy, TbFile, TbInfoCircle, TbLink, TbMapPin, TbPaperclip, TbPhoto, TbPlus, TbTag, TbTrash
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import ErrorBox from "../../../../components/ErrorBox";
@@ -52,7 +52,7 @@ const CreateDivePage: CustomNextPage = () => {
   });
 
   const Map = dynamic(
-    () => import('../../../../components/ExampleMap'),
+    () => import('../../../../components/inputs/uncontrolled/Map'),
     {
       loading: () => <p>Loading map...</p>,
       ssr: false

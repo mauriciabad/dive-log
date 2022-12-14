@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer, useMapEvent } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -65,6 +65,12 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
     onChange?.(location)
   }, [location, onChange])
 
+  useEffect(() => {
+    if (!map) return
+    map.on('click', (e) => {
+      map.setView(e.latlng, map.getZoom())
+    })
+  })
 
   const displayMap = useMemo(
     () => (
