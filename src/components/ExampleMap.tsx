@@ -3,61 +3,79 @@ import 'leaflet/dist/leaflet.css'
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type Leaflet from 'leaflet'
+import classNames from 'classnames';
 
 const center: [number, number] = [51.505, -0.09]
 const zoom = 13
 
+type Location = {
+  latitude: number;
+  longitude: number;
+};
 
-interface PositionProps {
-  map: Leaflet.Map,
-  render: RenderMapInfo,
+interface MapProps {
+  render?: (props: {
+    location: Location | undefined,
+    reCenter: () => void,
+  }) => JSX.Element,
+  onChange?: (location: Location | undefined) => void,
+  value?: Location
+  className?: string
 }
 
-const DisplayPosition: FC<PositionProps> = ({ map, render }) => {
-  const [position, setPosition] = useState(() => map.getCenter())
+function toLatLang(location: Location): Leaflet.LatLngLiteral
+function toLatLang(location: Location | undefined): Leaflet.LatLngLiteral | undefined
+function toLatLang(location: Location | undefined): Leaflet.LatLngLiteral | undefined {
+  if (!location) return undefined
+  return { lat: location.latitude, lng: location.longitude }
+}
 
-  const onClick = useCallback(() => {
-    map.setView(center, zoom)
+const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
+  const initialPosition: Location | undefined = useMemo(() => value ? { ...value } : undefined, [value])
+  const [map, setMap] = useState<Leaflet.Map | null>(null)
+
+  const [location, setLocation] = useState<Location | undefined>(value)
+
+  const setLocationToMapCenter = useCallback(() => {
+    if (map) {
+      const mapCenter = map.getCenter()
+      setLocation({
+        latitude: mapCenter.lat,
+        longitude: mapCenter.lng
+      })
+    } else {
+      setLocation(undefined)
+    }
   }, [map])
 
-  const onMove = useCallback(() => {
-    setPosition(map.getCenter())
-  }, [map])
+  const reCenter = useCallback(() => {
+    if (map && initialPosition) {
+      map.setView(toLatLang(initialPosition), zoom)
+    }
+  }, [initialPosition, map])
 
   useEffect(() => {
-    map.on('move', onMove)
+    if (!map) return
+
+    map.on('move', setLocationToMapCenter)
     return () => {
-      map.off('move', onMove)
+      map.off('move', setLocationToMapCenter)
     }
-  }, [map, onMove])
+  }, [map, setLocationToMapCenter])
 
-  return render({
-    latitude: position.lat,
-    longitude: position.lng,
-    reCenter: onClick,
-  })
-}
+  useEffect(() => {
+    onChange?.(location)
+  }, [location, onChange])
 
-type RenderMapInfo = (props: {
-  latitude: number,
-  longitude: number,
-  reCenter: () => void,
-}) => JSX.Element
-interface MapProps {
-  renderMapInfo: RenderMapInfo,
-}
-
-const Map: FC<MapProps> = ({ renderMapInfo }) => {
-  const [map, setMap] = useState<Leaflet.Map | null>(null)
 
   const displayMap = useMemo(
     () => (
       <MapContainer
-        center={center}
+        center={toLatLang(initialPosition) ?? center}
         zoom={zoom}
         scrollWheelZoom={false}
         ref={setMap}
-        style={{ height: 400, width: "100%" }}
+        className={classNames(className, "h-[67vh] w-full")}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -65,13 +83,13 @@ const Map: FC<MapProps> = ({ renderMapInfo }) => {
         />
       </MapContainer>
     ),
-    [],
+    [className, initialPosition],
   )
 
   return (
     <div>
-      {map && <DisplayPosition map={map} render={renderMapInfo} />}
       {displayMap}
+      {render && render({ location, reCenter })}
     </div>
   )
 }
