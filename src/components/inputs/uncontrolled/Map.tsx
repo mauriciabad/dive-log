@@ -1,10 +1,12 @@
-import { MapContainer, TileLayer, useMapEvent } from 'react-leaflet'
+import { MapContainer, Rectangle, TileLayer, useMap, useMapEvent } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type Leaflet from 'leaflet'
 import classNames from 'classnames';
 import { TbCurrentLocation } from 'react-icons/tb';
+import type { LeafletMouseEventHandlerFn } from 'leaflet';
+import { useEventHandlers } from '@react-leaflet/core'
 
 type Location = {
   latitude: number;
@@ -84,6 +86,7 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <MinimapControl />
       </MapContainer>
     ),
     [className, initialPosition],
@@ -97,6 +100,62 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
         <TbCurrentLocation className='h-12 w-12 absolute text-white stroke-[1.5px]' />
       </div>
       {render && render({ location, reCenter })}
+    </div>
+  )
+}
+
+
+// ---------------- Minimap
+
+
+const MinimapBounds: FC<{ parentMap: Leaflet.Map }> = ({ parentMap }) => {
+  const minimap = useMap()
+
+  const onClick: LeafletMouseEventHandlerFn = useCallback(
+    (e) => { parentMap.flyTo(e.latlng, parentMap.getZoom()) },
+    [parentMap],
+  )
+  useMapEvent('click', onClick)
+
+  const [bounds, setBounds] = useState(parentMap.getBounds())
+  const onMove = useCallback(() => {
+    setBounds(parentMap.getBounds())
+    minimap.setView(parentMap.getCenter(), 0)
+  }, [minimap, parentMap])
+
+  const handlers = useMemo(() => ({ move: onMove, zoom: onMove }), [onMove])
+  // The types of useEventHandlers are wrong, they have to fix this bug https://github.com/PaulLeCam/react-leaflet/issues/953
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useEventHandlers({ instance: parentMap, context: undefined as any }, handlers)
+
+  return <Rectangle bounds={bounds} pathOptions={{ weight: 1, lineJoin: 'round' }} />
+}
+
+const MinimapControl: FC = () => {
+  const parentMap = useMap()
+
+  // Memoize the minimap so it's not affected by position changes
+  const minimap = useMemo(
+    () => (
+      <MapContainer
+        style={{ height: 80, width: 80 }}
+        center={parentMap.getCenter()}
+        zoom={0}
+        dragging={false}
+        doubleClickZoom={false}
+        scrollWheelZoom={false}
+        attributionControl={false}
+        zoomControl={false}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <MinimapBounds parentMap={parentMap} />
+      </MapContainer>
+    ),
+    [parentMap],
+  )
+
+  return (
+    <div className="leaflet-top leaflet-right">
+      <div className="leaflet-control leaflet-bar">{minimap}</div>
     </div>
   )
 }
