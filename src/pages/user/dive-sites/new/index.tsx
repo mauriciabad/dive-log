@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import loginRequired from "../../../../utils/loginRequired";
 import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
 import {
-  TbDeviceFloppy, TbFile, TbInfoCircle, TbLink, TbPaperclip, TbPhoto, TbPlus, TbTag, TbTrash, TbWorldLatitude, TbWorldLongitude
+  TbDeviceFloppy, TbFile, TbInfoCircle, TbLink, TbMapPin, TbPaperclip, TbPhoto, TbPlus, TbTag, TbTrash, TbWorldLatitude, TbWorldLongitude
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import ErrorBox from "../../../../components/ErrorBox";
@@ -18,6 +18,7 @@ import { enumLabelsAsArray, enumLabels } from "../../../../parametrized-data/enu
 import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
 import { makeCustomInputSelect } from "../../../../components/inputs/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/inputs/InputSimple";
+import dynamic from "next/dynamic";
 
 type Inputs = z.input<typeof CreateDiveSiteSchema>
 
@@ -49,6 +50,14 @@ const CreateDivePage: CustomNextPage = () => {
     control,
     name: "links"
   });
+
+  const Map = dynamic(
+    () => import('../../../../components/ExampleMap'),
+    {
+      loading: () => <p>Loading map...</p>,
+      ssr: false
+    }
+  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
@@ -82,6 +91,9 @@ const CreateDivePage: CustomNextPage = () => {
         title="Location"
         description="Aproximate place on the map where it's located."
       >
+        <InputGroup label="Location" Icon={TbMapPin}>
+          <Map />
+        </InputGroup>
         <CustomInputSimple
           label="Latitude"
           internalLabel="latitude"
