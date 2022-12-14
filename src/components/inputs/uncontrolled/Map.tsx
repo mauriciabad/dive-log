@@ -77,7 +77,6 @@ const Map: FC<MapProps> = ({ render, value, className, onChange }) => {
       <MapContainer
         center={toLatLang(initialPosition) ?? [0, 0]}
         zoom={initialPosition ? 13 : 1}
-        scrollWheelZoom={false}
         ref={setMap}
         className={classNames(className, "h-[67vh] w-full z-0")}
       >
