@@ -2,7 +2,7 @@ import React from "react"
 import type { FieldErrors, FieldPath, FieldValues } from 'react-hook-form'
 import type { InputWrapperProps } from './InputWrapper';
 import InputWrapper from './InputWrapper'
-import Selector from "./Selector";
+import Selector from "./uncontrolled/Selector";
 import { TbLoader } from "react-icons/tb";
 import type { ZodRawShape } from "zod";
 import classNames from "classnames";
