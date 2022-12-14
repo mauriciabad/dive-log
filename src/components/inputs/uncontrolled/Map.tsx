@@ -1,5 +1,4 @@
 import { MapContainer, Rectangle, TileLayer, useMap, useMapEvent } from 'react-leaflet'
-import 'leaflet/dist/leaflet.css'
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type Leaflet from 'leaflet'
@@ -7,6 +6,8 @@ import classNames from 'classnames';
 import { TbCurrentLocation } from 'react-icons/tb';
 import type { LeafletMouseEventHandlerFn } from 'leaflet';
 import { useEventHandlers } from '@react-leaflet/core'
+
+import 'leaflet/dist/leaflet.css'
 
 type Location = {
   latitude: number;

@@ -47,7 +47,7 @@ import InfoBox from "../../../../components/InfoBox";
 import { makeCustomInputSelect } from "../../../../components/inputs/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/inputs/InputSimple";
 import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
-import InputGroup from "../../../../components/inputs/InputGroup"
+import InputDiv from "../../../../components/inputs/InputDiv"
 import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
 import { useCreateDiveAutofill } from '../../../../hooks/useCreateDiveAutofill'
 
@@ -362,7 +362,7 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
         <div className="col-span-12">
-          <InputGroup
+          <InputDiv
             label="Attechments"
             Icon={TbPaperclip}
           >
@@ -413,7 +413,7 @@ const CreateDivePage: CustomNextPage = () => {
                 Icon={TbPlus}
               />
             </div>
-          </InputGroup>
+          </InputDiv>
         </div>
 
       </FormSection>

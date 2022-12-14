@@ -13,12 +13,12 @@ import IconButton from "../../../../components/IconButton";
 import ErrorBox from "../../../../components/ErrorBox";
 import type { z } from "zod";
 import FormSection from "../../../../components/FormSection";
-import InputGroup from "../../../../components/inputs/InputGroup";
+import InputDiv from "../../../../components/inputs/InputDiv";
+import { makeCustomInputMap } from "../../../../components/inputs/InputMap";
 import { enumLabelsAsArray, enumLabels } from "../../../../parametrized-data/enumLabels";
 import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
 import { makeCustomInputSelect } from "../../../../components/inputs/InputSelect";
 import { makeCustomInputSimple } from "../../../../components/inputs/InputSimple";
-import dynamic from "next/dynamic";
 
 type Inputs = z.input<typeof CreateDiveSiteSchema>
 
@@ -40,6 +40,7 @@ const CreateDivePage: CustomNextPage = () => {
   const CustomInputSimple = makeCustomInputSimple(makeCustomInputsProps)
   const CustomInputSelect = makeCustomInputSelect(makeCustomInputsProps)
   const CustomInputMultiline = makeCustomInputMultiline(makeCustomInputsProps)
+  const CustomInputMap = makeCustomInputMap(makeCustomInputsProps)
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     await createDiveSiteMutation.mutateAsync({ data })
@@ -50,14 +51,6 @@ const CreateDivePage: CustomNextPage = () => {
     control,
     name: "links"
   });
-
-  const Map = dynamic(
-    () => import('../../../../components/inputs/uncontrolled/Map'),
-    {
-      loading: () => <p>Loading map...</p>,
-      ssr: false
-    }
-  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
@@ -91,17 +84,19 @@ const CreateDivePage: CustomNextPage = () => {
         title="Location"
         description="Aproximate place on the map where it's located."
       >
-        <InputGroup label="Location" Icon={TbMapPin}>
-          <Map onChange={(location) => { console.log(location) }} />
-        </InputGroup>
-
+        <CustomInputMap
+          label="Location"
+          Icon={TbMapPin}
+          internalLabelLatitude="latitude"
+          internalLabelLongitude="longitude"
+        />
       </FormSection>
       <FormSection
         title="Other"
         description="Non essential information"
       >
         <div className="col-span-12">
-          <InputGroup
+          <InputDiv
             label="Attechments"
             Icon={TbPaperclip}
           >
@@ -152,7 +147,7 @@ const CreateDivePage: CustomNextPage = () => {
                 Icon={TbPlus}
               />
             </div>
-          </InputGroup>
+          </InputDiv>
         </div>
       </FormSection>
 
