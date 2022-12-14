@@ -22,7 +22,7 @@ const InputGroup: FC<Props> = ({
       {Icon && <Icon className="h-4 w-4 mr-0.5" />}
       <span className="" >{label}</span>
     </div>
-    <div className={classNames(className, "border-2 border-gray-200 rounded-md")}>
+    <div className={classNames(className, "border-2 border-gray-200 rounded-md overflow-hidden")}>
       {children}
     </div>
   </>)

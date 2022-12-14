@@ -92,27 +92,16 @@ const CreateDivePage: CustomNextPage = () => {
         description="Aproximate place on the map where it's located."
       >
         <InputGroup label="Location" Icon={TbMapPin}>
-          <Map />
+          <Map renderMapInfo={({ latitude, longitude, reCenter }) => (
+            <div>
+              <p>latitude: {latitude}</p>
+              <p>longitude: {longitude}</p>
+              <IconButton onClick={reCenter} text="Re-center" />
+            </div>
+          )
+          } />
         </InputGroup>
-        <CustomInputSimple
-          label="Latitude"
-          internalLabel="latitude"
-          inputProps={{
-            step: 0.000001,
-          }}
-          Icon={TbWorldLatitude}
-          className="col-span-6"
-        />
 
-        <CustomInputSimple
-          label="Longitude"
-          internalLabel="longitude"
-          inputProps={{
-            step: 0.000001,
-          }}
-          Icon={TbWorldLongitude}
-          className="col-span-6"
-        />
       </FormSection>
       <FormSection
         title="Other"
