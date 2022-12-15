@@ -1,8 +1,8 @@
 import React from "react"
+import Map from './uncontrolled/Map'
 import InputDiv from './InputDiv'
 import type { IconType } from "react-icons/lib/cjs/iconBase";
-import dynamic from "next/dynamic";
-import { TbLoader, TbMapPin } from "react-icons/tb";
+import { TbMapPin } from "react-icons/tb";
 import type { Control, FieldErrors, FieldPath, FieldValues } from "react-hook-form";
 import { useController } from "react-hook-form";
 import type { ZodObject, ZodRawShape } from "zod";
@@ -21,16 +21,6 @@ export interface Props<TFieldValues extends FieldValues, TNameLatitude extends F
   schema: ZodObject<TZodSchema, "strict">
 }
 
-const Map = dynamic(
-  () => import('./uncontrolled/Map'),
-  {
-    loading: () => <div className="h-[67vh] w-full flex items-center justify-center bg-[#f2efe9]">
-      <TbLoader className="h-4 w-4 animate-spin" />
-      <span className="animate-pulse">Loading map...</span>
-    </div>,
-    ssr: false
-  }
-)
 
 const InputMap =
   <TFieldValues extends FieldValues, TNameLatitude extends FieldPath<TFieldValues>, TNameLongitude extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape>({
@@ -72,6 +62,7 @@ const InputMap =
             latitude: latitudeController.field.value,
             longitude: longitudeController.field.value,
           } : undefined}
+          showCenterMarker
         />
       </InputDiv>
     )
