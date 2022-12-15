@@ -21,6 +21,17 @@ export interface Props<TFieldValues extends FieldValues, TNameLatitude extends F
   schema: ZodObject<TZodSchema, "strict">
 }
 
+const Map = dynamic(
+  () => import('./uncontrolled/Map'),
+  {
+    loading: () => <div className="h-[67vh] w-full flex items-center justify-center bg-[#f2efe9]">
+      <TbLoader className="h-4 w-4 animate-spin" />
+      <span className="animate-pulse">Loading map...</span>
+    </div>,
+    ssr: false
+  }
+)
+
 const InputMap =
   <TFieldValues extends FieldValues, TNameLatitude extends FieldPath<TFieldValues>, TNameLongitude extends FieldPath<TFieldValues>, TZodSchema extends ZodRawShape>({
     className,
@@ -34,16 +45,6 @@ const InputMap =
     errorLongitude,
     schema,
   }: Props<TFieldValues, TNameLatitude, TNameLongitude, TZodSchema>) => {
-    const Map = dynamic(
-      () => import('./uncontrolled/Map'),
-      {
-        loading: () => <div className="h-[67vh] w-full flex items-center justify-center bg-[#f2efe9]">
-          <TbLoader className="h-4 w-4 animate-spin" />
-          <span className="animate-pulse">Loading map...</span>
-        </div>,
-        ssr: false
-      }
-    )
 
     const latitudeController = useController({ control, name: internalLabelLatitude })
     const longitudeController = useController({ control, name: internalLabelLongitude })
