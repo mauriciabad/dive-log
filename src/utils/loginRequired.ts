@@ -3,11 +3,12 @@ import { getSession } from "next-auth/react"
 
 const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
+  const url = context.req.url ? new URL(context.req.url, `http://${context.req.headers.host}`) : null;
 
   if (!session) {
     return {
       redirect: {
-        destination: '/login',
+        destination: url ? '/login?callbackUrl=' + encodeURIComponent(url.href) : '/login',
         permanent: false,
       },
     }

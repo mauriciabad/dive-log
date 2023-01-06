@@ -5,10 +5,10 @@
  */
 !process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
 
-import nextPWA from 'next-pwa'
+import nextPWA from "next-pwa";
 const withPWA = nextPWA({
-  dest: 'public'
-})
+  dest: "public",
+});
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -21,17 +21,17 @@ const config = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'avatars.dicebear.com',
-        pathname: '/api/avataaars/*.svg',
+        protocol: "https",
+        hostname: "avatars.dicebear.com",
+        pathname: "/api/avataaars/*.svg",
       },
       {
-        protocol: 'https',
-        hostname: '**.githubusercontent.com',
+        protocol: "https",
+        hostname: "**.githubusercontent.com",
       },
       {
-        protocol: 'https',
-        hostname: '**.googleusercontent.com',
+        protocol: "https",
+        hostname: "**.googleusercontent.com",
       },
       {
         protocol: "https",
