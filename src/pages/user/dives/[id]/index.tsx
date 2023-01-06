@@ -36,13 +36,18 @@ import {
   TbPaperclip
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
+import { trpc } from "../../../../utils/trpc";
 
 const ViewDivePage: CustomNextPage = () => {
+  const router = useRouter()
+  const { id } = router.query
+
+  const { data: dive } = trpc.dive.getDive.useQuery({ id })
 
   return (
-    <div >
-      hello
-    </div >
+    <pre >
+      <code>{JSON.stringify(dive, null, 2)}</code>
+    </pre >
   );
 };
 

@@ -17,6 +17,22 @@ export const diveRouter = router({
       }
     });
   }),
+  getDive: protectedProcedure
+    .input(z.object({
+      id: z.string().cuid(),
+    }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.dive.findFirstOrThrow({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id,
+        },
+        include: {
+          diveSite: true,
+          links: true,
+        }
+      });
+    }),
   getLastDive: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.dive.findFirst({
       where: {
