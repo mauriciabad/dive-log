@@ -30,7 +30,7 @@ const LoginPage: CustomNextPage<Props> = ({ providers }) => {
             <li key={provider.name}>
               <button
                 onClick={() => signIn(provider.id)}
-                className="p-3 gap-3 mx-auto rounded-lg shadow border border-gray-200 flex w-full max-w-64 items-center outline-none focus-visible:ring-4 ring-offset-2 focus-visible:ring-blue-500"
+                className="p-3 gap-3 mx-auto rounded-lg shadow border border-gray-200 flex w-full max-w-[16em] items-center outline-none focus-visible:ring-4 ring-offset-2 focus-visible:ring-blue-500"
               >
                 {
                   <Image src={provider.id === 'google' ? '/logos/google.svg' :
