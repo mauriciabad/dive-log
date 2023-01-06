@@ -27,7 +27,7 @@ Kind of like a backlog.
 
 - [ ] New input select
 - [ ] Joined input
-- [ ] Put units inside input
+- [ ] Put units inside input as placeholder
 - [ ] 5 star input
 - [ ] Create divesite from create dive
 - [ ] Links items

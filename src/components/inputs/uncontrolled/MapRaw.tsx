@@ -97,7 +97,7 @@ const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarke
   return (
     <div className='relative'>
       {displayMap}
-      {showCenterMarker ?? <div className='absolute inset-0 pointer-events-none flex items-center justify-center z-10'>
+      {showCenterMarker && <div className='absolute inset-0 pointer-events-none flex items-center justify-center z-10'>
         <TbCurrentLocation className='h-12 w-12 absolute text-black opacity-20 stroke-[4px] -z-1' />
         <TbCurrentLocation className='h-12 w-12 absolute text-white stroke-[1.5px]' />
       </div>}
