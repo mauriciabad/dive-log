@@ -10,7 +10,7 @@ const LandingPage: CustomNextPage = () => {
 
   return (
     <>
-      <main className="h-screen flex flex-col items-center justify-center p-2" style={{ backgroundImage: `url(${bgRipples.src})` }}>
+      <main className="h-screen flex flex-col items-center justify-center p-8" style={{ backgroundImage: `url(${bgRipples.src})` }}>
         <div className="bg-white rounded-xl sm:py-12 p-6 text-center shadow-lg max-w-md w-full">
           <Logo type="outline-lg" className="h-24 w-24 mx-auto" />
 

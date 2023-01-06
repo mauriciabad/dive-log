@@ -30,7 +30,7 @@ const LoginPage: CustomNextPage<Props> = ({ providers }) => {
             <li key={provider.name}>
               <button
                 onClick={() => signIn(provider.id)}
-                className="p-3 gap-3 mx-auto rounded-lg shadow border border-gray-200 flex w-64 items-center outline-none focus-visible:ring-4 ring-offset-2 focus-visible:ring-blue-500"
+                className="p-3 gap-3 mx-auto rounded-lg shadow border border-gray-200 flex w-full max-w-64 items-center outline-none focus-visible:ring-4 ring-offset-2 focus-visible:ring-blue-500"
               >
                 {
                   <Image src={provider.id === 'google' ? '/logos/google.svg' :
@@ -40,10 +40,11 @@ const LoginPage: CustomNextPage<Props> = ({ providers }) => {
                           provider.id === 'instagram' ? '/logos/instagram.svg' : ''}
                     alt=""
                     width={32}
-                    height={32} />}
-                <span className="text-base">
-                  <span className="text-gray-800">Sign in with</span>
-                  &nbsp;
+                    height={32}
+                    className="shrink-0"
+                  />}
+                <span className="text-base leading-none">
+                  <span className="text-gray-800 whitespace-nowrap">Sign in with </span><span> </span>
                   <strong className="font-medium">{provider.name}</strong>
                 </span>
               </button>
