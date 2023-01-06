@@ -34,6 +34,7 @@ Kind of like a backlog.
 - [ ] Dive buddies
 - [ ] Dive centers
 - [ ] Organisms
+- [ ] Upload images (divesite)
 
 ## High priority
 

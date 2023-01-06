@@ -115,14 +115,14 @@ const CreateDivePage: CustomNextPage = () => {
           label="Dive Number"
           internalLabel="diveNumber"
           Icon={TbHash}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Duration"
           note="in minutes"
           internalLabel="duration"
           Icon={TbHourglass}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Dive site"
@@ -131,19 +131,19 @@ const CreateDivePage: CustomNextPage = () => {
           data={userCreatedDiveSites}
           displayValue={(diveSite) => String(diveSite?.name ?? '')}
           exposedProperty="id"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Date"
           internalLabel="startDateTime"
           Icon={TbCalendarTime}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Name"
           internalLabel="name"
           Icon={TbTag}
-          className="sm:col-span-12"
+          className="col-span-12"
         />
         <CustomInputSelect
           label="Dive type"
@@ -152,7 +152,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.DiveType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Specialty dive type"
@@ -161,21 +161,21 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.SpecialtyDiveType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Max. depth"
           note="in meters"
           internalLabel="maximumDepth"
           Icon={TbArrowBarToDown}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Avg. depth"
           note="in meters"
           internalLabel="averageDepth"
           Icon={TbFold}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
       </FormSection>
 
@@ -188,21 +188,21 @@ const CreateDivePage: CustomNextPage = () => {
           note="in celcius"
           internalLabel="waterMinimumTemperature"
           Icon={TbTemperatureMinus}
-          className="sm:col-span-4"
+          className="col-span-4"
         />
         <CustomInputSimple
           label="Avg. water temp."
           note="in celcius"
           internalLabel="waterAverageTemperature"
           Icon={TbTemperature}
-          className="sm:col-span-4"
+          className="col-span-4"
         />
         <CustomInputSimple
           label="Max. water temp."
           note="in celcius"
           internalLabel="waterMaximumTemperature"
           Icon={TbTemperaturePlus}
-          className="sm:col-span-4"
+          className="col-span-4"
         />
         <CustomInputSelect
           label="Water body"
@@ -211,7 +211,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterBody)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Water type"
@@ -220,7 +220,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterType)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Water entry"
@@ -229,7 +229,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterEntry)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-12"
+          className="col-span-12"
         />
         <CustomInputSelect
           label="Water current"
@@ -238,7 +238,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterCurrent)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Water surface"
@@ -247,7 +247,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterSurface)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Weather"
@@ -256,14 +256,14 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.Weather)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Air temp."
           note="in celcius"
           internalLabel="airTemperature"
           Icon={TbWind}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
       </FormSection>
 
@@ -278,28 +278,28 @@ const CreateDivePage: CustomNextPage = () => {
           // TODO: This icon is better, but not avilable in react icons. update the lib
           // Icon={TbWeight} 
           Icon={TbBarbell}
-          className="sm:col-span-12"
+          className="col-span-12"
         />
         <CustomInputSimple
           label="Start cylinder presure"
           note="in bar"
           internalLabel="startCylinderPresure"
           Icon={TbBattery4}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="End cylinder presure"
           note="in bar"
           internalLabel="endCylinderPresure"
           Icon={TbBattery1}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSimple
           label="Cylinder volume"
           note="in liters"
           internalLabel="cylinderVolume"
           Icon={TbBattery}
-          className="sm:col-span-6"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Cylinder material"
@@ -308,7 +308,7 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.CylinderMaterial)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="sm:col-span-6"
+          className="col-span-6"
         />
 
         {/* Missing fields */}
@@ -346,19 +346,19 @@ const CreateDivePage: CustomNextPage = () => {
           note="from 0 to 10"
           internalLabel="rating"
           Icon={TbStar}
-          className="sm:col-span-12"
+          className="col-span-12"
         />
         <CustomInputMultiline
           label="Experience notes"
           internalLabel="experienceNotes"
           Icon={TbLicense}
-          className="sm:col-span-12"
+          className="col-span-12"
         />
         <CustomInputMultiline
           label="Technical notes"
           internalLabel="technicalNotes"
           Icon={TbLicense}
-          className="sm:col-span-12"
+          className="col-span-12"
         />
 
         <div className="col-span-12">
