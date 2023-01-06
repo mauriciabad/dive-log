@@ -5,6 +5,7 @@ import type { FC } from "react"
 import { TbTemperature, TbArrowBarToDown, TbCalendarTime, TbHourglass, TbMapPin } from 'react-icons/tb'
 import ReactTimeAgo from 'react-time-ago'
 import type { IconType } from "react-icons"
+import Link from "next/link"
 
 interface Props {
   className?: string
@@ -17,7 +18,8 @@ const DiveCard: FC<Props> = ({ className, dive }) => {
   const diveDurationFormatted = durationToString(dive.duration)
 
   return (
-    <div
+    <Link
+      href={`/user/dives/${dive.id}`}
       className={classNames(className, 'items-center max-w-[30rem] mx-auto w-full bg-white shadow rounded-md p-6')}
     >
       <Label className="-mt-3" text="Name" />
@@ -43,7 +45,7 @@ const DiveCard: FC<Props> = ({ className, dive }) => {
 
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
