@@ -1,42 +1,54 @@
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import type { CustomNextPage } from "./_app";
+import Logo from "../components/Logo";
+import IconButton from "../components/IconButton";
+import bgRipples from '../assets/backgrounds/ripples.png'
 
 const LandingPage: CustomNextPage = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <>
-      <main className="flex min-h-screen flex-col gap-8 items-center justify-center text-white bg-gradient-to-b from-sky-600 to-indigo-800">
-        <p>Manage your dives!</p>
+      <main className="h-screen flex flex-col items-center justify-center p-2" style={{ backgroundImage: `url(${bgRipples.src})` }}>
+        <div className="bg-white rounded-xl sm:py-12 p-6 text-center shadow-lg max-w-md w-full">
+          <Logo type="outline-lg" className="h-24 w-24 mx-auto" />
 
-        {session ? <Link
-          className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-          href="/user"
-        >
-          Go to my dive log
-        </Link> : <button
-          className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-          onClick={() => signIn(undefined, { callbackUrl: '/user' })}
-        >
-          Log In & Go to my dive log
-        </button>}
+          <h1 className="text-4xl font-bold tracking-wider">Dive Log</h1>
+
+          <p className="my-8">Manage your dives!</p>
+
+          {session ?
+            <IconButton
+              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+              href="/user"
+              text="Go to my dive log"
+            />
+            :
+            <>
+              <IconButton
+                text="Log In & Go to my dive log"
+                onClick={() => signIn(undefined, { callbackUrl: '/user' })}
+              />
+              {status === 'loading' && <p className="text-xs mt-2 animate-pulse">Loading user data...</p>}
+            </>}
 
 
-        <div className="absolute inset-x-0 bottom-1 text-center text-xs">
-          <Link
-            className="underline"
-            href="/terms-of-service"
-          >
-            Terms of service
-          </Link>
-          &nbsp;|&nbsp;
-          <Link
-            className="underline"
-            href="/privacy-policy"
-          >
-            Privacy policy
-          </Link>
+          <div className="absolute inset-x-0 bottom-1 text-center text-xs">
+            <Link
+              className="underline"
+              href="/terms-of-service"
+            >
+              Terms of service
+            </Link>
+            &nbsp;|&nbsp;
+            <Link
+              className="underline"
+              href="/privacy-policy"
+            >
+              Privacy policy
+            </Link>
+          </div>
         </div>
       </main>
     </>
