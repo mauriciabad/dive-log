@@ -29,8 +29,9 @@ import {
   TbBarbell,
   TbHome,
   TbHeartHandshake,
-  TbLicense
-  TbTrash
+  TbLicense,
+  TbTrash,
+  TbPencil
 } from 'react-icons/tb'
 import { trpc } from "../../../../utils/trpc";
 import ErrorBox from "../../../../components/ErrorBox";
@@ -298,6 +299,12 @@ const ViewDivePage: CustomNextPage = () => {
           </FormSection>
 
           <div className="flex justify-center gap-4">
+            <IconButton
+              text="Edit"
+              Icon={TbPencil}
+              href={`/user/dives/${dive.id}/edit`}
+              className="flex mt-8 px-8"
+            />
             <IconButton
               text="Delete"
               dangerous
