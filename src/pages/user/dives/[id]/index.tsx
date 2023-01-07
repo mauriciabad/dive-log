@@ -37,17 +37,22 @@ import {
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import { trpc } from "../../../../utils/trpc";
+import ErrorBox from "../../../../components/ErrorBox";
+import { getParameter } from "../../../../utils/router";
 
 const ViewDivePage: CustomNextPage = () => {
   const router = useRouter()
-  const { id } = router.query
+  const id = getParameter(router, 'id')
+  if (!id) return <ErrorBox message="Invalid dive id, check that the url is correct." />
 
   const { data: dive } = trpc.dive.getDive.useQuery({ id })
 
   return (
-    <pre >
-      <code>{JSON.stringify(dive, null, 2)}</code>
-    </pre >
+    <div>
+      <pre >
+        <code>{JSON.stringify(dive, null, 2)}</code>
+      </pre >
+    </div>
   );
 };
 
