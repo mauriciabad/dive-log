@@ -30,6 +30,7 @@ import {
   TbHome,
   TbHeartHandshake,
   TbLicense
+  TbTrash
 } from 'react-icons/tb'
 import { trpc } from "../../../../utils/trpc";
 import ErrorBox from "../../../../components/ErrorBox";
@@ -41,6 +42,7 @@ import { enumLabels } from "../../../../parametrized-data/enumLabels";
 import classNames from "classnames";
 import WaveAnimation from "../../../../components/WaveAnimation";
 import FormSection from "../../../../components/FormSection";
+import IconButton from "../../../../components/IconButton";
 
 const ViewDivePage: CustomNextPage = () => {
   const router = useRouter()
@@ -48,6 +50,12 @@ const ViewDivePage: CustomNextPage = () => {
   if (!id) return <ErrorBox message="Invalid dive id, check that the url is correct." />
 
   const { data: dive, error } = trpc.dive.getDive.useQuery({ id })
+
+  const deleteDiveMutation = trpc.dive.deleteDive.useMutation()
+  const deleteDive = async (): Promise<void> => {
+    await deleteDiveMutation.mutateAsync({ id })
+    router.push("/user/dives");
+  }
 
   return (<>
     {error ?
@@ -288,6 +296,19 @@ const ViewDivePage: CustomNextPage = () => {
             />
             {/* TODO: Missing links */}
           </FormSection>
+
+          <div className="flex justify-center gap-4">
+            <IconButton
+              text="Delete"
+              dangerous
+              Icon={TbTrash}
+              onClick={deleteDive}
+              loading={deleteDiveMutation.isLoading}
+              className="flex mt-8 px-8"
+            />
+          </div>
+
+          {deleteDiveMutation.error && <ErrorBox message={deleteDiveMutation.error?.message} />}
         </div>
         :
         <div className="flex flex-col items-center justify-center h-96 overflow-hidden">
