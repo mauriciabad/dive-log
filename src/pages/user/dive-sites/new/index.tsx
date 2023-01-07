@@ -137,7 +137,7 @@ const CreateDivePage: CustomNextPage = () => {
                 />
               </div>
             ))}
-            <div className="col-span-12 sm:col-span-12 p-4 text-center">
+            <div className="col-span-12 p-4 text-center">
               <IconButton
                 text="Add attechment"
                 onClick={() => append({

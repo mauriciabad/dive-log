@@ -37,7 +37,8 @@ import {
   TbPlus,
   TbFile,
   TbPhoto,
-  TbPaperclip
+  TbPaperclip,
+  TbEye
 } from 'react-icons/tb'
 import IconButton from "../../../../components/IconButton";
 import FormSection from "../../../../components/FormSection";
@@ -229,7 +230,16 @@ const CreateDivePage: CustomNextPage = () => {
           data={enumLabelsAsArray(enumLabels.WaterEntry)}
           displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
           exposedProperty="value"
-          className="col-span-12"
+          className="col-span-6"
+        />
+        <CustomInputSelect
+          label="Water visibility"
+          internalLabel="waterVisibility"
+          Icon={TbEye}
+          data={enumLabelsAsArray(enumLabels.WaterVisibility)}
+          displayValue={(enumLabel) => String(enumLabel?.label ?? '')}
+          exposedProperty="value"
+          className="col-span-6"
         />
         <CustomInputSelect
           label="Water current"

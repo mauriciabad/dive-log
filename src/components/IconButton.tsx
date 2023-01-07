@@ -14,6 +14,7 @@ interface Props {
   disabled?: boolean
   loading?: boolean
   onlyIcon?: boolean
+  dangerous?: boolean
 }
 
 
@@ -26,11 +27,13 @@ const IconButton: FC<Props> = ({
   Icon,
   disabled,
   loading,
-  onlyIcon
+  onlyIcon,
+  dangerous
 }) => {
   const classWrapper = classNames(className, {
     'bg-blue-500 text-white py-3 px-4 rounded-lg shadow hover:bg-blue-600 focus-visible:ring-offset-2': !onlyIcon,
     'text-current p-2 rounded-full border-gray-300 border hover:bg-gray-50 shadow-sm justify-center aspect-square': onlyIcon,
+    'bg-red-500 hover:bg-red-600': !onlyIcon && dangerous,
   }, 'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none overflow-hidden inline-flex items-center')
   const classIcon = classNames(classNameIcon, {
     'inline-block mr-2 shrink-0': !onlyIcon,

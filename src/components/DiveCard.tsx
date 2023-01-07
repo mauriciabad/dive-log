@@ -5,6 +5,8 @@ import type { FC } from "react"
 import { TbTemperature, TbArrowBarToDown, TbCalendarTime, TbHourglass, TbMapPin } from 'react-icons/tb'
 import ReactTimeAgo from 'react-time-ago'
 import type { IconType } from "react-icons"
+import Link from "next/link"
+import { durationToString } from "../utils/time"
 
 interface Props {
   className?: string
@@ -17,7 +19,8 @@ const DiveCard: FC<Props> = ({ className, dive }) => {
   const diveDurationFormatted = durationToString(dive.duration)
 
   return (
-    <div
+    <Link
+      href={`/user/dives/${dive.id}`}
       className={classNames(className, 'items-center max-w-[30rem] mx-auto w-full bg-white shadow rounded-md p-6')}
     >
       <Label className="-mt-3" text="Name" />
@@ -43,7 +46,7 @@ const DiveCard: FC<Props> = ({ className, dive }) => {
 
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -54,14 +57,3 @@ const Label: FC<{ text: string, className?: string }> =
 
 const Icon: FC<{ Icon: IconType, className?: string }> =
   ({ className, Icon }) => <Icon className={classNames(className, 'inline h-5 w-5 flex-shrink-0 text-gray-500 my-0.5 mr-1 box-content')} />
-
-function durationToString(durationInMs: number): string {
-  const hours = Math.floor(durationInMs / (1000 * 60 * 60))
-  const minutes = (durationInMs / (1000 * 60) % 60)
-
-  const hoursText = hours > 0 ? `${hours.toFixed(0)}h` : ''
-  const minutesText = minutes > 0 ? `${(minutes).toFixed(0)}min` : ''
-
-  return [hoursText, minutesText].join(' ')
-}
-
