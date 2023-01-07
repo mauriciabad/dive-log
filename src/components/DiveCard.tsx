@@ -6,6 +6,7 @@ import { TbTemperature, TbArrowBarToDown, TbCalendarTime, TbHourglass, TbMapPin 
 import ReactTimeAgo from 'react-time-ago'
 import type { IconType } from "react-icons"
 import Link from "next/link"
+import { durationToString } from "../utils/time"
 
 interface Props {
   className?: string
@@ -56,14 +57,3 @@ const Label: FC<{ text: string, className?: string }> =
 
 const Icon: FC<{ Icon: IconType, className?: string }> =
   ({ className, Icon }) => <Icon className={classNames(className, 'inline h-5 w-5 flex-shrink-0 text-gray-500 my-0.5 mr-1 box-content')} />
-
-function durationToString(durationInMs: number): string {
-  const hours = Math.floor(durationInMs / (1000 * 60 * 60))
-  const minutes = (durationInMs / (1000 * 60) % 60)
-
-  const hoursText = hours > 0 ? `${hours.toFixed(0)}h` : ''
-  const minutesText = minutes > 0 ? `${(minutes).toFixed(0)}min` : ''
-
-  return [hoursText, minutesText].join(' ')
-}
-

@@ -29,6 +29,7 @@ export const diveRouter = router({
         },
         include: {
           diveSite: true,
+          diveCenter: true,
           links: true,
         }
       });
