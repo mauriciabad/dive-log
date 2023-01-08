@@ -14,7 +14,7 @@ const LoginPage: CustomNextPage<Props> = ({ providers }) => {
 
   return <>
     <main className="h-screen flex flex-col items-center justify-center sm:p-2 max-sm:!bg-none max-sm:bg-white" style={{ backgroundImage: `url(${bgRipples.src})` }}>
-      <div className="bg-white sm:rounded-xl px-8 sm:p-12 text-center sm:shadow-lg max-w-md w-full overflow-auto">
+      <div className="bg-white sm:rounded-xl p-8 sm:p-12 text-center sm:shadow-lg max-w-md w-full overflow-auto">
         <div className="rounded-full p-4 inline-block mx-auto border-2 border-gray-300 mb-2">
           <TbLock className="mx-auto h-8 w-8 text-gray-900" />
         </div>
