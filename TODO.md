@@ -13,7 +13,7 @@ Kind of like a backlog.
 - [ ] View: Edit dive
 - [ ] View: View Dive Site
 - [ ] View: Edit Dive Site
-- [ ] Delete dive with confirm tooltip
+- [ ] Delete dive confirm tooltip
 - [x] Login with Google, email, Facebook and as many as possible
 - [ ] Work offline
   - [ ] Create dive offline
@@ -22,6 +22,7 @@ Kind of like a backlog.
 - [ ] Setup CI/CD
 - [ ] Remove all `@ts-ignore`s
 - [ ] Fix change page is slow
+- [ ] Add tests (E2E and Unit)
 
 ### Sub tasks
 
@@ -35,7 +36,6 @@ Kind of like a backlog.
 - [ ] Dive centers
 - [ ] Organisms
 - [ ] Upload images (divesite)
-- [ ] Delete confirm dialog
 
 ## High priority
 
