@@ -1,10 +1,10 @@
- <img height="128" align="right" src="src/assets/brand-image-round-corners.png" />
+<img height="128" align="right" src="src/assets/brand-image-round-corners.png" />
   
 [![Vercel](https://vercelbadge.vercel.app/api/mauriciabad/dive-log)](https://vercel.com/mauriciabad/dive-log) [![Website](https://img.shields.io/website?down_color=red&down_message=down&up_color=blue&up_message=avilable&url=https%3A%2F%2Fdivelog.vercel.app)](https://divelog.vercel.app) [![Stars](https://img.shields.io/github/stars/mauriciabad/dive-log?style=social)](https://github.com/mauriciabad/dive-log)
 
 # <img height="32" src="src/assets/logo/logo-outline.svg" /> Dive Log
 
-:diving_mask: Easy to use Dive Log book for Scuba Divers.
+:diving_mask: Easy to use Dive Logbook for Scuba Divers.
 
 Use here: <https://divelog.vercel.app/>
 
@@ -12,7 +12,7 @@ Use here: <https://divelog.vercel.app/>
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-The main technollogies used are:
+The main technologies used are:
 
 - [TypeSctipt](https://www.typescriptlang.org/)
 - [React.js](https://reactjs.org/)
