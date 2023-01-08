@@ -28,6 +28,8 @@ The main technollogies used are:
 
 PRs are welcome :smile:
 
+> There's a [TODO.md](/TODO.md) file with the pending tasks.
+
 ### Commands
 
 ```zsh

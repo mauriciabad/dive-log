@@ -9,7 +9,7 @@ Kind of like a backlog.
 - [x] View: Dive details
 - [ ] Install Radix UI
 - [x] View: Create dive
-- [ ] View: View dive
+- [x] View: View dive
 - [ ] View: Edit dive
 - [ ] View: View Dive Site
 - [ ] View: Edit Dive Site
@@ -35,6 +35,7 @@ Kind of like a backlog.
 - [ ] Dive centers
 - [ ] Organisms
 - [ ] Upload images (divesite)
+- [ ] Delete confirm dialog
 
 ## High priority
 
