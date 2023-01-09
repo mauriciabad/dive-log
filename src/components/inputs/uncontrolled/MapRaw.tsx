@@ -1,15 +1,17 @@
-import { MapContainer, Rectangle, TileLayer, useMap, useMapEvent } from 'react-leaflet'
+import { MapContainer, Rectangle, TileLayer, useMap, useMapEvent, Marker, Popup } from 'react-leaflet'
 import type { FC } from 'react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type Leaflet from 'leaflet'
 import classNames from 'classnames';
 import { TbCurrentLocation } from 'react-icons/tb';
 import type { LeafletMouseEventHandlerFn } from 'leaflet';
+import { Icon } from 'leaflet';
 import { useEventHandlers } from '@react-leaflet/core'
+import IconMapPin from "../../../assets/icon-map-pin.svg"
 
 import 'leaflet/dist/leaflet.css'
 
-type Location = {
+export type Location = {
   latitude: number;
   longitude: number;
 };
@@ -21,6 +23,10 @@ interface MapProps {
   }) => JSX.Element,
   onChange?: (location: Location | undefined) => void,
   value?: Location
+  markers?: {
+    location: Location
+    text?: string
+  }[]
   className?: string
   showCenterMarker?: boolean
 }
@@ -32,7 +38,7 @@ function toLatLang(location: Location | undefined): Leaflet.LatLngLiteral | unde
   return { lat: location.latitude, lng: location.longitude }
 }
 
-const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarker }) => {
+const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarker, markers }) => {
   const initialPosition: Location | undefined = useMemo(() => value ? { ...value } : undefined, [value])
   const [map, setMap] = useState<Leaflet.Map | null>(null)
 
@@ -89,9 +95,22 @@ const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarke
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MinimapControl />
+
+        {markers?.map(({ text, location: { latitude, longitude } }) => (
+          <Marker
+            key={`${latitude}-${longitude}`}
+            position={{
+              lat: latitude,
+              lng: longitude,
+            }}
+            icon={new Icon({ iconUrl: IconMapPin.src, iconAnchor: [94 * 0.4 * 0.5, 128 * 0.4 * 1], iconSize: [94 * 0.4, 128 * 0.4] })}
+          >
+            {text && <Popup>{text}</Popup>}
+          </Marker>
+        ))}
       </MapContainer>
     ),
-    [className, initialPosition],
+    [className, initialPosition, markers],
   )
 
   return (

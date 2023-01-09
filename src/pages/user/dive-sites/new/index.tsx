@@ -89,6 +89,7 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbMapPin}
           internalLabelLatitude="latitude"
           internalLabelLongitude="longitude"
+          className="col-span-12"
         />
       </FormSection>
       <FormSection
