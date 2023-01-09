@@ -28,7 +28,7 @@ export default function Layout({ children, title }: Props) {
 
   return (
     <>
-      <header>
+      <header className="sticky top-0 sm:relative shadow-sm sm:shadow-none">
         <Disclosure as="nav" className="bg-white text-black">
           {({ open }) => (
             <>
