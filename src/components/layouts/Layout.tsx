@@ -68,11 +68,14 @@ export default function Layout({ children, title }: Props) {
                   <div className="ml-auto flex items-center">
                     {
                       env.NEXT_PUBLIC_NODE_ENV !== 'production' &&
-                      <span className={classNames("text-gray-500 bg-gray-200 border-2 border-gray-900/25  text-xs tracking-wide font-semibold px-2 py-1 uppercase rounded-md ml-4 sm:ml-6 -mr-4 sm:-mr-6", {
-                        'text-emerald-900 bg-emerald-200 border-emerald-900/25': env.NEXT_PUBLIC_DATABASE_ENV === 'development',
-                        'text-blue-900 bg-blue-200 border-blue-900/25': env.NEXT_PUBLIC_DATABASE_ENV === 'test',
-                        'text-red-900 bg-red-200 border-red-900/25': env.NEXT_PUBLIC_DATABASE_ENV === 'production',
-                      })}>{env.NEXT_PUBLIC_DATABASE_ENV === 'development' ? 'dev' : env.NEXT_PUBLIC_DATABASE_ENV === 'production' ? 'prod' : env.NEXT_PUBLIC_DATABASE_ENV}</span>}
+                      <span
+                        className={classNames("text-gray-500 bg-gray-200 border-2 border-gray-900/25 text-xs tracking-wide font-semibold px-2 py-1 uppercase rounded-md ml-4 sm:ml-6 -mr-4 sm:-mr-6", {
+                          'text-emerald-900 bg-emerald-200 border-emerald-900/25': env.NEXT_PUBLIC_DATABASE_ENV === 'development',
+                          'text-blue-900 bg-blue-200 border-blue-900/25': env.NEXT_PUBLIC_DATABASE_ENV === 'test',
+                          'text-red-900 bg-red-200 border-red-900/25': env.NEXT_PUBLIC_DATABASE_ENV === 'production',
+                        })}
+                        title="This is only visible when not in production"
+                      >{env.NEXT_PUBLIC_DATABASE_ENV === 'development' ? 'dev' : env.NEXT_PUBLIC_DATABASE_ENV === 'production' ? 'prod' : env.NEXT_PUBLIC_DATABASE_ENV}</span>}
 
                     <div className="ml-4 flex items-center sm:ml-6">
                       <div className="relative ml-3 shrink-0">
