@@ -1,4 +1,4 @@
-import type { CustomNextPage } from "../../../../_app";
+import type { CustomNextPage } from "../../../../../hooks/useWrapInLayout";
 import { useRouter } from "next/router";
 import { trpc } from "../../../../../utils/trpc";
 import ErrorBox from "../../../../../components/ErrorBox";

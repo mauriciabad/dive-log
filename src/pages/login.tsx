@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from "next";
 import type { ClientSafeProvider } from "next-auth/react";
 import { getProviders, getSession, signIn } from "next-auth/react";
-import type { CustomNextPage } from "./_app";
+import type { CustomNextPage } from "../hooks/useWrapInLayout";
 import bgRipples from '../assets/backgrounds/ripples.png'
 import { TbLock } from 'react-icons/tb'
 import Image from "next/image";

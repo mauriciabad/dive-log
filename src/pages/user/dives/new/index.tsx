@@ -1,5 +1,5 @@
 import { trpc } from "../../../../utils/trpc";
-import type { CustomNextPage } from "../../../_app";
+import type { CustomNextPage } from "../../../../hooks/useWrapInLayout";
 import { type SubmitHandler, useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";

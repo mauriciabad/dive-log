@@ -1,6 +1,6 @@
 import { TbChevronLeft } from "react-icons/tb";
 import IconButton from "../components/IconButton";
-import type { CustomNextPage } from "./_app";
+import type { CustomNextPage } from "../hooks/useWrapInLayout";
 
 const TermsOfServicePage: CustomNextPage = () => {
 

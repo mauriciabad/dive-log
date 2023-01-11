@@ -2,7 +2,7 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import loginRequired from "../../../utils/loginRequired";
 import { trpc } from "../../../utils/trpc";
-import type { CustomNextPage } from "../../_app";
+import type { CustomNextPage } from "../../../hooks/useWrapInLayout";
 import { TbLogout, TbBook } from "react-icons/tb";
 import IconButton from "../../../components/IconButton";
 
