@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-import type { CustomNextPage } from "./_app";
+import type { CustomNextPage } from "../hooks/useWrapInLayout";
 import Logo from "../components/Logo";
 import IconButton from "../components/IconButton";
 import bgRipples from '../assets/backgrounds/ripples.png'

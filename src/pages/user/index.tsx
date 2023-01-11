@@ -1,4 +1,4 @@
-import type { CustomNextPage } from "../_app";
+import type { CustomNextPage } from "../../hooks/useWrapInLayout";
 import loginRequired from "../../utils/loginRequired";
 import IconButton from "../../components/IconButton";
 import { TbBook } from 'react-icons/tb'

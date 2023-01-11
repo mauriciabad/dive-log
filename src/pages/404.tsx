@@ -1,10 +1,9 @@
 import { TbChevronLeft } from "react-icons/tb";
+import bgRipples from '../assets/backgrounds/ripples.png';
 import IconButton from "../components/IconButton";
-import type { CustomNextPage } from "./_app";
-import bgRipples from '../assets/backgrounds/ripples.png'
+import type { CustomNextPage } from "../hooks/useWrapInLayout";
 
 const NotFoundPage: CustomNextPage = () => {
-
   return <>
     <main className="h-screen flex flex-col items-center justify-center p-2" style={{ backgroundImage: `url(${bgRipples.src})` }}>
       <div className="bg-white rounded-xl p-8 xs:p-12 text-center shadow-lg max-w-md w-full">

@@ -15,10 +15,7 @@ const queryClient = new QueryClient({
 
 const persister = createIDBPersister()
 
-/**
- * Creates an Indexed DB persister
- * @see https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
- */
+
 function createIDBPersister(idbValidKey: IDBValidKey = "reactQuery") {
   return {
     persistClient: async (client: PersistedClient) => {

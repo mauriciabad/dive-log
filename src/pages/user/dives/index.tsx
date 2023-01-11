@@ -1,5 +1,5 @@
 import { trpc } from "../../../utils/trpc";
-import type { CustomNextPage } from "../../_app";
+import type { CustomNextPage } from "../../../hooks/useWrapInLayout";
 import FabButton from '../../../components/FabButton'
 import DiveCard from '../../../components/DiveCard'
 import WaveAnimation from '../../../components/WaveAnimation'

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import React from "react";
 import { trpc } from "../../../utils/trpc";
-import type { CustomNextPage } from "../../_app";
+import type { CustomNextPage } from "../../../hooks/useWrapInLayout";
 import FabButton from '../../../components/FabButton'
 import WaveAnimation from '../../../components/WaveAnimation'
 import { TbMapPin } from 'react-icons/tb'
