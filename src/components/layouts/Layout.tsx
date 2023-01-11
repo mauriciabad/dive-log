@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import classNames from "classnames";
 import { env } from "../../env/client.mjs";
 
-interface Props {
+export interface LayoutProps {
   children: ReactNode
   title?: string
 }
@@ -20,7 +20,7 @@ const navigation = [
   { name: 'Profile', href: '/user/profile' },
 ]
 
-export default function Layout({ children, title }: Props) {
+export default function Layout({ children, title }: LayoutProps) {
   const router = useRouter()
 
   const { data: session } = useSession();
