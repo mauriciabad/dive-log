@@ -1,5 +1,5 @@
 // @ts-check
-import { z } from "zod";
+import { z } from 'zod'
 
 /**
  * Specify your server-side environment variables schema here.
@@ -7,9 +7,9 @@ import { z } from "zod";
  */
 export const serverSchema = z.object({
   DATABASE_URL: z.string().url(),
-  NODE_ENV: z.enum(["development", "test", "production"]),
+  NODE_ENV: z.enum(['development', 'test', 'production']),
   NEXTAUTH_SECRET:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === 'production'
       ? z.string().min(1)
       : z.string().min(1).optional(),
   NEXTAUTH_URL: z.preprocess(
@@ -27,7 +27,7 @@ export const serverSchema = z.object({
   FACEBOOK_CLIENT_SECRET: z.string(),
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-});
+})
 
 /**
  * Specify your client-side environment variables schema here.
@@ -35,9 +35,9 @@ export const serverSchema = z.object({
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  NEXT_PUBLIC_DATABASE_ENV: z.enum(["development", "test", "production"]),
-  NEXT_PUBLIC_NODE_ENV: z.enum(["development", "test", "production"]),
-});
+  NEXT_PUBLIC_DATABASE_ENV: z.enum(['development', 'test', 'production']),
+  NEXT_PUBLIC_NODE_ENV: z.enum(['development', 'test', 'production']),
+})
 
 /**
  * You can't destruct `process.env` as a regular object, so you have to do
@@ -50,4 +50,4 @@ export const clientEnv = {
   // @ts-ignore
   NEXT_PUBLIC_DATABASE_ENV: process.env.NEXT_PUBLIC_DATABASE_ENV,
   NEXT_PUBLIC_NODE_ENV: process.env.NODE_ENV,
-};
+}

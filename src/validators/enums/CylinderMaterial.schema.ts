@@ -1,3 +1,3 @@
-import { z } from "zod";
+import { z } from 'zod'
 
-export const CylinderMaterialSchema = z.enum(["ALUMINIUM", "STEEL"]);
+export const CylinderMaterialSchema = z.enum(['ALUMINIUM', 'STEEL'])

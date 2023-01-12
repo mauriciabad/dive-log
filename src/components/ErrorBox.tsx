@@ -1,7 +1,7 @@
-import classNames from "classnames"
-import React from "react"
-import type { FC } from "react"
-import { TbAlertOctagon } from "react-icons/tb"
+import classNames from 'classnames'
+import React from 'react'
+import type { FC } from 'react'
+import { TbAlertOctagon } from 'react-icons/tb'
 
 interface Props {
   className?: string
@@ -9,17 +9,26 @@ interface Props {
   message?: string
 }
 
-
-const ErrorBox: FC<Props> = ({ className, message, title = 'There was an error' }) => {
+const ErrorBox: FC<Props> = ({
+  className,
+  message,
+  title = 'There was an error',
+}) => {
   return (
-    <div className={classNames(className, "border-red-400 border-2 bg-red-100 text-red-500 text-sm rounded-md")}>
-      <p className="text-md font-bold m-4">
+    <div
+      className={classNames(
+        className,
+        'rounded-md border-2 border-red-400 bg-red-100 text-sm text-red-500'
+      )}
+    >
+      <p className="text-md m-4 font-bold">
         <TbAlertOctagon className="inline-block h-5 w-5 align-bottom" /> {title}
       </p>
-      {message && <pre className="text-sm overflow-x-auto pb-4 px-4">{message}</pre>}
+      {message && (
+        <pre className="overflow-x-auto px-4 pb-4 text-sm">{message}</pre>
+      )}
     </div>
   )
 }
 
 export default ErrorBox
-

@@ -1,9 +1,9 @@
-import { trpc } from "../../../../utils/trpc";
-import type { CustomNextPage } from "../../../_app";
-import { type SubmitHandler, useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
-import { CreateDiveSchema } from "../../../../validators/Dive";
+import { trpc } from '../../../../utils/trpc'
+import type { CustomNextPage } from '../../../_app'
+import { type SubmitHandler, useForm, useFieldArray } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
+import { CreateDiveSchema } from '../../../../validators/Dive'
 import {
   TbTemperature,
   TbArrowBarToDown,
@@ -38,80 +38,81 @@ import {
   TbFile,
   TbPhoto,
   TbPaperclip,
-  TbEye
+  TbEye,
 } from 'react-icons/tb'
-import IconButton from "../../../../components/IconButton";
-import FormSection from "../../../../components/FormSection";
-import type { z } from "zod";
-import ErrorBox from "../../../../components/ErrorBox";
-import InfoBox from "../../../../components/InfoBox";
-import { makeCustomInputSelect } from "../../../../components/inputs/InputSelect";
-import { makeCustomInputSimple } from "../../../../components/inputs/InputSimple";
-import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
-import InputDiv from "../../../../components/inputs/InputDiv"
-import { enumLabels, enumLabelsAsArray } from '../../../../parametrized-data/enumLabels'
+import IconButton from '../../../../components/IconButton'
+import FormSection from '../../../../components/FormSection'
+import type { z } from 'zod'
+import ErrorBox from '../../../../components/ErrorBox'
+import InfoBox from '../../../../components/InfoBox'
+import { makeCustomInputSelect } from '../../../../components/inputs/InputSelect'
+import { makeCustomInputSimple } from '../../../../components/inputs/InputSimple'
+import { makeCustomInputMultiline } from '../../../../components/inputs/InputMultiline'
+import InputDiv from '../../../../components/inputs/InputDiv'
+import {
+  enumLabels,
+  enumLabelsAsArray,
+} from '../../../../parametrized-data/enumLabels'
 import { useCreateDiveAutofill } from '../../../../hooks/useCreateDiveAutofill'
 
 type Inputs = z.input<typeof CreateDiveSchema>
 
 const CreateDivePage: CustomNextPage = () => {
-  const router = useRouter();
+  const router = useRouter()
   const createDiveMutation = trpc.dive.createDive.useMutation()
 
   const { handleSubmit, formState, control, setValue } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSchema),
     // Default values are handled with useCreateDiveAutofill hook
-  });
+  })
 
-  const {
-    isLoading: isAutofillLoading,
-    isAutofilled
-  } = useCreateDiveAutofill({ control, setValue })
+  const { isLoading: isAutofillLoading, isAutofilled } = useCreateDiveAutofill({
+    control,
+    setValue,
+  })
 
   const makeCustomInputsProps = {
     control,
     errors: formState.errors,
     schema: CreateDiveSchema,
-    theme: 'outline'
+    theme: 'outline',
   } as const
   const CustomInputSimple = makeCustomInputSimple(makeCustomInputsProps)
   const CustomInputSelect = makeCustomInputSelect(makeCustomInputsProps)
   const CustomInputMultiline = makeCustomInputMultiline(makeCustomInputsProps)
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     data.duration *= 60 * 1000 // Convert from minutes to millisecpnds
 
     await createDiveMutation.mutateAsync({ data })
-    router.push("/user/dives");
+    router.push('/user/dives')
   }
 
-
-  const { data: userCreatedDiveSites } = trpc.diveSite.getUserCreatedDiveSites.useQuery();
+  const { data: userCreatedDiveSites } =
+    trpc.diveSite.getUserCreatedDiveSites.useQuery()
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "links"
-  });
+    name: 'links',
+  })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} >
-      {isAutofillLoading ? <InfoBox
-        message="Trying to guess some fields..."
-        className="mb-4"
-      />
-        :
-        isAutofilled &&
-        <InfoBox
-          message="Some fields have been pre-filled based on your last dive"
-          className="mb-4"
-        />
-      }
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {isAutofillLoading ? (
+        <InfoBox message="Trying to guess some fields..." className="mb-4" />
+      ) : (
+        isAutofilled && (
+          <InfoBox
+            message="Some fields have been pre-filled based on your last dive"
+            className="mb-4"
+          />
+        )
+      )}
 
       <FormSection
         title="Basic"
         description="The minimum information you need to keep."
       >
-
         <CustomInputSimple
           label="Dive Number"
           internalLabel="diveNumber"
@@ -286,7 +287,7 @@ const CreateDivePage: CustomNextPage = () => {
           note="in kilograms"
           internalLabel="weight"
           // TODO: This icon is better, but not avilable in react icons. update the lib
-          // Icon={TbWeight} 
+          // Icon={TbWeight}
           Icon={TbBarbell}
           className="col-span-12"
         />
@@ -329,7 +330,9 @@ const CreateDivePage: CustomNextPage = () => {
         title="People"
         description="Information about other divers and dive centers."
       >
-        <div className="py-6 text-xl text-center text-gray-300 col-span-12">In development...</div>
+        <div className="col-span-12 py-6 text-center text-xl text-gray-300">
+          In development...
+        </div>
         {/* Missing fields */}
         {/* Lining to other db entities */}
         {/* diveCenter */}
@@ -340,7 +343,9 @@ const CreateDivePage: CustomNextPage = () => {
         title="Organisms"
         description="Creatures you saw that you consider relevant."
       >
-        <div className="py-6 text-xl text-center text-gray-300 col-span-12">In development...</div>
+        <div className="col-span-12 py-6 text-center text-xl text-gray-300">
+          In development...
+        </div>
         {/* Missing fields */}
         {/* Lining to other db entities */}
         {/* organisms */}
@@ -372,12 +377,12 @@ const CreateDivePage: CustomNextPage = () => {
         />
 
         <div className="col-span-12">
-          <InputDiv
-            label="Attechments"
-            Icon={TbPaperclip}
-          >
+          <InputDiv label="Attechments" Icon={TbPaperclip}>
             {fields.map((item, index) => (
-              <div key={item.id} className="grid grid-cols-[repeat(6,1fr),auto] items-end gap-4 p-4 border-b-2 border-gray-200">
+              <div
+                key={item.id}
+                className="grid grid-cols-[repeat(6,1fr),auto] items-end gap-4 border-b-2 border-gray-200 p-4"
+              >
                 <CustomInputSimple
                   label="Title"
                   internalLabel={`links.${index}.title`}
@@ -416,16 +421,17 @@ const CreateDivePage: CustomNextPage = () => {
             <div className="p-4 text-center">
               <IconButton
                 text="Add attechment"
-                onClick={() => append({
-                  link: '',
-                  type: 'OTHER',
-                })}
+                onClick={() =>
+                  append({
+                    link: '',
+                    type: 'OTHER',
+                  })
+                }
                 Icon={TbPlus}
               />
             </div>
           </InputDiv>
         </div>
-
       </FormSection>
 
       <div className="flex justify-center">
@@ -434,16 +440,17 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbDeviceFloppy}
           onClick={handleSubmit(onSubmit)}
           disabled={createDiveMutation.isLoading}
-          className="flex mt-8 px-8"
+          className="mt-8 flex px-8"
         />
       </div>
 
-      {createDiveMutation.error && <ErrorBox message={createDiveMutation.error.message} className="mt-4" />}
-    </form >
-  );
-};
+      {createDiveMutation.error && (
+        <ErrorBox message={createDiveMutation.error.message} className="mt-4" />
+      )}
+    </form>
+  )
+}
 
 CreateDivePage.title = 'New dive'
 
-export default CreateDivePage;
-
+export default CreateDivePage

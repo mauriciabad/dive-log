@@ -1,48 +1,58 @@
-import type { ZodEnum } from 'zod';
-import type { CylinderMaterialSchema } from '../../validators/enums/CylinderMaterial.schema';
-import type { DiveBuddyInDiveRoleSchema } from '../../validators/enums/DiveBuddyInDiveRole.schema';
-import type { DiveTypeSchema } from '../../validators/enums/DiveType.schema';
-import type { LinkTypeSchema } from '../../validators/enums/LinkType.schema';
-import type { SpecialtyDiveTypeSchema } from '../../validators/enums/SpecialtyDiveType.schema';
-import type { WaterBodySchema } from '../../validators/enums/WaterBody.schema';
-import type { WaterCurrentSchema } from '../../validators/enums/WaterCurrent.schema';
-import type { WaterEntrySchema } from '../../validators/enums/WaterEntry.schema';
-import type { WaterSurfaceSchema } from '../../validators/enums/WaterSurface.schema';
-import type { WaterTypeSchema } from '../../validators/enums/WaterType.schema';
-import type { WaterVisibilitySchema } from '../../validators/enums/WaterVisibility.schema';
-import type { WeatherSchema } from '../../validators/enums/Weather.schema';
+import type { ZodEnum } from 'zod'
+import type { CylinderMaterialSchema } from '../../validators/enums/CylinderMaterial.schema'
+import type { DiveBuddyInDiveRoleSchema } from '../../validators/enums/DiveBuddyInDiveRole.schema'
+import type { DiveTypeSchema } from '../../validators/enums/DiveType.schema'
+import type { LinkTypeSchema } from '../../validators/enums/LinkType.schema'
+import type { SpecialtyDiveTypeSchema } from '../../validators/enums/SpecialtyDiveType.schema'
+import type { WaterBodySchema } from '../../validators/enums/WaterBody.schema'
+import type { WaterCurrentSchema } from '../../validators/enums/WaterCurrent.schema'
+import type { WaterEntrySchema } from '../../validators/enums/WaterEntry.schema'
+import type { WaterSurfaceSchema } from '../../validators/enums/WaterSurface.schema'
+import type { WaterTypeSchema } from '../../validators/enums/WaterType.schema'
+import type { WaterVisibilitySchema } from '../../validators/enums/WaterVisibility.schema'
+import type { WeatherSchema } from '../../validators/enums/Weather.schema'
 
-type EnumLabelsAsArray<T extends string> = ({
+type EnumLabelsAsArray<T extends string> = {
   [K in T]: {
-    label: string,
+    label: string
     value: K
-  };
-}[T])[];
+  }
+}[T][]
 
-export function enumLabelsAsArray<Schema extends ZodEnum<T>, T extends [string, ...string[]] = [string, ...string[]]>(labels: EnumOptionsLabels<Schema, T>): EnumLabelsAsArray<EnumOptions<Schema>> {
-  return Object.entries(labels)
-    .map(([value, label]) => ({
-      label,
-      value
-    })) as unknown as EnumLabelsAsArray<EnumOptions<Schema>>
+export function enumLabelsAsArray<
+  Schema extends ZodEnum<T>,
+  T extends [string, ...string[]] = [string, ...string[]]
+>(
+  labels: EnumOptionsLabels<Schema, T>
+): EnumLabelsAsArray<EnumOptions<Schema>> {
+  return Object.entries(labels).map(([value, label]) => ({
+    label,
+    value,
+  })) as unknown as EnumLabelsAsArray<EnumOptions<Schema>>
 }
 
-type EnumOptions<Schema extends ZodEnum<T>, T extends [string, ...string[]] = [string, ...string[]]> = Schema['options'][number]
-type EnumOptionsLabels<Schema extends ZodEnum<T>, T extends [string, ...string[]] = [string, ...string[]]> = Record<EnumOptions<Schema>, string>
+type EnumOptions<
+  Schema extends ZodEnum<T>,
+  T extends [string, ...string[]] = [string, ...string[]]
+> = Schema['options'][number]
+type EnumOptionsLabels<
+  Schema extends ZodEnum<T>,
+  T extends [string, ...string[]] = [string, ...string[]]
+> = Record<EnumOptions<Schema>, string>
 
 export const enumLabels: {
-  CylinderMaterial: EnumOptionsLabels<typeof CylinderMaterialSchema>,
-  DiveBuddyInDiveRole: EnumOptionsLabels<typeof DiveBuddyInDiveRoleSchema>,
-  DiveType: EnumOptionsLabels<typeof DiveTypeSchema>,
-  SpecialtyDiveType: EnumOptionsLabels<typeof SpecialtyDiveTypeSchema>,
-  WaterBody: EnumOptionsLabels<typeof WaterBodySchema>,
-  WaterCurrent: EnumOptionsLabels<typeof WaterCurrentSchema>,
-  WaterEntry: EnumOptionsLabels<typeof WaterEntrySchema>,
-  WaterSurface: EnumOptionsLabels<typeof WaterSurfaceSchema>,
-  WaterType: EnumOptionsLabels<typeof WaterTypeSchema>,
-  WaterVisibility: EnumOptionsLabels<typeof WaterVisibilitySchema>,
-  Weather: EnumOptionsLabels<typeof WeatherSchema>,
-  LinkType: EnumOptionsLabels<typeof LinkTypeSchema>,
+  CylinderMaterial: EnumOptionsLabels<typeof CylinderMaterialSchema>
+  DiveBuddyInDiveRole: EnumOptionsLabels<typeof DiveBuddyInDiveRoleSchema>
+  DiveType: EnumOptionsLabels<typeof DiveTypeSchema>
+  SpecialtyDiveType: EnumOptionsLabels<typeof SpecialtyDiveTypeSchema>
+  WaterBody: EnumOptionsLabels<typeof WaterBodySchema>
+  WaterCurrent: EnumOptionsLabels<typeof WaterCurrentSchema>
+  WaterEntry: EnumOptionsLabels<typeof WaterEntrySchema>
+  WaterSurface: EnumOptionsLabels<typeof WaterSurfaceSchema>
+  WaterType: EnumOptionsLabels<typeof WaterTypeSchema>
+  WaterVisibility: EnumOptionsLabels<typeof WaterVisibilitySchema>
+  Weather: EnumOptionsLabels<typeof WeatherSchema>
+  LinkType: EnumOptionsLabels<typeof LinkTypeSchema>
 } = {
   CylinderMaterial: {
     ALUMINIUM: 'Aluminium',
@@ -81,8 +91,7 @@ export const enumLabels: {
     OPEN_WATER_DIVE: 'Open water dive',
     DECO_DIVE: 'Deco dive',
     DPV_OR_SCOOTER: 'Dpv or scooter',
-  }
-  ,
+  },
   WaterBody: {
     OCEAN: 'Ocean',
     RIVER: 'River',

@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { latitudeSchema, longitudeSchema } from "./helpers";
-import { CreateLinkSchema } from "./Link";
+import { z } from 'zod'
+import { latitudeSchema, longitudeSchema } from './helpers'
+import { CreateLinkSchema } from './Link'
 
 export const CreateDiveSiteSchema = z
   .object({
@@ -11,4 +11,4 @@ export const CreateDiveSiteSchema = z
     longitude: longitudeSchema,
     links: z.array(CreateLinkSchema),
   })
-  .strict();
+  .strict()
