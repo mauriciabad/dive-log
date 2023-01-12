@@ -1,3 +1,3 @@
-import { z } from "zod";
+import { z } from 'zod'
 
-export const WeatherSchema = z.enum(["CLOUDLESS", "CLOUDY", "RAINY", "SNOW"]);
+export const WeatherSchema = z.enum(['CLOUDLESS', 'CLOUDY', 'RAINY', 'SNOW'])

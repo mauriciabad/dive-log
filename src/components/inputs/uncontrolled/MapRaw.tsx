@@ -1,27 +1,35 @@
-import { MapContainer, Rectangle, TileLayer, useMap, useMapEvent, Marker, Popup } from 'react-leaflet'
-import type { FC } from 'react';
+import {
+  MapContainer,
+  Rectangle,
+  TileLayer,
+  useMap,
+  useMapEvent,
+  Marker,
+  Popup,
+} from 'react-leaflet'
+import type { FC } from 'react'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import type Leaflet from 'leaflet'
-import classNames from 'classnames';
-import { TbCurrentLocation } from 'react-icons/tb';
-import type { LeafletMouseEventHandlerFn } from 'leaflet';
-import { Icon } from 'leaflet';
+import classNames from 'classnames'
+import { TbCurrentLocation } from 'react-icons/tb'
+import type { LeafletMouseEventHandlerFn } from 'leaflet'
+import { Icon } from 'leaflet'
 import { useEventHandlers } from '@react-leaflet/core'
-import IconMapPin from "../../../assets/icon-map-pin.svg"
+import IconMapPin from '../../../assets/icon-map-pin.svg'
 
 import 'leaflet/dist/leaflet.css'
 
 export type Location = {
-  latitude: number;
-  longitude: number;
-};
+  latitude: number
+  longitude: number
+}
 
 interface MapProps {
   render?: (props: {
-    location: Location | undefined,
-    reCenter: () => void,
-  }) => JSX.Element,
-  onChange?: (location: Location | undefined) => void,
+    location: Location | undefined
+    reCenter: () => void
+  }) => JSX.Element
+  onChange?: (location: Location | undefined) => void
   value?: Location
   markers?: {
     location: Location
@@ -32,14 +40,28 @@ interface MapProps {
 }
 
 function toLatLang(location: Location): Leaflet.LatLngLiteral
-function toLatLang(location: Location | undefined): Leaflet.LatLngLiteral | undefined
-function toLatLang(location: Location | undefined): Leaflet.LatLngLiteral | undefined {
+function toLatLang(
+  location: Location | undefined
+): Leaflet.LatLngLiteral | undefined
+function toLatLang(
+  location: Location | undefined
+): Leaflet.LatLngLiteral | undefined {
   if (!location) return undefined
   return { lat: location.latitude, lng: location.longitude }
 }
 
-const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarker, markers }) => {
-  const initialPosition: Location | undefined = useMemo(() => value ? { ...value } : undefined, [value])
+const Map: FC<MapProps> = ({
+  render,
+  value,
+  className,
+  onChange,
+  showCenterMarker,
+  markers,
+}) => {
+  const initialPosition: Location | undefined = useMemo(
+    () => (value ? { ...value } : undefined),
+    [value]
+  )
   const [map, setMap] = useState<Leaflet.Map | null>(null)
 
   const [location, setLocation] = useState<Location | undefined>(value)
@@ -49,7 +71,7 @@ const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarke
       const mapCenter = map.getCenter()
       setLocation({
         latitude: mapCenter.lat,
-        longitude: mapCenter.lng
+        longitude: mapCenter.lng,
       })
     } else {
       setLocation(undefined)
@@ -88,7 +110,7 @@ const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarke
         center={toLatLang(initialPosition) ?? [0, 0]}
         zoom={initialPosition ? 13 : 1}
         ref={setMap}
-        className={classNames(className, "h-[67vh] w-full z-0")}
+        className={classNames(className, 'z-0 h-[67vh] w-full')}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -103,38 +125,46 @@ const Map: FC<MapProps> = ({ render, value, className, onChange, showCenterMarke
               lat: latitude,
               lng: longitude,
             }}
-            icon={new Icon({ iconUrl: IconMapPin.src, iconAnchor: [94 * 0.4 * 0.5, 128 * 0.4 * 1], iconSize: [94 * 0.4, 128 * 0.4] })}
+            icon={
+              new Icon({
+                iconUrl: IconMapPin.src,
+                iconAnchor: [94 * 0.4 * 0.5, 128 * 0.4 * 1],
+                iconSize: [94 * 0.4, 128 * 0.4],
+              })
+            }
           >
             {text && <Popup>{text}</Popup>}
           </Marker>
         ))}
       </MapContainer>
     ),
-    [className, initialPosition, markers],
+    [className, initialPosition, markers]
   )
 
   return (
-    <div className='relative'>
+    <div className="relative">
       {displayMap}
-      {showCenterMarker && <div className='absolute inset-0 pointer-events-none flex items-center justify-center z-10'>
-        <TbCurrentLocation className='h-12 w-12 absolute text-black opacity-20 stroke-[4px] -z-1' />
-        <TbCurrentLocation className='h-12 w-12 absolute text-white stroke-[1.5px]' />
-      </div>}
+      {showCenterMarker && (
+        <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
+          <TbCurrentLocation className="-z-1 absolute h-12 w-12 stroke-[4px] text-black opacity-20" />
+          <TbCurrentLocation className="absolute h-12 w-12 stroke-[1.5px] text-white" />
+        </div>
+      )}
       {render && render({ location, reCenter })}
     </div>
   )
 }
 
-
 // ---------------- Minimap
-
 
 const MinimapBounds: FC<{ parentMap: Leaflet.Map }> = ({ parentMap }) => {
   const minimap = useMap()
 
   const onClick: LeafletMouseEventHandlerFn = useCallback(
-    (e) => { parentMap.flyTo(e.latlng, parentMap.getZoom()) },
-    [parentMap],
+    (e) => {
+      parentMap.flyTo(e.latlng, parentMap.getZoom())
+    },
+    [parentMap]
   )
   useMapEvent('click', onClick)
 
@@ -149,7 +179,9 @@ const MinimapBounds: FC<{ parentMap: Leaflet.Map }> = ({ parentMap }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useEventHandlers({ instance: parentMap, context: undefined as any }, handlers)
 
-  return <Rectangle bounds={bounds} pathOptions={{ weight: 1, lineJoin: 'round' }} />
+  return (
+    <Rectangle bounds={bounds} pathOptions={{ weight: 1, lineJoin: 'round' }} />
+  )
 }
 
 const MinimapControl: FC = () => {
@@ -166,12 +198,13 @@ const MinimapControl: FC = () => {
         doubleClickZoom={false}
         scrollWheelZoom={false}
         attributionControl={false}
-        zoomControl={false}>
+        zoomControl={false}
+      >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <MinimapBounds parentMap={parentMap} />
       </MapContainer>
     ),
-    [parentMap],
+    [parentMap]
   )
 
   return (

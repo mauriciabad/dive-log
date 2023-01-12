@@ -1,3 +1,3 @@
-import { z } from "zod";
+import { z } from 'zod'
 
-export const UnitSystemSchema = z.enum(["METRIC", "IMPERIAL"]);
+export const UnitSystemSchema = z.enum(['METRIC', 'IMPERIAL'])

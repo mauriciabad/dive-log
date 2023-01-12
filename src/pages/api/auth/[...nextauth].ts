@@ -1,14 +1,14 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
-import GitHubProvider from "next-auth/providers/github";
-import InstagramProvider from "next-auth/providers/instagram";
+import NextAuth, { type NextAuthOptions } from 'next-auth'
+import DiscordProvider from 'next-auth/providers/discord'
+import GoogleProvider from 'next-auth/providers/google'
+import FacebookProvider from 'next-auth/providers/facebook'
+import GitHubProvider from 'next-auth/providers/github'
+import InstagramProvider from 'next-auth/providers/instagram'
 // Prisma adapter for NextAuth, optional and can be removed
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
-import { env } from "../../../env/server.mjs";
-import { prisma } from "../../../server/db/client";
+import { env } from '../../../env/server.mjs'
+import { prisma } from '../../../server/db/client'
 import brandImage from '../../../assets/brand-image-round-corners.png'
 
 export const authOptions: NextAuthOptions = {
@@ -16,9 +16,9 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session({ session, user }) {
       if (session.user) {
-        session.user.id = user.id;
+        session.user.id = user.id
       }
-      return session;
+      return session
     },
   },
   theme: {
@@ -36,15 +36,15 @@ export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
     FacebookProvider({
       clientId: env.FACEBOOK_CLIENT_ID,
-      clientSecret: env.FACEBOOK_CLIENT_SECRET
+      clientSecret: env.FACEBOOK_CLIENT_SECRET,
     }),
     InstagramProvider({
       clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
@@ -52,9 +52,9 @@ export const authOptions: NextAuthOptions = {
     }),
     GitHubProvider({
       clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET
-    })
+      clientSecret: env.GITHUB_CLIENT_SECRET,
+    }),
   ],
-};
+}
 
-export default NextAuth(authOptions);
+export default NextAuth(authOptions)

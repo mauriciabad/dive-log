@@ -2,10 +2,18 @@ import React from 'react'
 import { Fragment, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { TbChevronDown, TbCheck } from 'react-icons/tb'
-import classNames from 'classnames';
-import type { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
+import classNames from 'classnames'
+import type {
+  ControllerRenderProps,
+  FieldPath,
+  FieldValues,
+} from 'react-hook-form'
 
-type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, T extends Record<string, unknown>> = {
+type Props<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+  T extends Record<string, unknown>
+> = {
   classNameError?: string
   data: T[]
   displayValue: (value: T | null) => string
@@ -13,7 +21,11 @@ type Props<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValue
   theme?: 'filled' | 'outline'
 } & Partial<ControllerRenderProps<TFieldValues, TName>>
 
-const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>, T extends Record<string, unknown>>({
+const Selector = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+  T extends Record<string, unknown>
+>({
   data,
   displayValue,
   classNameError,
@@ -23,10 +35,10 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
   ref,
   value,
   exposedProperty,
-  theme = 'filled'
+  theme = 'filled',
 }: Props<TFieldValues, TName, T>) => {
   const [selected, setSelected] = useState<T | null>(
-    data.find(d => d[exposedProperty] === value) ?? null
+    data.find((d) => d[exposedProperty] === value) ?? null
   )
   const [query, setQuery] = useState<string>('')
 
@@ -34,11 +46,11 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
     query.trim() === ''
       ? data
       : data.filter((value) =>
-        displayValue(value)
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.toLowerCase().replace(/\s+/g, ''))
-      )
+          displayValue(value)
+            .toLowerCase()
+            .replace(/\s+/g, '')
+            .includes(query.toLowerCase().replace(/\s+/g, ''))
+        )
 
   return (
     <Combobox
@@ -52,12 +64,21 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
       nullable={true}
     >
       <div className="relative mt-1 block w-full">
-        <div className={classNames(classNameError, "relative w-full cursor-default text-left")}>
+        <div
+          className={classNames(
+            classNameError,
+            'relative w-full cursor-default text-left'
+          )}
+        >
           <Combobox.Input
-            className={classNames(classNameError, "pr-10 block bg-white rounded-md w-full min-w-0 mt-1 text-gray-900 focus:border-blue-500 focus:ring-blue-500", {
-              "border-none shadow": theme === 'filled',
-              "border-gray-300 shadow-sm": theme === 'outline',
-            })}
+            className={classNames(
+              classNameError,
+              'mt-1 block w-full min-w-0 rounded-md bg-white pr-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500',
+              {
+                'border-none shadow': theme === 'filled',
+                'border-gray-300 shadow-sm': theme === 'outline',
+              }
+            )}
             displayValue={displayValue}
             onChange={(event) => setQuery(event.target.value)}
             ref={ref}
@@ -81,10 +102,15 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
           }}
         >
           <Combobox.Options
-            className={classNames(classNameError, "absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg z-[1]", {
-              "": theme === 'filled',
-              "border-gray-300 border": theme === 'outline',
-            })}>
+            className={classNames(
+              classNameError,
+              'absolute z-[1] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg',
+              {
+                '': theme === 'filled',
+                'border border-gray-300': theme === 'outline',
+              }
+            )}
+          >
             {filteredData.length === 0 && query !== '' ? (
               <div className="relative cursor-default select-none py-2 px-4 text-gray-500">
                 Empty
@@ -94,25 +120,31 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
                 <Combobox.Option
                   key={String(value[exposedProperty])}
                   className={({ active, selected }) =>
-                    classNames('relative cursor-default select-none py-2 pl-10 pr-4', {
-                      'bg-blue-50': selected && !active,
-                      'bg-blue-500 text-white': active,
-                      'text-gray-900': !active,
-                    })}
+                    classNames(
+                      'relative cursor-default select-none py-2 pl-10 pr-4',
+                      {
+                        'bg-blue-50': selected && !active,
+                        'bg-blue-500 text-white': active,
+                        'text-gray-900': !active,
+                      }
+                    )
+                  }
                   value={value}
                 >
                   {({ selected, active }) => (
                     <>
                       <span
-                        className={`block truncate ${selected ? 'font-medium' : 'font-normal'
-                          }`}
+                        className={`block truncate ${
+                          selected ? 'font-medium' : 'font-normal'
+                        }`}
                       >
                         {displayValue(value)}
                       </span>
                       {selected ? (
                         <span
-                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? 'text-white' : 'text-blue-500'
-                            }`}
+                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                            active ? 'text-white' : 'text-blue-500'
+                          }`}
                         >
                           <TbCheck className="h-5 w-5" aria-hidden="true" />
                         </span>
@@ -125,7 +157,7 @@ const Selector = <TFieldValues extends FieldValues, TName extends FieldPath<TFie
           </Combobox.Options>
         </Transition>
       </div>
-    </Combobox >
+    </Combobox>
   )
 }
 

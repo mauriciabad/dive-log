@@ -1,3 +1,3 @@
-import { z } from "zod";
+import { z } from 'zod'
 
-export const WaterSurfaceSchema = z.enum(["CALM", "MOVING", "STORMY"]);
+export const WaterSurfaceSchema = z.enum(['CALM', 'MOVING', 'STORMY'])
