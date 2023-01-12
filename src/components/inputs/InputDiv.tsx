@@ -1,7 +1,7 @@
-import classNames from "classnames"
-import React from "react"
-import type { FC, ReactNode } from "react"
-import type { IconType } from "react-icons/lib"
+import classNames from 'classnames'
+import React from 'react'
+import type { FC, ReactNode } from 'react'
+import type { IconType } from 'react-icons/lib'
 
 interface Props {
   className?: string
@@ -22,22 +22,36 @@ const InputDiv: FC<Props> = ({
   errorMessage,
   required,
 }) => {
-  return (<>
-    <div className="flex items-center text-gray-800 text-sm">
-      {Icon && <Icon className="h-4 w-4 mr-0.5" />}
-      <span className="" >{label}{
-        note && <span className="text-xs text-gray-600 whitespace-nowrap"> ({note})</span>
-      }{
-          required && <span className="text-red-400 ml-1">*</span>
-        }{errorMessage &&
-          <span className="text-red-500 ml-2"><>{errorMessage}</></span>
-        }</span>
-    </div>
-    <div className={classNames(className, "border-2 border-gray-200 rounded-md overflow-hidden")}>
-      {children}
-    </div>
-  </>)
+  return (
+    <>
+      <div className="flex items-center text-sm text-gray-800">
+        {Icon && <Icon className="mr-0.5 h-4 w-4" />}
+        <span className="">
+          {label}
+          {note && (
+            <span className="whitespace-nowrap text-xs text-gray-600">
+              {' '}
+              ({note})
+            </span>
+          )}
+          {required && <span className="ml-1 text-red-400">*</span>}
+          {errorMessage && (
+            <span className="ml-2 text-red-500">
+              <>{errorMessage}</>
+            </span>
+          )}
+        </span>
+      </div>
+      <div
+        className={classNames(
+          className,
+          'overflow-hidden rounded-md border-2 border-gray-200'
+        )}
+      >
+        {children}
+      </div>
+    </>
+  )
 }
 
 export default InputDiv
-

@@ -1,63 +1,72 @@
-import React from "react";
-import { trpc } from "../../../../utils/trpc";
-import type { CustomNextPage } from "../../../../hooks/useWrapInLayout";
-import { type SubmitHandler, useForm, useFieldArray } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
-import loginRequired from "../../../../utils/loginRequired";
-import { CreateDiveSiteSchema } from "../../../../validators/DiveSite";
+import React from 'react'
+import { trpc } from '../../../../utils/trpc'
+import type { CustomNextPage } from '../../../../hooks/useWrapInLayout'
+import { type SubmitHandler, useForm, useFieldArray } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
+import loginRequired from '../../../../utils/loginRequired'
+import { CreateDiveSiteSchema } from '../../../../validators/DiveSite'
 import {
-  TbDeviceFloppy, TbFile, TbInfoCircle, TbLink, TbMapPin, TbPaperclip, TbPhoto, TbPlus, TbTag, TbTrash
+  TbDeviceFloppy,
+  TbFile,
+  TbInfoCircle,
+  TbLink,
+  TbMapPin,
+  TbPaperclip,
+  TbPhoto,
+  TbPlus,
+  TbTag,
+  TbTrash,
 } from 'react-icons/tb'
-import IconButton from "../../../../components/IconButton";
-import ErrorBox from "../../../../components/ErrorBox";
-import type { z } from "zod";
-import FormSection from "../../../../components/FormSection";
-import InputDiv from "../../../../components/inputs/InputDiv";
-import { makeCustomInputMap } from "../../../../components/inputs/InputMap";
-import { enumLabelsAsArray, enumLabels } from "../../../../parametrized-data/enumLabels";
-import { makeCustomInputMultiline } from "../../../../components/inputs/InputMultiline";
-import { makeCustomInputSelect } from "../../../../components/inputs/InputSelect";
-import { makeCustomInputSimple } from "../../../../components/inputs/InputSimple";
+import IconButton from '../../../../components/IconButton'
+import ErrorBox from '../../../../components/ErrorBox'
+import type { z } from 'zod'
+import FormSection from '../../../../components/FormSection'
+import InputDiv from '../../../../components/inputs/InputDiv'
+import { makeCustomInputMap } from '../../../../components/inputs/InputMap'
+import {
+  enumLabelsAsArray,
+  enumLabels,
+} from '../../../../parametrized-data/enumLabels'
+import { makeCustomInputMultiline } from '../../../../components/inputs/InputMultiline'
+import { makeCustomInputSelect } from '../../../../components/inputs/InputSelect'
+import { makeCustomInputSimple } from '../../../../components/inputs/InputSimple'
 
 type Inputs = z.input<typeof CreateDiveSiteSchema>
 
 const CreateDivePage: CustomNextPage = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   const createDiveSiteMutation = trpc.diveSite.createDiveSite.useMutation()
 
   const { handleSubmit, control, formState } = useForm<Inputs>({
     resolver: zodResolver(CreateDiveSiteSchema),
-  });
+  })
 
   const makeCustomInputsProps = {
     control,
     errors: formState.errors,
     schema: CreateDiveSiteSchema,
-    theme: 'outline'
+    theme: 'outline',
   } as const
   const CustomInputSimple = makeCustomInputSimple(makeCustomInputsProps)
   const CustomInputSelect = makeCustomInputSelect(makeCustomInputsProps)
   const CustomInputMultiline = makeCustomInputMultiline(makeCustomInputsProps)
   const CustomInputMap = makeCustomInputMap(makeCustomInputsProps)
 
-  const onSubmit: SubmitHandler<Inputs> = async data => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     await createDiveSiteMutation.mutateAsync({ data })
-    router.push("/user/dive-sites");
+    router.push('/user/dive-sites')
   }
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "links"
-  });
+    name: 'links',
+  })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} >
-      <FormSection
-        title="Basic"
-        description="Essential information"
-      >
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormSection title="Basic" description="Essential information">
         <CustomInputSimple
           label="Name"
           internalLabel="name"
@@ -92,17 +101,14 @@ const CreateDivePage: CustomNextPage = () => {
           className="col-span-12"
         />
       </FormSection>
-      <FormSection
-        title="Other"
-        description="Non essential information"
-      >
+      <FormSection title="Other" description="Non essential information">
         <div className="col-span-12">
-          <InputDiv
-            label="Attechments"
-            Icon={TbPaperclip}
-          >
+          <InputDiv label="Attechments" Icon={TbPaperclip}>
             {fields.map((item, index) => (
-              <div key={item.id} className="grid grid-cols-[repeat(6,1fr),auto] items-end col-span-12 gap-4 p-4 border-b-2 border-gray-200">
+              <div
+                key={item.id}
+                className="col-span-12 grid grid-cols-[repeat(6,1fr),auto] items-end gap-4 border-b-2 border-gray-200 p-4"
+              >
                 <CustomInputSimple
                   label="Title"
                   internalLabel={`links.${index}.title`}
@@ -141,10 +147,12 @@ const CreateDivePage: CustomNextPage = () => {
             <div className="col-span-12 p-4 text-center">
               <IconButton
                 text="Add attechment"
-                onClick={() => append({
-                  link: '',
-                  type: 'OTHER',
-                })}
+                onClick={() =>
+                  append({
+                    link: '',
+                    type: 'OTHER',
+                  })
+                }
                 Icon={TbPlus}
               />
             </div>
@@ -158,17 +166,22 @@ const CreateDivePage: CustomNextPage = () => {
           Icon={TbDeviceFloppy}
           onClick={handleSubmit(onSubmit)}
           loading={createDiveSiteMutation.isLoading}
-          className="flex mt-8 px-8"
+          className="mt-8 flex px-8"
         />
       </div>
 
-      {createDiveSiteMutation.error && <ErrorBox message={createDiveSiteMutation.error.message} className="mt-4" />}
-    </form >
-  );
-};
+      {createDiveSiteMutation.error && (
+        <ErrorBox
+          message={createDiveSiteMutation.error.message}
+          className="mt-4"
+        />
+      )}
+    </form>
+  )
+}
 
 CreateDivePage.title = 'New dive site'
 
-export default CreateDivePage;
+export default CreateDivePage
 
 export const getServerSideProps = loginRequired
