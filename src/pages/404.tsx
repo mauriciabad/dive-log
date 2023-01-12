@@ -1,6 +1,7 @@
 import { TbChevronLeft } from "react-icons/tb";
 import bgRipples from '../assets/backgrounds/ripples.png';
 import IconButton from "../components/IconButton";
+import NoLayout from "../components/layouts/NoLayout";
 import type { CustomNextPage } from "../hooks/useWrapInLayout";
 
 const NotFoundPage: CustomNextPage = () => {
@@ -25,4 +26,4 @@ NotFoundPage.title = 'Page not found'
 
 export default NotFoundPage;
 
-NotFoundPage.customLayout = (page) => page
+NotFoundPage.customLayout = NoLayout

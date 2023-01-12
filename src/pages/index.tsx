@@ -4,6 +4,7 @@ import type { CustomNextPage } from "../hooks/useWrapInLayout";
 import Logo from "../components/Logo";
 import IconButton from "../components/IconButton";
 import bgRipples from '../assets/backgrounds/ripples.png'
+import NoLayout from "../components/layouts/NoLayout";
 
 const LandingPage: CustomNextPage = () => {
   const { data: session, status } = useSession();
@@ -58,4 +59,4 @@ LandingPage.title = 'Easy to use Dive Log'
 
 export default LandingPage;
 
-LandingPage.customLayout = (page) => page
+LandingPage.customLayout = NoLayout

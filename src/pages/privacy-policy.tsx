@@ -1,5 +1,6 @@
 import { TbChevronLeft } from "react-icons/tb";
 import IconButton from "../components/IconButton";
+import NoLayout from "../components/layouts/NoLayout";
 import type { CustomNextPage } from "../hooks/useWrapInLayout";
 
 const PrivacyPolicyPage: CustomNextPage = () => {
@@ -28,4 +29,4 @@ PrivacyPolicyPage.title = 'Privacy policy'
 
 export default PrivacyPolicyPage;
 
-PrivacyPolicyPage.customLayout = (page) => page
+PrivacyPolicyPage.customLayout = NoLayout
