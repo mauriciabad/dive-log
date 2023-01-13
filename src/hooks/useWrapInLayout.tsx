@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
-import type { FC, ReactElement, ReactNode } from 'react'
+import type { FC, ReactElement } from 'react'
 import { DefaultCustomLayout } from '../components/layouts/DefaultLayout'
 
 export type PageLayout<
-  Props extends Record<string | number | symbol, any> = {}
+  Props extends Record<string, unknown> = Record<string, never>
 > = (children: ReactElement, props: Omit<Props, 'children'>) => ReactElement
 
 // eslint-disable-next-line @typescript-eslint/ban-types
