@@ -25,11 +25,19 @@ const MyApp: AppType<
       <CustomPersistQueryClientProvider>
         <Head>
           <title>{title}</title>
+          <meta name="application-name" content="Dive log" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
+          <meta name="apple-mobile-web-app-title" content="Dive log" />
           <meta
             name="description"
             content="Easy to use Dive Logbook for Scuba Divers."
           />
           <meta name="theme-color" content="#ffffff" />
+          <meta name="mobile-web-app-capable" content="yes" />
 
           <link
             rel="icon"
