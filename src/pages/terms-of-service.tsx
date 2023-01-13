@@ -1,6 +1,6 @@
 import { TbChevronLeft } from 'react-icons/tb'
 import IconButton from '../components/IconButton'
-import NoLayout from '../components/layouts/NoLayout'
+import { EmptyCustomLayout } from '../components/layouts/EmptyLayout'
 import type { CustomNextPage } from '../hooks/useWrapInLayout'
 
 const TermsOfServicePage: CustomNextPage = () => {
@@ -35,4 +35,4 @@ TermsOfServicePage.title = 'Terms of service'
 
 export default TermsOfServicePage
 
-TermsOfServicePage.customLayout = NoLayout
+TermsOfServicePage.customLayout = EmptyCustomLayout

@@ -5,7 +5,7 @@ import type { CustomNextPage } from '../hooks/useWrapInLayout'
 import bgRipples from '../assets/backgrounds/ripples.png'
 import { TbLock } from 'react-icons/tb'
 import Image from 'next/image'
-import NoLayout from '../components/layouts/NoLayout'
+import { EmptyCustomLayout } from '../components/layouts/EmptyLayout'
 
 interface Props {
   providers: ReturnType<typeof getProviders>
@@ -78,7 +78,7 @@ const LoginPage: CustomNextPage<Props> = ({ providers }) => {
 
 LoginPage.title = 'Login'
 
-LoginPage.customLayout = NoLayout
+LoginPage.customLayout = EmptyCustomLayout
 
 export default LoginPage
 

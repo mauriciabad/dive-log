@@ -8,9 +8,10 @@ import Logo from '../Logo'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { env } from '../../env/client.mjs'
+import { PageLayout } from '../../hooks/useWrapInLayout'
 
 export interface LayoutProps {
-  children: ReactNode
+  children?: ReactNode | ReactNode[]
   title?: string
 }
 
@@ -20,7 +21,7 @@ const navigation = [
   { name: 'Profile', href: '/user/profile' },
 ]
 
-const Layout: FC<LayoutProps> = ({ children, title }) => {
+const DefaultLayout: FC<LayoutProps> = ({ children, title }) => {
   const router = useRouter()
 
   const { data: session } = useSession()
@@ -212,4 +213,8 @@ const Layout: FC<LayoutProps> = ({ children, title }) => {
   )
 }
 
-export default Layout
+export const DefaultCustomLayout: PageLayout<LayoutProps> = (page, props) => (
+  <DefaultLayout {...props}>{page}</DefaultLayout>
+)
+
+export default DefaultLayout

@@ -18,13 +18,13 @@ const MyApp: AppType<
     session: Session | null
   }
 > = ({ Component, pageProps: { session, ...pageProps } }) => {
-  const { title, ComponentWrappedInLayout } = useWrapInLayout(Component)
+  const { htmlTitle, ComponentWrappedInLayout } = useWrapInLayout(Component)
 
   return (
     <CustomSessionProvider session={session}>
       <CustomPersistQueryClientProvider>
         <Head>
-          <title>{title}</title>
+          <title>{htmlTitle}</title>
           <meta name="application-name" content="Dive log" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
