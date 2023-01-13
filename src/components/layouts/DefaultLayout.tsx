@@ -8,9 +8,9 @@ import Logo from '../Logo'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { env } from '../../env/client.mjs'
-import { PageLayout } from '../../hooks/useWrapInLayout'
+import type { PageLayout } from '../../hooks/useWrapInLayout'
 
-export interface LayoutProps {
+export type LayoutProps = {
   children?: ReactNode | ReactNode[]
   title?: string
 }

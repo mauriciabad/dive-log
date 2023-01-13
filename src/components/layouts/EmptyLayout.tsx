@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react'
-import { PageLayout } from '../../hooks/useWrapInLayout'
+import type { FC, ReactNode } from 'react'
+import type { PageLayout } from '../../hooks/useWrapInLayout'
 
-export interface LayoutProps {
+export type LayoutProps = {
   children?: ReactNode | ReactNode[]
 }
 

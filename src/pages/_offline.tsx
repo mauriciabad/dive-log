@@ -6,7 +6,7 @@ import type { CustomNextPage } from '../hooks/useWrapInLayout'
 const NotFoundPage: CustomNextPage = () => {
   return (
     <>
-      <h1 className="mb-4 text-3xl font-bold">There's no internet</h1>
+      <h1 className="mb-4 text-3xl font-bold">There&apos;s no internet</h1>
 
       <p className="text-base">You are offline.</p>
       <p className="text-base">

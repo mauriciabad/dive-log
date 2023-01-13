@@ -1,8 +1,8 @@
 import type { FC, ReactNode } from 'react'
-import { PageLayout } from '../../hooks/useWrapInLayout'
+import type { PageLayout } from '../../hooks/useWrapInLayout'
 import bgRipples from '../assets/backgrounds/ripples.png'
 
-export interface LayoutProps {
+export type LayoutProps = {
   children?: ReactNode | ReactNode[]
 }
 
