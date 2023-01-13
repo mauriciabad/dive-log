@@ -8,6 +8,7 @@
 import nextPWA from 'next-pwa'
 const withPWA = nextPWA({
   dest: 'public',
+  runtimeCaching: ['StaleWhileRevalidate']
 })
 
 /** @type {import("next").NextConfig} */
