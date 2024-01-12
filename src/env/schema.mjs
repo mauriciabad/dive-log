@@ -19,14 +19,14 @@ export const serverSchema = z.object({
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
     process.env.VERCEL ? z.string() : z.string().url()
   ),
-  DISCORD_CLIENT_ID: z.string(),
-  DISCORD_CLIENT_SECRET: z.string(),
-  GOOGLE_CLIENT_ID: z.string(),
-  GOOGLE_CLIENT_SECRET: z.string(),
-  FACEBOOK_CLIENT_ID: z.string(),
-  FACEBOOK_CLIENT_SECRET: z.string(),
-  GITHUB_CLIENT_ID: z.string(),
-  GITHUB_CLIENT_SECRET: z.string(),
+  DISCORD_CLIENT_ID: z.optional(z.string()),
+  DISCORD_CLIENT_SECRET: z.optional(z.string()),
+  GOOGLE_CLIENT_ID: z.optional(z.string()),
+  GOOGLE_CLIENT_SECRET: z.optional(z.string()),
+  FACEBOOK_CLIENT_ID: z.optional(z.string()),
+  FACEBOOK_CLIENT_SECRET: z.optional(z.string()),
+  GITHUB_CLIENT_ID: z.optional(z.string()),
+  GITHUB_CLIENT_SECRET: z.optional(z.string()),
 })
 
 /**
