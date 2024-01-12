@@ -70,6 +70,32 @@ npx prisma studio
 
 To connect to the database and authentication providers, you need a `.env` file in the root. This file is private and the only way to get it is to ask someone that has it to send it to you, in this case, the maintainers of the project.
 
+For authenication to work, at least one set of client ID and client secret needs to be set.
+
+FIXME Add to schema and validation logic.
+
+```
+DISCORD_CLIENT_ID
+DISCORD_CLIENT_SECRET
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+FACEBOOK_CLIENT_ID
+FACEBOOK_CLIENT_SECRET
+GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET
+```
+
+  Maintainers:
+  
+  - [@mauriciabad](https://github.com/mauriciabad/)
+  
+  ### Backend server
+  
+  We use Vercel as the backend server:
+  
+  
+  GITHUB_CLIENT_SECRET: z.string(),
+
 Maintainers:
 
 - [@mauriciabad](https://github.com/mauriciabad/)
