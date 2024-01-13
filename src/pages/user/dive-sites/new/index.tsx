@@ -91,7 +91,7 @@ const CreateDivePage: CustomNextPage = () => {
 
       <FormSection
         title="Location"
-        description="Aproximate place on the map where it's located."
+        description="Approximate place on the map where it's located."
       >
         <CustomInputMap
           label="Location"
