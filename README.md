@@ -72,30 +72,10 @@ To connect to the database and authentication providers, you need a `.env` file 
 
 For authenication to work, at least one set of client ID and client secret needs to be set.
 
-FIXME Add to schema and validation logic.
-
-```
-DISCORD_CLIENT_ID
-DISCORD_CLIENT_SECRET
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-FACEBOOK_CLIENT_ID
-FACEBOOK_CLIENT_SECRET
-GITHUB_CLIENT_ID
-GITHUB_CLIENT_SECRET
-```
-
-  Maintainers:
-  
-  - [@mauriciabad](https://github.com/mauriciabad/)
-  
-  ### Backend server
-  
-  We use Vercel as the backend server:
-  
-  
-  GITHUB_CLIENT_SECRET: z.string(),
-
+- `DISCORD_CLIENT_ID, `DISCORD_CLIENT_SECRET`.
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`.
+- `FACEBOOK_CLIENT_ID`, `FACEBOOK_CLIENT_SECRET`.
+- `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`.
 Maintainers:
 
 - [@mauriciabad](https://github.com/mauriciabad/)
