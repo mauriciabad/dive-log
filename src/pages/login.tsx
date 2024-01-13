@@ -23,7 +23,7 @@ const LoginPage: CustomNextPage<Props> = ({ providers }) => {
           </div>
 
           <p className="text-base">
-            To acces the application you must be registered.
+            To access the application you must be registered.
           </p>
 
           <div className="my-8 h-px bg-gray-200" />
